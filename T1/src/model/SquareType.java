@@ -11,6 +11,9 @@ public enum SquareType {
 	BlueEntry,
 	GreenEntry,
 	YellowEntry,
-	VictoryRoad,
+	RedRoad,
+	BlueRoad,
+	GreenRoad,
+	YellowRoad,
 	SafePoint;
 }

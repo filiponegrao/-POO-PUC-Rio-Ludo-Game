@@ -1,11 +1,12 @@
 package model;
 
-public class Square {
+public class Square 
+{
 
 	private int posX;
 	private int posY;
 	private Team team;
-	private SquareType	type;
+	private SquareType type;
 	
 	public Square(int posX, int posY, Team team, SquareType type)
 	{

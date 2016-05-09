@@ -1,7 +1,6 @@
 package model;
 
-public enum Team {
-
-	None, Red, Green, Yellow, Blue;
-	
+public enum Team 
+{
+	None, Red, Green, Yellow, Blue;	
 }

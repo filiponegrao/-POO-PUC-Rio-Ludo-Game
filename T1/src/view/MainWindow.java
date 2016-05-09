@@ -4,7 +4,8 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import javax.swing.*;
 
-public class MainWindow extends JFrame {
+public class MainWindow extends JFrame 
+{
 
 	private Toolkit tk;
 	
@@ -34,7 +35,7 @@ public class MainWindow extends JFrame {
 		this.setLocation(xpos, ypos);
 		
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setResizable(false);
+		this.setResizable(true);
 		this.setTitle(title);
 		
 		this.ludotable = new LudoTable(new Dimension(this.width, this.height));
