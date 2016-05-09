@@ -4,6 +4,7 @@ import model.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
+import java.awt.geom.Ellipse2D;
 
 public class LudoTable extends JPanel 
 {
@@ -45,7 +46,7 @@ public class LudoTable extends JPanel
 		
 		//Pinta a casa verde
 		this.g2d.setPaint(MyColors.myGreen);
-		this.greenHouse = new Rectangle2D.Double(mainDimension.getWidth() - houseDimension.getWidth(), 0, houseDimension.getWidth(), houseDimension.getHeight());		
+		this.greenHouse = new Rectangle2D.Double(mainDimension.width - houseDimension.width, 0, houseDimension.width, houseDimension.height);		
 		this.g2d.fill(this.greenHouse);
  		
 		//Pinta a casa amarela
@@ -66,40 +67,32 @@ public class LudoTable extends JPanel
 		Square[] squares = this.ludoTable.getModel();
 		
 		//Desenhas os quadrados
-		for (int i = 0; i < squares.length; i++) {
+		for (int i = 0; i < squares.length; i++) 
+		{
 			
 			Double x =  squares[i].xPosition() * squareDimension.getWidth() ;
 			Double y =  squares[i].yPosition() * squareDimension.getHeight();
 			Rectangle2D square = new Rectangle2D.Double(x,y,squareDimension.getWidth(), squareDimension.getHeight());
+			Ellipse2D startPoint;
+//			System.out.println(squares[i].type());
 			
-			System.out.println(squares[i].type());
-			
-//			switch (squares[i].type())
-//			{
-//				case RedRoad:
-//					this.g2d.setPaint(MyColors.myRed);
-//
-//				case BlueRoad:
-//					this.g2d.setPaint(MyColors.myBlue);
-//
-//				case YellowRoad:
-//					this.g2d.setPaint(MyColors.myYellow);
-//
-//				case GreenRoad:
-//					this.g2d.setPaint(MyColors.myGreen);
-//
-//				case Normal:
-//					this.g2d.setPaint(Color.white);
-//				
-//				default:
-//					this.g2d.setPaint(Color.white);
-//			}
 			
 			if(squares[i].type() == SquareType.RedRoad)
 			{
 				this.g2d.setPaint(MyColors.myRed);
 			}
+			else if(squares[i].type() == SquareType.RedStart)
+			{
+				this.g2d.setPaint(MyColors.myRed);
+				startPoint = new Ellipse2D.Double(x,y,squareDimension.getWidth()/3, squareDimension.getHeight()/3);
+				g2d.setPaint(MyColors.myLightRed);
+				g2d.fill(startPoint);
+			}
 			else if(squares[i].type() == SquareType.GreenRoad)
+			{
+				this.g2d.setPaint(MyColors.myGreen);
+			}
+			else if(squares[i].type() == SquareType.GreenStart)
 			{
 				this.g2d.setPaint(MyColors.myGreen);
 			}
@@ -107,9 +100,21 @@ public class LudoTable extends JPanel
 			{
 				this.g2d.setPaint(MyColors.myBlue);
 			}
+			else if(squares[i].type() == SquareType.BlueStart)
+			{
+				this.g2d.setPaint(MyColors.myBlue);
+			}
 			else if(squares[i].type() == SquareType.YellowRoad)
 			{
 				this.g2d.setPaint(MyColors.myYellow);
+			}
+			else if(squares[i].type() == SquareType.YellowStart)
+			{
+				this.g2d.setPaint(MyColors.myYellow);
+			}
+			else if(squares[i].type() == SquareType.SafePoint)
+			{
+				this.g2d.setPaint(Color.black);
 			}
 			else
 			{
