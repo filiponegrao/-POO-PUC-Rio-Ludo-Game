@@ -53,75 +53,7 @@ public class LudoTable extends JPanel
 		super.paintComponent(g);
 		this.g2d = (Graphics2D) g;
 
-		//criei essas paradas aqui pra testar os tamanhos
-		Double houseWidth = (double) this.houseDimension.width;
-		Double houseHeight = (double) this.houseDimension.height;
-
-		Double mainWidth = (double) this.mainDimension.width;
-		Double mainHeight = (double) this.mainDimension.height;
-
 		final BasicStroke stroke = new BasicStroke(3.0f);
-
-		//Pinta a casa Vermelha
-		this.g2d.setPaint(MyColors.myRed);
-		this.redHouse = new Rectangle2D.Double(0, 0,houseWidth, houseHeight);		
-		this.g2d.fill(this.redHouse);
-
-		//Pinta a casa Verde
-		this.g2d.setPaint(MyColors.myGreen);
-		this.greenHouse = new Rectangle2D.Double(mainWidth - houseWidth, 0, houseWidth, houseHeight);		
-		this.g2d.fill(this.greenHouse);
-
-		//Pinta a casa Amarela
-		this.g2d.setPaint(MyColors.myYellow);
-		this.yellowHouse = new Rectangle2D.Double(mainWidth - houseWidth, mainHeight - houseHeight, houseWidth, houseHeight);		
-		this.g2d.fill(this.yellowHouse);
-
-		//Pinta a casa Azul
-		this.g2d.setPaint(MyColors.myBlue);
-		this.blueHouse = new Rectangle2D.Double(0, mainHeight - houseHeight, houseWidth, houseHeight);	
-		this.g2d.fill(this.blueHouse);	
-		
-		//contorno da casa vermelha
-		Rectangle2D redOutline = new Rectangle2D.Double();
-		redOutline.setFrame(this.redHouse);
-		redOutline.setRect(redHouse.getCenterX() - redHouse.getWidth()/4,redHouse.getCenterY() - redHouse.getHeight()/4,redHouse.getWidth()/2,redHouse.getHeight()/2);
-		g2d.setPaint(MyColors.myLightRed);
-		g2d.fill(redOutline);
-		g2d.setPaint(MyColors.myDarkRed);
-		g2d.setStroke(stroke);
-		g2d.draw(redOutline);
-
-		//contorno da casa verde
-		Rectangle2D greenOutline = new Rectangle2D.Double();
-		greenOutline.setFrame(this.greenHouse);
-		greenOutline.setRect(greenHouse.getCenterX() - greenHouse.getWidth()/4,greenHouse.getCenterY() - greenHouse.getHeight()/4,greenHouse.getWidth()/2,greenHouse.getHeight()/2);
-		g2d.setPaint(MyColors.myLightGreen);
-		g2d.fill(greenOutline);
-		g2d.setPaint(MyColors.myDarkGreen);
-		g2d.setStroke(stroke);
-		g2d.draw(greenOutline);
-
-		//contorno da casa amarela
-		Rectangle2D yellowOutline = new Rectangle2D.Double();
-		yellowOutline.setFrame(this.yellowHouse);
-		yellowOutline.setRect(yellowHouse.getCenterX() - yellowHouse.getWidth()/4,yellowHouse.getCenterY() - yellowHouse.getHeight()/4,yellowHouse.getWidth()/2,yellowHouse.getHeight()/2);
-		g2d.setPaint(MyColors.myLightYellow);
-		g2d.fill(yellowOutline);
-		g2d.setPaint(MyColors.myDarkYellow);
-		g2d.setStroke(stroke);
-		g2d.draw(yellowOutline);
-
-		//contorno da casa azul
-		Rectangle2D blueOutline = new Rectangle2D.Double();
-		blueOutline.setFrame(this.blueHouse);
-		blueOutline.setRect(blueHouse.getCenterX() - blueHouse.getWidth()/4,blueHouse.getCenterY() - blueHouse.getHeight()/4,blueHouse.getWidth()/2,blueHouse.getHeight()/2);
-		g2d.setPaint(MyColors.myLightBlue);
-		g2d.fill(blueOutline);
-		g2d.setPaint(MyColors.myDarkBlue);
-		g2d.setStroke(stroke);
-		g2d.draw(blueOutline);
-
 
 		Square[] squares = this.ludoTable.getModel();
 		//para testar img
@@ -222,6 +154,7 @@ public class LudoTable extends JPanel
 
 			this.g2d.fill(square);
 			this.g2d.setPaint(Color.black);
+			this.g2d.setStroke(stroke);
 			this.g2d.draw(square);
 
 			if(isStartSquare == true)
@@ -243,7 +176,7 @@ public class LudoTable extends JPanel
 			//			}
 		}
 
-//		this.drawHouses();
+		this.drawHouses();
 		this.drawTriangles();
 		this.drawTeams();
 	}
