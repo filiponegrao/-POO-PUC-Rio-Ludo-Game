@@ -30,8 +30,8 @@ public class MainWindow extends JFrame
 		int screenWidth = dim.width;
 		int screenHeight = dim.height;
 		
-		this.width = screenWidth/2;
-		this.height = screenWidth/2;		
+		this.width = 640;
+		this.height = 640;		
 				
 		int xpos = screenWidth/2 - this.width/2;
 		int ypos = screenHeight/2 - this.height/2;
@@ -45,7 +45,7 @@ public class MainWindow extends JFrame
 		this.setResizable(true);
 		this.setTitle(title);
 		
-		this.ludotable = new LudoTable(new Dimension(this.width, this.height));
+		this.ludotable = new LudoTable(this.width, this.height);
 		this.teams = new TeamView(new Dimension(this.width, this.height));
 		
 		//Verificar como adicionar dois JPanel em um JFrame usando LayoutManager
