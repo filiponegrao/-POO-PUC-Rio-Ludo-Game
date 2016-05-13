@@ -5,8 +5,8 @@ import java.util.Arrays;
 
 public class LudoTableModel 
 {
-	private Square[] tab;
-	private Square[] redPath;
+	private final Square[] tab;
+	private final Square[] redPath;
 	private Square[] greenPath;
 	private Square[] yellowPath;
 	private Square[] bluePath;

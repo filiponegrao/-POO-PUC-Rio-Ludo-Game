@@ -12,4 +12,9 @@ public final class MyColors
 	public final static Color myLightGreen = new Color(0x7fd9cb);
 	public final static Color myLightRed = new Color(0xf75b8f);
 	public final static Color myLightYellow = new Color(0xf0e77b);
+	
+	public final static Color myDarkBlue = new Color(0x5283d5);
+	public final static Color myDarkGreen = new Color(0x2abba5);
+	public final static Color myDarkRed = new Color(0xde1658);
+	public final static Color myDarkYellow = new Color(0xd7ca2f);
 }
