@@ -17,18 +17,17 @@ public class HouseView
 	private Rectangle2D redHouse;
 	private Rectangle2D blueHouse;
 
-	public HouseView(Dimension d, Graphics2D g)
+	public HouseView(Dimension d)
 	{
 		this.mainDimension = new Dimension(d.width, d.height);	
-		this.g2d = (Graphics2D)g;
 
 		this.houseDimension = new Dimension((mainDimension.width/15 * 6), (mainDimension.width/15 * 6));
-
-		this.createHouses();	
 	}
 
-	public void createHouses()
+	public void createHouses(Graphics2D g)
 	{
+		this.g2d = g;
+
 		final BasicStroke stroke = new BasicStroke(3.0f);
 
 		//Pinta a casa Vermelha

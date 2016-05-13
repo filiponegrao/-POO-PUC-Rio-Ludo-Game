@@ -103,19 +103,39 @@ public class LudoTableModel
 		Square sq79 = new Square(8, 12, Team.None, SquareType.Normal);
 		Square sq80 = new Square(8, 13, Team.Blue, SquareType.SafePoint);
 		Square sq81 = new Square(8, 14, Team.None, SquareType.Normal);
+		Square sq82 = new Square(7,8, Team.Blue, SquareType.BlueRoad);
 
 		this.tab = new Square[]{sq1,sq2,sq3,sq4,sq5,sq6,sq7,sq8,sq9,sq10,sq11,sq12,sq13,sq14,sq15,sq16,sq17,sq18,
 				sq19,sq20,sq21,sq22,sq23,sq24,sq25,sq26,sq27,sq28,sq29,sq30,sq31,sq32,sq33,sq34,sq35,sq36,sq37,
 				sq38,sq39,sq40,sq41,sq42,sq43,sq44,sq45,sq46,sq47,sq48,sq49,sq50,sq51,sq52,sq53,sq54,sq55,sq56,
 				sq57,sq58,sq59,sq60,sq61,sq62,sq63,sq64,sq65,sq66,sq67,sq68,sq69,sq70,sq71,sq72,sq73,sq74,sq75,
-				sq76,sq77,sq78,sq79,sq80,sq81};
+				sq76,sq77,sq78,sq79,sq80,sq81,sq82};
 		
 		
 		this.redPath = new Square[] {sq2,sq3,sq4,sq5,sq6,sq8,sq9,sq10,sq11,sq12,sq13,sq14,sq21,sq22,sq23,sq24,
-				sq25,sq26,sq27,sq28,sq29,sq30,sq31,sq32,sq33,sq48,sq63,sq62,sq61,sq60,sq59,sq58,sq76,sq77,sq78,
+				sq25,sq26,sq28,sq29,sq30,sq31,sq32,sq33,sq48,sq63,sq62,sq61,sq60,sq59,sq58,sq76,sq77,sq78,
 				sq79,sq80,sq81,sq75,sq69,sq68,sq67,sq66,sq65,sq64,sq54,sq53,sq52,sq51,sq50,sq49,sq34,sq35,sq36,
 				sq37,sq38,sq39,sq40};
 		
+		this.greenPath = new Square[] {sq22,sq23,sq24,sq25,sq26,sq28,sq29,sq30,sq31,sq32,sq33,sq34,sq48,sq63,sq62,
+				sq61,sq60,sq59,sq58,sq76,sq77,sq78,sq79,sq80,sq81,sq75,sq69,sq68,sq67,sq66,sq65,sq64,sq54,sq53,
+				sq52,sq51,sq50,sq49,sq43,sq1,sq2,sq3,sq4,sq5,sq6,sq8,sq9,sq10,sq11,sq12,sq13,sq14,sq15,sq16,sq17,
+				sq18,sq19,sq20};
+		
+		this.yellowPath = new Square[] {sq62,sq61,sq60,sq59,sq58,sq76,sq77,sq78,sq79,sq80,sq81,sq75,sq69,sq68,
+				sq67,sq66,sq65,sq64,sq54,sq53,sq52,sq51,sq50,sq49,sq43,sq1,sq2,sq3,sq4,sq5,sq6,sq8,sq9,sq10,
+				sq11,sq12,sq13,sq14, sq21,sq22,sq23,sq24,sq25,sq26,sq28,sq29,sq30,sq31,sq32,sq33,sq34,sq48,sq47,sq46,
+				sq45,sq44,sq43,sq42};
+		
+		this.bluePath = new Square[] {sq68,sq67,sq66,sq65,sq64,sq54,sq53,sq52,sq51,sq50,sq49,sq43,sq1,sq2,sq3,
+				sq4,sq5,sq6,sq8,sq9,sq10,sq11,sq12,sq13,sq14,sq21,sq22,sq23,sq24,sq25,sq26,sq28,sq29,sq30,sq31,
+				sq32,sq33,sq34,sq48,sq63,sq62,sq61,sq60,sq59,sq58,sq76,sq77,sq78,sq79,sq80,sq81,sq75,sq74,sq73,
+				sq72,sq71,sq70,sq82};
+		
+		System.out.println(Integer.toString(redPath.length) + "redPath");
+		System.out.println(Integer.toString(greenPath.length) + "greenPath");
+		System.out.println(Integer.toString(yellowPath.length) + "yellowPath");
+		System.out.println(Integer.toString(bluePath.length) + "bluePath");	
 	}
 	
 	public Square[] getModel() 
@@ -127,19 +147,19 @@ public class LudoTableModel
 	{
 		return this.redPath;
 	}
-//	
-//	public void getGreenPath()
-//	{
-//		return this.greenPath;
-//	}
-//	
-//	public Square[] getYellowPath()
-//	{
-//		return this.yellowPath;
-//	}
-//	
-//	public Square[] getBluePath()
-//	{
-//		return this.bluePath;
-//	}
+	
+	public Square[] getGreenPath()
+	{
+		return this.greenPath;
+	}
+	
+	public Square[] getYellowPath()
+	{
+		return this.yellowPath;
+	}
+	
+	public Square[] getBluePath()
+	{
+		return this.bluePath;
+	}
 }

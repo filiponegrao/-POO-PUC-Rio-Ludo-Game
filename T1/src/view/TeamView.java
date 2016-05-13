@@ -1,6 +1,7 @@
 package view;
 import model.*;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -33,10 +34,9 @@ public class TeamView
 
 	private LudoTableModel superLudo = new LudoTableModel();
 
-	public TeamView(Dimension d, Graphics2D g)
+	public TeamView(Dimension d)
 	{
 		this.mainDimension = new Dimension(d.width, d.height);	
-		this.g2d = g;
 
 		//Propriedades do itens visuais		
 		this.houseDimension = new Dimension((mainDimension.width/15 * 6), (mainDimension.width/15 * 6));
@@ -47,20 +47,19 @@ public class TeamView
 		this.redRoute = this.superLudo.getRedPath();
 		
 		this.greenTeam = new TeamModel(Team.Green);
+		this.greenRoute = this.superLudo.getGreenPath();
 		
 		this.yellowTeam = new TeamModel(Team.Yellow);
+		this.yellowRoute = this.superLudo.getYellowPath();
 		
 		this.blueTeam = new TeamModel(Team.Blue);
-				
-		//inicializa as peças de cada time nas respectivas casas
-		this.createPieces(Team.Red, this.redTeam.getPiecesOut());
-		this.createPieces(Team.Green, this.greenTeam.getPiecesOut());
-		this.createPieces(Team.Yellow, this.yellowTeam.getPiecesOut());
-		this.createPieces(Team.Blue, this.blueTeam.getPiecesOut());
+		this.blueRoute = this.superLudo.getBluePath();
 	}
 
-	public void createPieces(Team team, int amount)
+	public void createPieces(Team team, int amount, Graphics2D g)
 	{
+		this.g2d = g;
+
 		if(team == Team.Red)
 		{
 			int x = this.houseDimension.width/3;
@@ -140,5 +139,18 @@ public class TeamView
 	public void moveTo()
 	{
 
+	}
+	public void paintPath()
+	{
+		//metodo provisorio pra testar se paths estao corretos
+		Square[] path = this.blueRoute;
+		for(int i=0;i<path.length;i++)
+		{
+			Double x =  (double) (((double)path[i].xPosition() * (double)squareDimension.width) + 5.0);
+			Double y =  (double) (((double)path[i].yPosition() * (double)squareDimension.height) + 5.0);
+			Rectangle2D square = new Rectangle2D.Double(x,y,(double)squareDimension.width, (double)squareDimension.height);
+			this.g2d.setPaint(Color.CYAN);
+			this.g2d.fill(square);
+		}
 	}
 }
