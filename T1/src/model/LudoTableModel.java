@@ -1,11 +1,15 @@
 package model;
 
 import java.awt.List;
+import java.util.Arrays;
 
 public class LudoTableModel 
 {
-	private static Square[] tab;
+	private Square[] tab;
 	private Square[] redPath;
+	private Square[] greenPath;
+	private Square[] yellowPath;
+	private Square[] bluePath;
 	
 	public LudoTableModel()
 	{
@@ -54,15 +58,88 @@ public class LudoTableModel
 		Square sq38 = new Square(4, 7, Team.Red, SquareType.RedRoad);
 		Square sq39 = new Square(5, 7, Team.Red, SquareType.RedRoad);
 		Square sq40 = new Square(6, 7, Team.Red, SquareType.RedRoad);
-
+		Square sq41 = new Square(7, 7, Team.None, SquareType.Normal);
+		Square sq42 = new Square(8, 7, Team.Yellow, SquareType.YellowRoad);
+		Square sq43 = new Square(9, 7, Team.Yellow, SquareType.YellowRoad);
+		Square sq44 = new Square(10, 7, Team.Yellow, SquareType.YellowRoad);
+		Square sq45 = new Square(11, 7, Team.Yellow, SquareType.YellowRoad);
+		Square sq46 = new Square(12, 7, Team.Yellow, SquareType.YellowRoad);
+		Square sq47 = new Square(13, 7, Team.Yellow, SquareType.YellowRoad);
+		Square sq48 = new Square(14, 7, Team.Yellow, SquareType.YellowEntry);
 		
-		this.tab = new Square[]{sq1,sq2,sq3,sq4,sq5,sq6,sq7,sq8,sq9,sq10,sq11,sq12,sq13,sq14,sq15,sq16,sq17,sq18,sq19,sq20,
-				sq21,sq22,sq23,sq24,sq25,sq26,sq27,sq28,sq29,sq30,sq31,sq32,sq33,sq34,sq35,sq36,sq37,sq38,sq39,sq40};
+		Square sq49 = new Square(0, 8, Team.None, SquareType.Normal);
+		Square sq50 = new Square(1, 8, Team.None, SquareType.SafePoint);
+		Square sq51 = new Square(2, 8, Team.None, SquareType.Normal);
+		Square sq52 = new Square(3, 8, Team.None, SquareType.Normal);
+		Square sq53 = new Square(4, 8, Team.None, SquareType.Normal);
+		Square sq54 = new Square(5, 8, Team.None, SquareType.Normal);
+		Square sq55 = new Square(6, 8, Team.None, SquareType.Normal);
+		Square sq56 = new Square(7, 8, Team.Blue, SquareType.BlueRoad);
+		Square sq57 = new Square(8, 8, Team.None, SquareType.Normal);
+		Square sq58 = new Square(9, 8, Team.None, SquareType.Normal);
+		Square sq59 = new Square(10, 8, Team.None, SquareType.Normal);
+		Square sq60 = new Square(11, 8, Team.None, SquareType.Normal);
+		Square sq61 = new Square(12, 8, Team.None, SquareType.Normal);
+		Square sq62 = new Square(13, 8, Team.Yellow, SquareType.YellowStart);
+		Square sq63 = new Square(14, 8, Team.None, SquareType.Normal);
+		
+		Square sq64 = new Square(6, 9, Team.None, SquareType.Normal);
+		Square sq65 = new Square(6, 10, Team.None, SquareType.Normal);
+		Square sq66 = new Square(6, 11, Team.None, SquareType.Normal);
+		Square sq67 = new Square(6, 12, Team.None, SquareType.Normal);
+		Square sq68 = new Square(6, 13, Team.Blue, SquareType.BlueStart);
+		Square sq69 = new Square(6, 14, Team.None, SquareType.Normal);
+		
+		Square sq70 = new Square(7, 9, Team.Blue, SquareType.BlueRoad);
+		Square sq71 = new Square(7, 10, Team.Blue, SquareType.BlueRoad);
+		Square sq72 = new Square(7, 11, Team.Blue, SquareType.BlueRoad);
+		Square sq73 = new Square(7, 12, Team.Blue, SquareType.BlueRoad);
+		Square sq74 = new Square(7, 13, Team.Blue, SquareType.BlueRoad);
+		Square sq75 = new Square(7, 14, Team.Blue, SquareType.BlueEntry);
+		
+		Square sq76 = new Square(8, 9, Team.None, SquareType.Normal);
+		Square sq77 = new Square(8, 10, Team.None, SquareType.Normal);
+		Square sq78 = new Square(8, 11, Team.None, SquareType.Normal);
+		Square sq79 = new Square(8, 12, Team.None, SquareType.Normal);
+		Square sq80 = new Square(8, 13, Team.Blue, SquareType.SafePoint);
+		Square sq81 = new Square(8, 14, Team.None, SquareType.Normal);
+
+		this.tab = new Square[]{sq1,sq2,sq3,sq4,sq5,sq6,sq7,sq8,sq9,sq10,sq11,sq12,sq13,sq14,sq15,sq16,sq17,sq18,
+				sq19,sq20,sq21,sq22,sq23,sq24,sq25,sq26,sq27,sq28,sq29,sq30,sq31,sq32,sq33,sq34,sq35,sq36,sq37,
+				sq38,sq39,sq40,sq41,sq42,sq43,sq44,sq45,sq46,sq47,sq48,sq49,sq50,sq51,sq52,sq53,sq54,sq55,sq56,
+				sq57,sq58,sq59,sq60,sq61,sq62,sq63,sq64,sq65,sq66,sq67,sq68,sq69,sq70,sq71,sq72,sq73,sq74,sq75,
+				sq76,sq77,sq78,sq79,sq80,sq81};
+		
+		
+		this.redPath = new Square[] {sq2,sq3,sq4,sq5,sq6,sq8,sq9,sq10,sq11,sq12,sq13,sq14,sq21,sq22,sq23,sq24,
+				sq25,sq26,sq27,sq28,sq29,sq30,sq31,sq32,sq33,sq48,sq63,sq62,sq61,sq60,sq59,sq58,sq76,sq77,sq78,
+				sq79,sq80,sq81,sq75,sq69,sq68,sq67,sq66,sq65,sq64,sq54,sq53,sq52,sq51,sq50,sq49,sq34,sq35,sq36,
+				sq37,sq38,sq39,sq40};
+		
 	}
 	
-	public static Square[] getModel() 
+	public Square[] getModel() 
 	{
-		return tab;
+		return this.tab;
 	}
-	
+
+	public Square[] getRedPath()
+	{
+		return this.redPath;
+	}
+//	
+//	public void getGreenPath()
+//	{
+//		return this.greenPath;
+//	}
+//	
+//	public Square[] getYellowPath()
+//	{
+//		return this.yellowPath;
+//	}
+//	
+//	public Square[] getBluePath()
+//	{
+//		return this.bluePath;
+//	}
 }

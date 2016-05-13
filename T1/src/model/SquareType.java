@@ -1,7 +1,7 @@
 package model;
 
-public enum SquareType {
-
+public enum SquareType 
+{
 	Normal,
 	RedStart,
 	BlueStart,

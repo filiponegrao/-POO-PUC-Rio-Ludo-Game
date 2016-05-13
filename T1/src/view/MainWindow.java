@@ -25,14 +25,15 @@ public class MainWindow extends JFrame
 		int screenHeight = dim.height;
 		
 		this.width = screenWidth/2;
-		this.height = this.width;
-		
-		this.setSize(this.width,this.height);
-		
+		this.height = screenWidth/2;		
+				
 		int xpos = screenWidth/2 - this.width/2;
 		int ypos = screenHeight/2 - this.height/2;
+	
+//		this.setSize(this.width,this.height);
+//		this.setLocation(xpos, ypos);
 		
-		this.setLocation(xpos, ypos);
+		this.setBounds(xpos, ypos, this.width, this.height);
 		
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setResizable(true);

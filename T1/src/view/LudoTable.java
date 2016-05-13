@@ -1,10 +1,15 @@
 package view;
 
 import model.*;
+
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
+import java.io.File;
+import java.io.IOException;
 import java.awt.geom.Ellipse2D;
+import java.awt.geom.Path2D;
 
 public class LudoTable extends JPanel 
 {
@@ -33,50 +38,63 @@ public class LudoTable extends JPanel
 		this.setBackground(Color.white);
 		
 		//Propriedades do itens visuais		
-		this.houseDimension = new Dimension((mainDimension.width * 6/15), (mainDimension.width * 6/15));
+		this.houseDimension = new Dimension((mainDimension.width/15 * 6), (mainDimension.width/15 * 6));
 		this.squareDimension = new Dimension(mainDimension.width/15, mainDimension.height/15);
 		
+		System.out.println(this.mainDimension);
+		System.out.println("Largura da casa: " + Integer.toString(this.houseDimension.width));
+		System.out.println("Altura da casa: " + Integer.toString(this.houseDimension.height));	
+		System.out.println("Largura do tile: " + Integer.toString(this.squareDimension.width));
+		System.out.println("Altura do tile: " + Integer.toString(this.squareDimension.height));
 	}
 	
 	public void paintComponent(Graphics g)
 	{
-		//Inicia as variaveis necessarias
+		//Inicializa as variáveis necessárias
 		super.paintComponent(g);
 		this.g2d = (Graphics2D) g;
 		
-		//Pinta a casa verde
-		this.g2d.setPaint(MyColors.myGreen);
-		this.greenHouse = new Rectangle2D.Double(mainDimension.width - houseDimension.width, 0, houseDimension.width, houseDimension.height);		
-		this.g2d.fill(this.greenHouse);
- 		
-		//Pinta a casa amarela
-		this.g2d.setPaint(MyColors.myYellow);
-		this.yellowHouse = new Rectangle2D.Double(mainDimension.getWidth() - houseDimension.getWidth(), mainDimension.getHeight() - houseDimension.getHeight(), houseDimension.getWidth(), houseDimension.getHeight());		
-		this.g2d.fill(this.yellowHouse);	
+		//criei essas paradas aqui pra testar os tamanhos
+		int houseWidth = this.houseDimension.width;
+		int houseHeight = this.houseDimension.height;
+		
+		int mainWidth = this.mainDimension.width;
+		int mainHeight = this.mainDimension.height;
 		
 		//Pinta a casa Vermelha
 		this.g2d.setPaint(MyColors.myRed);
-		this.redHouse = new Rectangle2D.Double(0, 0,houseDimension.getWidth(), houseDimension.getHeight());		
-		this.g2d.fill(this.redHouse);	
+		this.redHouse = new Rectangle2D.Double(0, 0,houseWidth, houseHeight);		
+		this.g2d.fill(this.redHouse);
 		
+		//Pinta a casa Verde
+		this.g2d.setPaint(MyColors.myGreen);
+		this.greenHouse = new Rectangle2D.Double(mainWidth - houseWidth, 0, houseWidth, houseHeight);		
+		this.g2d.fill(this.greenHouse); 		
+		//Pinta a casa Amarela
+		this.g2d.setPaint(MyColors.myYellow);
+		this.yellowHouse = new Rectangle2D.Double(mainWidth - houseWidth, mainHeight - houseHeight, houseWidth, houseHeight);		
+		this.g2d.fill(this.yellowHouse);	
+			
 		//Pinta a casa Azul
 		this.g2d.setPaint(MyColors.myBlue);
-		this.blueHouse = new Rectangle2D.Double(0, mainDimension.getHeight() - houseDimension.getHeight(), houseDimension.getWidth(), houseDimension.getHeight());	
+		this.blueHouse = new Rectangle2D.Double(0, mainHeight - houseHeight, houseWidth, houseHeight);	
 		this.g2d.fill(this.blueHouse);	
 		
 		Square[] squares = this.ludoTable.getModel();
 		
+		Image rockTile;
+		
 		//Desenhas os quadrados
 		for (int i = 0; i < squares.length; i++) 
 		{
-			
-			Double x =  squares[i].xPosition() * squareDimension.getWidth() ;
-			Double y =  squares[i].yPosition() * squareDimension.getHeight();
-			Rectangle2D square = new Rectangle2D.Double(x,y,squareDimension.getWidth(), squareDimension.getHeight());
+			//mudei aqui pra int
+			int x =  squares[i].xPosition() * squareDimension.width;
+			int y =  squares[i].yPosition() * squareDimension.height;
+			Rectangle2D square = new Rectangle2D.Double(x,y,squareDimension.width, squareDimension.height);
 			Ellipse2D startPoint;
-//			System.out.println(squares[i].type());
-			
-			
+			Boolean isStartSquare = false;
+			Color startColor = Color.white;
+						
 			if(squares[i].type() == SquareType.RedRoad)
 			{
 				this.g2d.setPaint(MyColors.myRed);
@@ -84,9 +102,8 @@ public class LudoTable extends JPanel
 			else if(squares[i].type() == SquareType.RedStart)
 			{
 				this.g2d.setPaint(MyColors.myRed);
-				startPoint = new Ellipse2D.Double(x,y,squareDimension.getWidth()/3, squareDimension.getHeight()/3);
-				g2d.setPaint(MyColors.myLightRed);
-				g2d.fill(startPoint);
+				isStartSquare = true;
+				startColor = MyColors.myLightRed;
 			}
 			else if(squares[i].type() == SquareType.GreenRoad)
 			{
@@ -95,6 +112,8 @@ public class LudoTable extends JPanel
 			else if(squares[i].type() == SquareType.GreenStart)
 			{
 				this.g2d.setPaint(MyColors.myGreen);
+				isStartSquare = true;
+				startColor = MyColors.myLightGreen;
 			}
 			else if(squares[i].type() == SquareType.BlueRoad)
 			{
@@ -103,6 +122,8 @@ public class LudoTable extends JPanel
 			else if(squares[i].type() == SquareType.BlueStart)
 			{
 				this.g2d.setPaint(MyColors.myBlue);
+				isStartSquare = true;
+				startColor = MyColors.myLightBlue;
 			}
 			else if(squares[i].type() == SquareType.YellowRoad)
 			{
@@ -111,6 +132,8 @@ public class LudoTable extends JPanel
 			else if(squares[i].type() == SquareType.YellowStart)
 			{
 				this.g2d.setPaint(MyColors.myYellow);
+				isStartSquare = true;
+				startColor = MyColors.myLightYellow;
 			}
 			else if(squares[i].type() == SquareType.SafePoint)
 			{
@@ -124,7 +147,26 @@ public class LudoTable extends JPanel
 			this.g2d.fill(square);
 			this.g2d.setPaint(Color.black);
 			this.g2d.draw(square);
-		
+			
+			if(isStartSquare == true)
+			{
+				startPoint = new Ellipse2D.Double((square.getWidth())/4,(square.getWidth())/4,(square.getWidth())/2, (square.getHeight())/2);
+				startPoint.setFrameFromCenter(square.getCenterX(), square.getCenterY(), square.getX() + square.getWidth()/4, square.getY() + square.getWidth()/4);
+				g2d.setPaint(startColor);
+				g2d.fill(startPoint);		
+			}
+			
+			//para carregar uma imagem
+//			try
+//			{
+//				rockTile = ImageIO.read(new File("rockTile.jpg"));
+//				this.g2d.drawImage(rockTile, 0, 0, null);
+//			}
+//			catch(IOException e)
+//			{
+//				System.out.println(e.getMessage());
+//			    System.exit(1);
+//			}
 		}
 			
 	}
