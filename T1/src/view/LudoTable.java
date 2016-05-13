@@ -13,11 +13,8 @@ import java.awt.geom.Path2D;
 
 public class LudoTable extends JPanel 
 {
-	
 	private Graphics2D g2d;
-	
-	private Dimension mainDimension;
-	
+	private Dimension mainDimension;	
 	private Dimension houseDimension;
 	private Dimension squareDimension;
 	
@@ -243,22 +240,6 @@ public class LudoTable extends JPanel
 //				System.out.println(e.getMessage());
 //			    System.exit(1);
 //			}
-		}
-		
-		//Testando path vermelho OK
-//		Square[] rP = this.ludoTable.getRedPath();
-//		for (int i = 0; i < rP.length; i++) 
-//		{
-//			int x =  rP[i].xPosition() * squareDimension.width;
-//			int y =  rP[i].yPosition() * squareDimension.height;
-//			Rectangle2D red = new Rectangle2D.Double(x,y,squareDimension.width, squareDimension.height);
-//
-//			this.g2d.fill(red);
-//			this.g2d.setPaint(MyColors.myDarkRed);
-//			this.g2d.fill(red);
-//			
-//			System.out.println(Integer.toString(rP[i].xPosition()) + "/" + Integer.toString(rP[i].yPosition()));
-//		}
-		
+		}		
 	}
 }

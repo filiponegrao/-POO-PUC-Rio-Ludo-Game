@@ -1,6 +1,9 @@
 package view;
 
 import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
+import java.awt.LayoutManager2;
 import java.awt.Toolkit;
 import javax.swing.*;
 
@@ -14,6 +17,9 @@ public class MainWindow extends JFrame
 	private int height;
 	
 	private LudoTable ludotable;
+	private TeamView teams;
+	
+	public JPanel panel;
 	
 	public MainWindow(String title) 
 	{
@@ -40,6 +46,13 @@ public class MainWindow extends JFrame
 		this.setTitle(title);
 		
 		this.ludotable = new LudoTable(new Dimension(this.width, this.height));
+		this.teams = new TeamView(new Dimension(this.width, this.height));
+		
+		//Verificar como adicionar dois JPanel em um JFrame usando LayoutManager
+//		this.panel = new JPanel(new GridLayout(1,1));	
+//		this.panel.add(this.ludotable);
+//		this.panel.add(this.teams);
+//		this.getContentPane().add(this.panel);
 		
 		this.getContentPane().add(this.ludotable);
 		
