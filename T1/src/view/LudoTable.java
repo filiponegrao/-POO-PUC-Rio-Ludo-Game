@@ -34,7 +34,7 @@ public class LudoTable extends JPanel
 
 		//Propriedades do itens visuais		
 		this.houseDimension = new Dimension((mainDimension.width/15 * 6), (mainDimension.width/15 * 6));
-		this.squareDimension = new Dimension(mainDimension.width/15, mainDimension.height/15);
+		this.squareDimension = new Dimension(mainDimension.width/15, mainDimension.width/15);
 
 		//		System.out.println(this.mainDimension);
 		//		System.out.println("Largura da casa: " + Integer.toString(this.houseDimension.width));
@@ -48,6 +48,10 @@ public class LudoTable extends JPanel
 		//Inicializa as variáveis necessárias
 		super.paintComponent(g);
 		this.g2d = (Graphics2D) g;
+		
+		this.drawHouses();
+		this.drawTriangles();
+		this.drawTeams();
 
 		final BasicStroke stroke = new BasicStroke(3.0f);
 
@@ -59,11 +63,14 @@ public class LudoTable extends JPanel
 		for (int i = 0; i < squares.length; i++) 
 		{
 			//COLOQUEI DOUBLE EM TUDO TESTANDO, CONFERIR. TIRAR O + 5.0
-			Double x =  (double) (((double)squares[i].xPosition() * (double)squareDimension.width) + 5.0);
-			Double y =  (double) (((double)squares[i].yPosition() * (double)squareDimension.height) + 5.0);
-			Rectangle2D square = new Rectangle2D.Double(x,y,(double)squareDimension.width, (double)squareDimension.height);
+			int x =  squares[i].xPosition() * this.squareDimension.width;
+			int y = squares[i].yPosition() * this.squareDimension.height;
+			
+			Rectangle2D square = new Rectangle2D.Double(x,y, this.squareDimension.width, this.squareDimension.height);
+			
 			Boolean isStartSquare = false;
 			Color startColor = Color.white;
+			
 			int coordinateXs[] = new int[] {0, 0, 0};
 			int coordinateYs[] = new int[] {0, 0, 0};
 
@@ -171,10 +178,6 @@ public class LudoTable extends JPanel
 			//			    System.exit(1);
 			//			}
 		}
-
-		this.drawHouses();
-		this.drawTriangles();
-		this.drawTeams();
 	}
 
 	public void drawHouses()
