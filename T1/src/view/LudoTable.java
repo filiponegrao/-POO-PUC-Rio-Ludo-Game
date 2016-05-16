@@ -35,12 +35,6 @@ public class LudoTable extends JPanel
 		//Propriedades do itens visuais		
 		this.houseDimension = new Dimension((mainDimension.width/15 * 6), (mainDimension.width/15 * 6));
 		this.squareDimension = new Dimension(mainDimension.width/15, mainDimension.width/15);
-
-		//		System.out.println(this.mainDimension);
-		//		System.out.println("Largura da casa: " + Integer.toString(this.houseDimension.width));
-		//		System.out.println("Altura da casa: " + Integer.toString(this.houseDimension.height));	
-		//		System.out.println("Largura do tile: " + Integer.toString(this.squareDimension.width));
-		//		System.out.println("Altura do tile: " + Integer.toString(this.squareDimension.height));
 	}
 
 	public void paintComponent(Graphics g)
@@ -50,7 +44,6 @@ public class LudoTable extends JPanel
 		this.g2d = (Graphics2D) g;
 		
 		this.drawHouses();
-		this.drawTriangles();
 		this.drawTeams();
 
 		final BasicStroke stroke = new BasicStroke(3.0f);
@@ -62,7 +55,6 @@ public class LudoTable extends JPanel
 		//Desenha os quadrados menores
 		for (int i = 0; i < squares.length; i++) 
 		{
-			//COLOQUEI DOUBLE EM TUDO TESTANDO, CONFERIR. TIRAR O + 5.0
 			int x =  squares[i].xPosition() * this.squareDimension.width;
 			int y = squares[i].yPosition() * this.squareDimension.height;
 			
@@ -178,6 +170,8 @@ public class LudoTable extends JPanel
 			//			    System.exit(1);
 			//			}
 		}
+		
+		this.drawTriangles();
 	}
 
 	public void drawHouses()
