@@ -43,9 +43,6 @@ public class LudoTable extends JPanel
 		super.paintComponent(g);
 		this.g2d = (Graphics2D) g;
 		
-		this.drawHouses();
-		this.drawTeams();
-
 		final BasicStroke stroke = new BasicStroke(3.0f);
 
 		Square[] squares = this.ludoTable.getModel();
@@ -171,7 +168,9 @@ public class LudoTable extends JPanel
 			//			}
 		}
 		
+		this.drawHouses();
 		this.drawTriangles();
+		this.drawTeams();
 	}
 
 	public void drawHouses()
@@ -192,8 +191,5 @@ public class LudoTable extends JPanel
 		this.teams.createPieces(Team.Green, 4, this.g2d);
 		this.teams.createPieces(Team.Yellow, 4, this.g2d);
 		this.teams.createPieces(Team.Blue, 4, this.g2d);
-		
-		//só teste pra verificar caminhos
-//		this.teams.paintPath();
 	}
 }

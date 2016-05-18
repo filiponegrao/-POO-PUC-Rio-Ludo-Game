@@ -10,14 +10,14 @@ import javax.swing.*;
 
 public class MainWindow extends JFrame 
 {
-
 	private Toolkit tk;
 	
-	private int width;
-	
+	private int width;	
 	private int height;
-	
+		
+	private JPanel gamePanel = new JPanel(new BorderLayout());
 	private LudoTable ludotable;
+    private JMenuBar menuBar = new JMenuBar();
 		
 	public MainWindow(String title) 
 	{
@@ -46,23 +46,31 @@ public class MainWindow extends JFrame
 			this.width = screenWidth/2;
 			this.height = this.width;
 		}
-		
 				
 		int xpos = screenWidth/2 - this.width/2;
 		int ypos = screenHeight/2 - this.height/2;
 	
-		this.setSize(this.width,this.height+20);
-		this.setLocation(xpos, ypos);
-		
-//		this.setBounds(xpos, ypos, this.width, this.height);
-		
+		this.setSize(this.width,this.height+40);
+		this.setLocation(xpos, ypos);		
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setResizable(false);
 		this.setTitle(title);
+				
+		this.ludotable = new LudoTable(this.width, this.height);
 		
-		this.ludotable = new LudoTable(this.width, this.height);	
+		this.getContentPane().add(this.gamePanel);
+		this.setJMenuBar(this.menuBar);
 		
-		this.getContentPane().add(this.ludotable);
+		JMenu fileMenu = new JMenu("Menu");
+        menuBar.add(fileMenu);
+        
+        JMenuItem jogardados = new JMenuItem("Jogar Dados");
+        JMenuItem salvarJogo = new JMenuItem("Salvar Jogo");
+        
+        fileMenu.add(jogardados);
+        fileMenu.add(salvarJogo);
+
+		this.gamePanel.add(this.ludotable, BorderLayout.CENTER);	
 		
 		this.setVisible(true);
 	}

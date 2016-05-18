@@ -146,8 +146,8 @@ public class TeamView
 		Square[] path = this.blueRoute;
 		for(int i=0;i<path.length;i++)
 		{
-			Double x =  (double) (((double)path[i].xPosition() * (double)squareDimension.width) + 5.0);
-			Double y =  (double) (((double)path[i].yPosition() * (double)squareDimension.height) + 5.0);
+			Double x =  (double) (((double)path[i].xPosition() * (double)squareDimension.width));
+			Double y =  (double) (((double)path[i].yPosition() * (double)squareDimension.height));
 			Rectangle2D square = new Rectangle2D.Double(x,y,(double)squareDimension.width, (double)squareDimension.height);
 			this.g2d.setPaint(Color.CYAN);
 			this.g2d.fill(square);

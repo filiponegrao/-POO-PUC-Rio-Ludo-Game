@@ -25,46 +25,56 @@ public class Triangles
 		this.g2d = g;
 
 		//Triangulo central vermelho
-		int redCoordX[] = new int[] {320, 257, 257};
-		int redCoordY[] = new int[] {320, 383, 257};
+		int redCoordX[] = new int[] {323, 257, 257};
+		int redCoordY[] = new int[] {323, 386, 257};
 		g2d.setPaint(MyColors.myRed);
 		g2d.fillPolygon(redCoordX, redCoordY, 3);
 		g2d.setPaint(Color.black);
 		g2d.drawPolygon(redCoordX, redCoordY, 3);
 
 		//Triangulo central verde
-		int greenCoordX[] = new int[] {320, 257, 383};
-		int greenCoordY[] = new int[] {320, 257, 257};
+		int greenCoordX[] = new int[] {323, 257, 386};
+		int greenCoordY[] = new int[] {323, 257, 257};
 		g2d.setPaint(MyColors.myGreen);
 		g2d.fillPolygon(greenCoordX, greenCoordY, 3);
 		g2d.setPaint(Color.black);
 		g2d.drawPolygon(greenCoordX, greenCoordY, 3);
 
 		//Triangulo central amarelo
-		int yellowCoordX[] = new int[] {320, 383, 383};
-		int yellowCoordY[] = new int[] {320, 257, 383};
+		int yellowCoordX[] = new int[] {323, 386, 386};
+		int yellowCoordY[] = new int[] {323, 257, 386};
 		g2d.setPaint(MyColors.myYellow);
 		g2d.fillPolygon(yellowCoordX, yellowCoordY, 3);
 		g2d.setPaint(Color.black);
 		g2d.drawPolygon(yellowCoordX, yellowCoordY, 3);
 
 		//Triangulo central azul
-		int blueCoordX[] = new int[] {320, 383, 257};
-		int blueCoordY[] = new int[] {320, 383, 383};
+		int blueCoordX[] = new int[] {323, 386, 257};
+		int blueCoordY[] = new int[] {323, 386, 386};
+		
+//		calculando coordenadas pro triangulo azul maior mas só funciona quando coloco valor exato =/ 
+//		int x1, x2, x3, y1, y2, y3;
+//		x1 = this.mainDimension.width - this.mainDimension.width/2;
+//		x2 = (int) ((this.mainDimension.width/2) + (this.squareDimension.width * 1.5));
+//		x3 = (int) ((this.mainDimension.width/2) - (this.squareDimension.width * 1.5));
+//
+//		y1 = this.mainDimension.height - this.mainDimension.height/2;
+//		y2 = (int) ((this.mainDimension.height/2) + (this.squareDimension.height * 1.5));
+//		y3 = (int) ((this.mainDimension.height/2) - (this.squareDimension.height * 1.5));
+
+//		int blueCoordX[] = new int[] {x1,x2,x3};
+//		int blueCoordY[] = new int[] {y1,y2,y3};
 		g2d.setPaint(MyColors.myBlue);
 		g2d.fillPolygon(blueCoordX, blueCoordY, 3);
 		g2d.setPaint(Color.black);
 		g2d.drawPolygon(blueCoordX, blueCoordY, 3);	
-
-		//calculando coordenadas pro triangulo azul maior mas só funciona quando coloco valor exato =/ 
-		//		int x1, x2, x3, y1, y2, y3;
-		//		x1 = this.mainDimension.width - this.mainDimension.width/2;
-		//		x2 = (int) ((this.mainDimension.width/2) + (this.squareDimension.width * 1.5));
-		//		x3 = (int) ((this.mainDimension.width/2) - (this.squareDimension.width * 1.5));
-		//		
-		//		y1 = this.mainDimension.height - this.mainDimension.height/2;
-		//		y2 = (int) ((this.mainDimension.height/2) + (this.squareDimension.height * 1.5));
-		//		y3 = (int) ((this.mainDimension.height/2) - (this.squareDimension.height * 1.5));
-		//
+				
+		//				System.out.println(x1);
+		//				System.out.println(x2);
+		//				System.out.println(x3);
+		//				System.out.println(y1);
+		//				System.out.println(y2);
+		//				System.out.println(y3);
+		
 	}
 }
