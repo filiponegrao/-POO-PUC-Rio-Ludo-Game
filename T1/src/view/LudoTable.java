@@ -27,9 +27,11 @@ public class LudoTable extends JPanel
 
 	public LudoTable(int width, int height)
 	{
+		super();
+
 		//Propriedades da classe
 		this.mainDimension = new Dimension(width, height);
-		this.setSize(width,height);
+				
 		this.setBackground(Color.white);
 		
 		//Propriedades do itens visuais		

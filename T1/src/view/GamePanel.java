@@ -2,7 +2,10 @@ package view;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
 
+import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -18,17 +21,20 @@ public class GamePanel extends JPanel {
 	{
 		this.jframe = jframe;
 		
-		this.setLayout(new BorderLayout());
-		
+	    setLayout(null);
+				
 		this.ludoTable = new LudoTable(tableDimension.width, tableDimension.height);
-		this.add(this.ludoTable, BorderLayout.CENTER);
-		this.ludoTable.setLocation(0, 20);
+		this.ludoTable.setLocation(0, 0);
+		this.ludoTable.setSize(tableDimension);
+		this.add(this.ludoTable);
 	
-		
 		this.menuPanel = new MenuPanel();
 		this.jframe.setJMenuBar(this.menuPanel);
-		this.menuPanel.setLocation(100, 100);
-				
-		
+					
+		this.playerPanel = new PlayerPanel(panelDimension);
+		this.playerPanel.setLocation(tableDimension.width, 0);
+		this.playerPanel.setSize(panelDimension);
+		this.add(this.playerPanel);
+
 	}
 }

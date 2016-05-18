@@ -70,6 +70,7 @@ public class MainWindow extends JFrame
 		/******************************************/
 		this.gamePanel = new GamePanel(mainDimension ,this.tableDimension, this.menuDimension, this.playerPanelDimension, this);
 		this.getContentPane().add(this.gamePanel);
+//		pack();
 		
 		
 		/******************************************/

@@ -130,11 +130,6 @@ public class LudoTableModel
 				sq4,sq5,sq6,sq8,sq9,sq10,sq11,sq12,sq13,sq14,sq21,sq22,sq23,sq24,sq25,sq26,sq28,sq29,sq30,sq31,
 				sq32,sq33,sq34,sq48,sq63,sq62,sq61,sq60,sq59,sq58,sq76,sq77,sq78,sq79,sq80,sq81,sq75,sq74,sq73,
 				sq72,sq71,sq70,sq82};
-		
-		System.out.println(Integer.toString(redPath.length) + "redPath");
-		System.out.println(Integer.toString(greenPath.length) + "greenPath");
-		System.out.println(Integer.toString(yellowPath.length) + "yellowPath");
-		System.out.println(Integer.toString(bluePath.length) + "bluePath");	
 	}
 	
 	public Square[] getModel() 
