@@ -1,10 +1,10 @@
 package view;
 
-import java.awt.BorderLayout;
+//import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.GridLayout;
-import java.awt.LayoutManager2;
+//import java.awt.FlowLayout;
+//import java.awt.GridLayout;
+//import java.awt.LayoutManager2;
 import java.awt.Toolkit;
 import javax.swing.*;
 
@@ -15,62 +15,74 @@ public class MainWindow extends JFrame
 	private int width;	
 	private int height;
 		
-	private JPanel gamePanel = new JPanel(new BorderLayout());
-	private LudoTable ludotable;
-    private JMenuBar menuBar = new JMenuBar();
+	private GamePanel gamePanel;
+	
+	//Tamanhos
+	private Dimension tableDimension;
+	
+	private Dimension menuDimension;
+	
+	private Dimension playerPanelDimension;
 		
 	public MainWindow(String title) 
 	{
+		/******************************************/
+		/*** RECUPERAR INFORMACOES DA TELA ********/
+		/******************************************/
+		
 		this.tk = Toolkit.getDefaultToolkit();
-		
 		Dimension dim = tk.getScreenSize();
-		
 		int screenWidth = dim.width;
 		int screenHeight = dim.height;
 		
-		/** DEFINE UMA TELA COM LARGURA X, SENDO RAZAO DE 15*/
-		
-		//Encontra a maior largura antes da razao de 15
-		int div = (screenWidth/2) / 15;
-		
-		//Encontra o quanto passa
-		int rest = (screenWidth/2) % 15;
-		
-		if (rest > 0)
-		{
-			this.width = (div+1)*15;
-			this.height = this.width;		
-		}
-		else
-		{
-			this.width = screenWidth/2;
-			this.height = this.width;
-		}
+		/******************************************/
+		/*************** DIMENSOES ****************/
+		/******************************************/
+
+		//Dimensao de referencia
+		Dimension reference = new Dimension(screenWidth/2, screenWidth/2);
 				
-		int xpos = screenWidth/2 - this.width/2;
-		int ypos = screenHeight/2 - this.height/2;
-	
-		this.setSize(this.width,this.height+40);
+		int rest = reference.width % 15;
+		
+		reference.width = reference.width- rest;
+		reference.height = reference.height - rest;
+		
+		//Dimensao do tabuleiro
+		this.tableDimension = new Dimension(reference.width, reference.height);
+		
+		//Dimensao do menu
+		this.menuDimension = new Dimension(reference.width, 20);
+		
+		//Dimensao do painel do jogador
+		this.playerPanelDimension = new Dimension(reference.width * 6/15, reference.height);
+		
+		//Define a dimensao para a tela principal
+		Dimension mainDimension = new Dimension(this.tableDimension.width + this.playerPanelDimension.width, this.tableDimension.height + this.menuDimension.height);
+		
+		//Adiciono a status bar
+		mainDimension.height += 20;
+				
+		this.setSize(mainDimension.width, mainDimension.height);
+				
+
+		/******************************************/
+		/*********** TELA DA APLICACAO ************/
+		/******************************************/
+		this.gamePanel = new GamePanel(mainDimension ,this.tableDimension, this.menuDimension, this.playerPanelDimension, this);
+		this.getContentPane().add(this.gamePanel);
+		
+		
+		/******************************************/
+		/********* POSICAO DA TELA ***************/
+		/******************************************/
+		
+		int xpos = screenWidth/2 - mainDimension.width/2;
+		int ypos = screenHeight/2 - mainDimension.height/2;
+		
 		this.setLocation(xpos, ypos);		
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setResizable(false);
 		this.setTitle(title);
-				
-		this.ludotable = new LudoTable(this.width, this.height);
-		
-		this.getContentPane().add(this.gamePanel);
-		this.setJMenuBar(this.menuBar);
-		
-		JMenu fileMenu = new JMenu("Menu");
-        menuBar.add(fileMenu);
-        
-        JMenuItem jogardados = new JMenuItem("Jogar Dados");
-        JMenuItem salvarJogo = new JMenuItem("Salvar Jogo");
-        
-        fileMenu.add(jogardados);
-        fileMenu.add(salvarJogo);
-
-		this.gamePanel.add(this.ludotable, BorderLayout.CENTER);	
 		
 		this.setVisible(true);
 	}

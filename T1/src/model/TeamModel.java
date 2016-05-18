@@ -3,8 +3,8 @@ package model;
 public class TeamModel 
 {
 	private Team team;
-	private int piecesIn = 0;
-	private int piecesOut = 4;
+	private int pawnIn = 0;
+	private int pawnOut = 4;
 	
 	public TeamModel(Team team)
 	{
@@ -13,17 +13,17 @@ public class TeamModel
 	
 	public void setPiecesIn()
 	{
-		this.piecesIn += 1;
-		this.piecesOut -= 1;
+		this.pawnIn += 1;
+		this.pawnOut -= 1;
 	}
 	
 	public int getPiecesIn()
 	{
-		return this.piecesIn;
+		return this.pawnIn;
 	}
 	
 	public int getPiecesOut()
 	{
-		return this.piecesOut;
+		return this.pawnOut;
 	}
 }

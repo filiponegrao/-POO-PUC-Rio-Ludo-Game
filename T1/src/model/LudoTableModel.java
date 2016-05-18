@@ -111,7 +111,6 @@ public class LudoTableModel
 				sq57,sq58,sq59,sq60,sq61,sq62,sq63,sq64,sq65,sq66,sq67,sq68,sq69,sq70,sq71,sq72,sq73,sq74,sq75,
 				sq76,sq77,sq78,sq79,sq80,sq81,sq82};
 		
-		
 		this.redPath = new Square[] {sq2,sq3,sq4,sq5,sq6,sq8,sq9,sq10,sq11,sq12,sq13,sq14,sq21,sq22,sq23,sq24,
 				sq25,sq26,sq28,sq29,sq30,sq31,sq32,sq33,sq48,sq63,sq62,sq61,sq60,sq59,sq58,sq76,sq77,sq78,
 				sq79,sq80,sq81,sq75,sq69,sq68,sq67,sq66,sq65,sq64,sq54,sq53,sq52,sq51,sq50,sq49,sq34,sq35,sq36,
