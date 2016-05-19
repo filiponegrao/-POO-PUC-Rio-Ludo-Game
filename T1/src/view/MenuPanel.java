@@ -5,6 +5,8 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
+import controller.LudoController;
+
 public class MenuPanel extends JMenuBar {
 	
 	private JMenu menu;
@@ -25,5 +27,6 @@ public class MenuPanel extends JMenuBar {
         this.menu.add(salvarJogo);
         
         this.add(this.menu);
+        
 	}
 }

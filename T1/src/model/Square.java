@@ -1,6 +1,6 @@
 package model;
 
-public class Square 
+public class Square
 {
 
 	private int posX;

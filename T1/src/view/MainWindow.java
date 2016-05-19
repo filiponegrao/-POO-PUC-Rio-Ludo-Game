@@ -8,6 +8,8 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import javax.swing.*;
 
+import model.Square;
+
 public class MainWindow extends JFrame 
 {
 	private Toolkit tk;
@@ -24,7 +26,14 @@ public class MainWindow extends JFrame
 	
 	private Dimension playerPanelDimension;
 		
-	public MainWindow(String title) 
+	
+	//Funcoes de acesso
+	public GamePanel gamePanel()
+	{
+		return this.gamePanel;
+	}
+	
+	public MainWindow(String title, Square[] squares) 
 	{
 		/******************************************/
 		/*** RECUPERAR INFORMACOES DA TELA ********/
@@ -68,9 +77,8 @@ public class MainWindow extends JFrame
 		/******************************************/
 		/*********** TELA DA APLICACAO ************/
 		/******************************************/
-		this.gamePanel = new GamePanel(mainDimension ,this.tableDimension, this.menuDimension, this.playerPanelDimension, this);
+		this.gamePanel = new GamePanel(mainDimension ,this.tableDimension, this.menuDimension, this.playerPanelDimension, this, squares);
 		this.getContentPane().add(this.gamePanel);
-//		pack();
 		
 		
 		/******************************************/

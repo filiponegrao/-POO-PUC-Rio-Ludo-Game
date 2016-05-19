@@ -9,6 +9,8 @@ import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import model.Square;
+
 public class GamePanel extends JPanel {
 
 	private JFrame jframe;
@@ -16,14 +18,21 @@ public class GamePanel extends JPanel {
 	private LudoTable ludoTable;
 	private PlayerPanel playerPanel;
 	private MenuPanel menuPanel;
+	
 		
-	public GamePanel(Dimension mainDimension, Dimension tableDimension, Dimension menuDimension, Dimension panelDimension, JFrame jframe)
+	//Funcoes de acesso
+	public LudoTable ludoTable()
+	{
+		return this.ludoTable;
+	}
+	
+	public GamePanel(Dimension mainDimension, Dimension tableDimension, Dimension menuDimension, Dimension panelDimension, JFrame jframe, Square[] squares)
 	{
 		this.jframe = jframe;
 		
 	    setLayout(null);
 				
-		this.ludoTable = new LudoTable(tableDimension.width, tableDimension.height);
+		this.ludoTable = new LudoTable(tableDimension.width, tableDimension.height, squares);
 		this.ludoTable.setLocation(0, 0);
 		this.ludoTable.setSize(tableDimension);
 		this.add(this.ludoTable);

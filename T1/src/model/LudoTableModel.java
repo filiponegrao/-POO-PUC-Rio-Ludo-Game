@@ -11,6 +11,14 @@ public class LudoTableModel
 	private Square[] yellowPath;
 	private Square[] bluePath;
 	
+	//Pins
+	
+	private PinModel[] redPins;
+	private PinModel[] bluePins;
+	private PinModel[] yellowPins;
+	private PinModel[] greenPins;
+
+	
 	public LudoTableModel()
 	{
 		Square sq1 = new Square(0, 6, Team.None, SquareType.Normal);
@@ -130,6 +138,36 @@ public class LudoTableModel
 				sq4,sq5,sq6,sq8,sq9,sq10,sq11,sq12,sq13,sq14,sq21,sq22,sq23,sq24,sq25,sq26,sq28,sq29,sq30,sq31,
 				sq32,sq33,sq34,sq48,sq63,sq62,sq61,sq60,sq59,sq58,sq76,sq77,sq78,sq79,sq80,sq81,sq75,sq74,sq73,
 				sq72,sq71,sq70,sq82};
+		
+		
+		PinModel rp1 = new PinModel(-1,-1,Team.Red);
+		PinModel rp2 = new PinModel(-1,-1,Team.Red);
+		PinModel rp3 = new PinModel(-1,-1,Team.Red);
+		PinModel rp4 = new PinModel(-1,-1,Team.Red);
+		
+		this.redPins = new PinModel[]{rp1,rp2,rp3,rp4};
+		
+		PinModel gp1 = new PinModel(-1,-1,Team.Green);
+		PinModel gp2 = new PinModel(-1,-1,Team.Green);
+		PinModel gp3 = new PinModel(-1,-1,Team.Green);
+		PinModel gp4 = new PinModel(-1,-1,Team.Green);
+		
+		this.greenPins = new PinModel[]{gp1,gp2,gp3,gp4};
+		
+		PinModel yp1 = new PinModel(-1,-1,Team.Yellow);
+		PinModel yp2 = new PinModel(-1,-1,Team.Yellow);
+		PinModel yp3 = new PinModel(-1,-1,Team.Yellow);
+		PinModel yp4 = new PinModel(-1,-1,Team.Yellow);
+		
+		this.yellowPins = new PinModel[]{yp1,yp2,yp3,yp4};
+		
+		PinModel bp1 = new PinModel(-1,-1,Team.Blue);
+		PinModel bp2 = new PinModel(-1,-1,Team.Blue);
+		PinModel bp3 = new PinModel(-1,-1,Team.Blue);
+		PinModel bp4 = new PinModel(-1,-1,Team.Blue);
+		
+		this.yellowPins = new PinModel[]{bp1,bp2,bp3,bp4};
+		
 	}
 	
 	public Square[] getModel() 
@@ -155,5 +193,26 @@ public class LudoTableModel
 	public Square[] getBluePath()
 	{
 		return this.bluePath;
+	}
+	
+	
+	public PinModel[] getRedPins()
+	{
+		return this.redPins;
+	}
+	
+	public PinModel[] getBluePins()
+	{
+		return this.bluePins;
+	}
+	
+	public PinModel[] getYellowPins()
+	{
+		return this.yellowPins;
+	}
+	
+	public PinModel[] getGreenPins()
+	{
+		return this.greenPins;
 	}
 }

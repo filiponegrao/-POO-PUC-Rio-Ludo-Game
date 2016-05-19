@@ -13,6 +13,9 @@ import java.awt.geom.Path2D;
 
 public class LudoTable extends JPanel 
 {
+	//Model
+	private Square[] squares;
+	
 	private Graphics2D g2d;
 	private Dimension mainDimension;	
 	private Dimension houseDimension;
@@ -25,10 +28,19 @@ public class LudoTable extends JPanel
 	private HouseView houses;
 	private Triangles triangles;
 
-	public LudoTable(int width, int height)
+	
+	//Funcoes de acesso
+	public Graphics2D graphics()
+	{
+		return this.g2d;
+	}
+	
+	public LudoTable(int width, int height, Square[] squares)
 	{
 		super();
 
+		this.squares = squares;
+		
 		//Propriedades da classe
 		this.mainDimension = new Dimension(width, height);
 				
@@ -47,15 +59,11 @@ public class LudoTable extends JPanel
 		
 		final BasicStroke stroke = new BasicStroke(3.0f);
 
-		Square[] squares = this.ludoTable.getModel();
-		//para testar img
-		//		Image rockTile;
-
 		//Desenha os quadrados menores
-		for (int i = 0; i < squares.length; i++) 
+		for (int i = 0; i < this.squares.length; i++) 
 		{
-			int x =  squares[i].xPosition() * this.squareDimension.width;
-			int y = squares[i].yPosition() * this.squareDimension.height;
+			int x =  this.squares[i].xPosition() * this.squareDimension.width;
+			int y = this.squares[i].yPosition() * this.squareDimension.height;
 			
 			Rectangle2D square = new Rectangle2D.Double(x,y, this.squareDimension.width, this.squareDimension.height);
 			
