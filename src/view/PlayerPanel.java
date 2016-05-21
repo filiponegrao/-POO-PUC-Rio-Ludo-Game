@@ -21,6 +21,8 @@ import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import controller.LudoController;
+
 import java.util.Random;
 
 public class PlayerPanel extends JPanel implements ActionListener
@@ -57,8 +59,7 @@ public class PlayerPanel extends JPanel implements ActionListener
 	{
 		super.paintComponent(g);
 		this.g2d = (Graphics2D) g;
-		this.dice.playDice();
-		this.diceValue = dice.getValue();
+		this.diceValue = LudoController.sharedInstance.getDiceValue();
 		
 		try
 		{
@@ -85,7 +86,7 @@ public class PlayerPanel extends JPanel implements ActionListener
 	public void actionPerformed(ActionEvent e) 
 	{		
 		this.dice.playDice();
-		this.diceValue = this.dice.getValue();
+		this.diceValue = LudoController.sharedInstance.getDiceValue();
 		System.out.println(this.diceValue);
 		this.repaint();
 	}	

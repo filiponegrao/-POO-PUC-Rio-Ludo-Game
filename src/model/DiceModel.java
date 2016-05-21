@@ -2,6 +2,8 @@ package model;
 
 import java.util.Random;
 
+import controller.LudoController;
+
 public class DiceModel 
 {
 	private int value;
@@ -25,10 +27,11 @@ public class DiceModel
 		}
 		
 		this.value = randomNum;
+		this.setValue();
 	}
 	
-	public int getValue()
+	public void setValue()
 	{
-		return this.value;
+		LudoController.sharedInstance.setDiceValue(this.value);
 	}
 }

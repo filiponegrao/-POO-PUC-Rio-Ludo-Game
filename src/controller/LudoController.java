@@ -30,6 +30,10 @@ public class LudoController {
 	private PinModel[] bluePins;
 	
 	private PinModel[] yellowPins;
+	
+	private DiceModel dice;
+	
+	private int diceValue = 1;
 
 	
 	/*******************************/
@@ -46,6 +50,7 @@ public class LudoController {
 		this.greenPins = this.model.getGreenPins();
 		this.yellowPins = this.model.getYellowPins();
 		
+		this.dice = new DiceModel();
 	}
 	
 	public void loadScreen()
@@ -57,8 +62,16 @@ public class LudoController {
 //		JPanel ludopanel = this.mainWindow.gamePanel().ludoTable();
 		
 		PinView.printPin(g, 200, 200, 100, 100);
-
-
+	}
+	
+	public void setDiceValue(int value)
+	{
+		this.diceValue = value;
+	}
+	
+	public int getDiceValue()
+	{
+		return this.diceValue;
 	}
 	
 }
