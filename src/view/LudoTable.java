@@ -164,18 +164,6 @@ public class LudoTable extends JPanel
 				g2d.setPaint(startColor);
 				g2d.fillPolygon(coordinateXs, coordinateYs, 3);
 			}
-
-			//para carregar uma imagem
-			//			try
-			//			{
-			//				rockTile = ImageIO.read(new File("rockTile.jpg"));
-			//				this.g2d.drawImage(rockTile, 0, 0, null);
-			//			}
-			//			catch(IOException e)
-			//			{
-			//				System.out.println(e.getMessage());
-			//			    System.exit(1);
-			//			}
 		}
 		
 		this.drawHouses();
