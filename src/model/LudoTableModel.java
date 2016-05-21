@@ -241,23 +241,66 @@ public class LudoTableModel
 						return bluePath[(i+steps)];
 					}
 				}
-				else 
-				{
-					return bluePath[0];
-				}
 			}
+			
+			return bluePath[0];
 		}
 		else if(t == Team.Red)
 		{
+			for (int i = 0; i < redPath.length; i++)
+			{
+				if(redPath[i].xPosition() == x && redPath[i].yPosition() == y)
+				{
+					if(i+steps >= redPath.length)
+					{
+						return redPath[redPath.length-1];
+					}
+					else
+					{
+						return redPath[(i+steps)];
+					}
+				}
+			}
 			
+			return redPath[0];
 		}
 		else if(t == Team.Green)
 		{
+			for (int i = 0; i < greenPath.length; i++)
+			{
+				if(greenPath[i].xPosition() == x && greenPath[i].yPosition() == y)
+				{
+					if(i+steps >= greenPath.length)
+					{
+						return greenPath[greenPath.length-1];
+					}
+					else
+					{
+						return greenPath[(i+steps)];
+					}
+				}
+			}
 			
+			return greenPath[0];
 		}
 		else if(t == Team.Yellow)
 		{
+			for (int i = 0; i < yellowPath.length; i++)
+			{
+				if(yellowPath[i].xPosition() == x && yellowPath[i].yPosition() == y)
+				{
+					if(i+steps >= yellowPath.length)
+					{
+						return yellowPath[yellowPath.length-1];
+					}
+					else
+					{
+						return yellowPath[(i+steps)];
+					}
+				}
+			}
 			
+			return yellowPath[0];
 		}
 		
 		return null;

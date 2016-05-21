@@ -66,9 +66,7 @@ public class LudoTable extends JPanel
 
 	public void paintComponent(Graphics g)
 	{
-		//Inicializa as variáveis necessárias
-		System.out.println("Pintando o tabuleiro...");
-		
+		//Inicializa as variáveis necessárias		
 		super.paintComponent(g);
 		this.g2d = (Graphics2D) g;
 		

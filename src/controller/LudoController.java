@@ -162,15 +162,36 @@ public class LudoController {
 	
 	public void movePinToSquare(PinModel p)
 	{
-		Square destin = this.model.getNextSquareWithSteps(p.getX(), p.getY(), p.getTeam(), this.diceValue);
-		
-		if(destin != null)
+		if(this.diceValue > 0)
 		{
-			p.setX(destin.xPosition());
-			p.setY(destin.yPosition());
+			Square destin = this.model.getNextSquareWithSteps(p.getX(), p.getY(), p.getTeam(), this.diceValue);
 			
-			System.out.println("Redesenhando..");
-			this.mainWindow.gamePanel().ludoTable().rePaint();
+			if(destin != null)
+			{
+				p.setX(destin.xPosition());
+				p.setY(destin.yPosition());
+				
+				this.mainWindow.gamePanel().ludoTable().rePaint();
+				
+				if(this.currentTurn == Team.Blue)
+				{
+					this.currentTurn = Team.Red;
+				}
+				else if (this.currentTurn == Team.Red)
+				{
+					this.currentTurn = Team.Green;
+				}
+				else if (this.currentTurn == Team.Green)
+				{
+					this.currentTurn = Team.Yellow;
+				}
+				else if(this.currentTurn == Team.Yellow)
+				{
+					this.currentTurn = Team.Blue;
+				}
+				
+				this.diceValue = 0;
+			}
 		}
 	}
 }
