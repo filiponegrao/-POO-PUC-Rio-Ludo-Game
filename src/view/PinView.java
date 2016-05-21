@@ -38,8 +38,8 @@ public class PinView
 		g.fill(e);
 		
 		g.setStroke(new BasicStroke(1.0f));
-		g.setPaint(Color.white);
-		g.draw(e);
+//		g.setPaint(Color.white);
+//		g.draw(e);
 		
 	}
 

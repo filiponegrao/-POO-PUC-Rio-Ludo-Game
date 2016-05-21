@@ -215,10 +215,10 @@ public class LudoTable extends JPanel
 	public void drawTeams()
 	{
 		this.teams = new TeamView(this.mainDimension);
-		this.teams.createPieces(Team.Red, this.g2d);
-		this.teams.createPieces(Team.Green, this.g2d);
-		this.teams.createPieces(Team.Yellow, this.g2d);
-		this.teams.createPieces(Team.Blue, this.g2d);
+//		this.teams.createPieces(Team.Red, this.g2d);
+//		this.teams.createPieces(Team.Green, this.g2d);
+//		this.teams.createPieces(Team.Yellow, this.g2d);
+//		this.teams.createPieces(Team.Blue, this.g2d);
 	}
 	
 	//Testing

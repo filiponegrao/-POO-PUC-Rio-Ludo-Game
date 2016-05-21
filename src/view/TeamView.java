@@ -123,14 +123,4 @@ public class TeamView
 			}
 		}	
 	}
-
-	public void updatePieces()
-	{
-		
-	}
-	
-	public void moveTo()
-	{
-
-	}
 }
