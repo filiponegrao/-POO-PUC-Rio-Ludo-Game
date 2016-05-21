@@ -20,10 +20,10 @@ public class MenuPanel extends JMenuBar {
 		this.menu = new JMenu("Menu");	
 				        
         //Cria opcoes
-        JMenuItem jogardados = new JMenuItem("Jogar Dados");
+        JMenuItem novoJogo = new JMenuItem("Novo Jogo");
         JMenuItem salvarJogo = new JMenuItem("Salvar Jogo");
         
-        this.menu.add(jogardados);
+        this.menu.add(novoJogo);
         this.menu.add(salvarJogo);
         
         this.add(this.menu);
