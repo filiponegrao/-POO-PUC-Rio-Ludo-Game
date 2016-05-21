@@ -7,6 +7,6 @@ public class PlayDice  implements ActionListener
 {
 	public void actionPerformed(ActionEvent e) 
 	{
-		System.out.println("Clicked");
+		
 	}
 }

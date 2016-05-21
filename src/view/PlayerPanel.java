@@ -1,4 +1,5 @@
 package view;
+import model.*;
 
 import java.awt.BasicStroke;
 import java.awt.BorderLayout;
@@ -29,7 +30,8 @@ public class PlayerPanel extends JPanel implements ActionListener
 	private Graphics2D g2d;
 	private BufferedImage diceImage;
 	private TexturePaint diceTexture;
-	private int diceId = 1;
+	private DiceModel dice= new DiceModel();
+	private int diceValue;
 
 	public PlayerPanel(Dimension dimension)
 	{
@@ -55,10 +57,12 @@ public class PlayerPanel extends JPanel implements ActionListener
 	{
 		super.paintComponent(g);
 		this.g2d = (Graphics2D) g;
-
+		this.dice.playDice();
+		this.diceValue = dice.getValue();
+		
 		try
 		{
-			String ind = "diece" + Integer.toString(this.diceId) + ".png";
+			String ind = "diece" + Integer.toString(this.diceValue) + ".png";
 			this.diceImage = ImageIO.read(new File(ind));
 			
 			int x = this.getWidth()/4;
@@ -79,18 +83,10 @@ public class PlayerPanel extends JPanel implements ActionListener
 
 	//IMPLEMENTA MÉTODO DA INTERFACE
 	public void actionPerformed(ActionEvent e) 
-	{
-		System.out.println("Clicked");
+	{		
+		this.dice.playDice();
+		this.diceValue = this.dice.getValue();
+		System.out.println(this.diceValue);
 		this.repaint();
-		
-//		int value = this.randInt(1, 6);
-//		System.out.println(value);
-	}
-	
-	public int randInt(int min, int max)
-	{
-		Random rand = null;
-		int randomNum = rand.nextInt((max - min) + 1) + min;
-		return randomNum;
-	}
+	}	
 }
