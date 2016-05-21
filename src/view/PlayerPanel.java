@@ -63,7 +63,7 @@ public class PlayerPanel extends JPanel implements ActionListener
 		
 		try
 		{
-			String ind = "diece" + Integer.toString(this.diceValue) + ".png";
+			String ind = "dice" + Integer.toString(this.diceValue) + ".png";
 			this.diceImage = ImageIO.read(new File(ind));
 			
 			int x = this.getWidth()/4;
@@ -87,7 +87,7 @@ public class PlayerPanel extends JPanel implements ActionListener
 	{		
 		this.dice.playDice();
 		this.diceValue = LudoController.sharedInstance.getDiceValue();
-		System.out.println(this.diceValue);
+//		System.out.println(this.diceValue);
 		this.repaint();
 	}	
 }

@@ -7,9 +7,9 @@ public class LudoTableModel
 {
 	private final Square[] tab;
 	private final Square[] redPath;
-	private Square[] greenPath;
-	private Square[] yellowPath;
-	private Square[] bluePath;
+	private final Square[] greenPath;
+	private final Square[] yellowPath;
+	private final Square[] bluePath;
 	
 	//Pins
 	

@@ -11,7 +11,8 @@ import javax.swing.JPanel;
 
 import model.Square;
 
-public class GamePanel extends JPanel {
+public class GamePanel extends JPanel 
+{
 
 	private JFrame jframe;
 	
