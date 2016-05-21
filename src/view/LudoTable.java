@@ -166,8 +166,8 @@ public class LudoTable extends JPanel
 			}
 		}
 		
-		this.drawHouses();
 		this.drawTriangles();
+		this.drawHouses();
 		this.drawTeams();
 	}
 
