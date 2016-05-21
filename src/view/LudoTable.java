@@ -4,8 +4,15 @@ import model.*;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+
+import controller.EventHandlers;
+import controller.LudoController;
+
 import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.geom.Rectangle2D;
+import java.beans.EventHandler;
 import java.io.File;
 import java.io.IOException;
 import java.awt.geom.Ellipse2D;
@@ -28,9 +35,14 @@ public class LudoTable extends JPanel
 	private HouseView houses;
 	private Triangles triangles;
 
+	private Boolean repainting = true;
 	
-	//Funcoes de acesso
-	public Graphics2D graphics()
+	public Dimension getSquareDimension()
+	{
+		return this.squareDimension;
+	}
+	
+	public Graphics2D getGraphics2D()
 	{
 		return this.g2d;
 	}
@@ -49,11 +61,14 @@ public class LudoTable extends JPanel
 		//Propriedades do itens visuais		
 		this.houseDimension = new Dimension((mainDimension.width/15 * 6), (mainDimension.width/15 * 6));
 		this.squareDimension = new Dimension(mainDimension.width/15, mainDimension.width/15);
+		
 	}
 
 	public void paintComponent(Graphics g)
 	{
 		//Inicializa as variáveis necessárias
+		System.out.println("Pintando o tabuleiro...");
+		
 		super.paintComponent(g);
 		this.g2d = (Graphics2D) g;
 		
@@ -169,6 +184,23 @@ public class LudoTable extends JPanel
 		this.drawTriangles();
 		this.drawHouses();
 		this.drawTeams();
+		
+		
+		//DESENHA AS PEÇAS
+		
+		PinModel[] reds = LudoController.sharedInstance.getRedPins();
+		PinModel[] blues = LudoController.sharedInstance.getBluePins();
+		PinModel[] greens = LudoController.sharedInstance.getGreenPins();
+		PinModel[] yellows = LudoController.sharedInstance.getYellowPins();
+
+
+		PinView.drawPins(reds, g2d, this.squareDimension);
+		PinView.drawPins(blues, g2d, this.squareDimension);
+		PinView.drawPins(greens, g2d, this.squareDimension);
+		PinView.drawPins(yellows, g2d, this.squareDimension);
+		
+		addMouseListener(EventHandlers.getMouseEvent());
+		
 	}
 
 	public void drawHouses()
@@ -190,4 +222,25 @@ public class LudoTable extends JPanel
 		this.teams.createPieces(Team.Yellow, this.g2d);
 		this.teams.createPieces(Team.Blue, this.g2d);
 	}
+	
+	//Testing
+	public void loopPainting()
+	{
+		while(this.repainting)
+		{
+			try {
+			    Thread.sleep(1000);                 //1000 milliseconds is one second.
+			    this.repaint();
+			} catch(InterruptedException ex) {
+			    Thread.currentThread().interrupt();
+			}
+		}
+	}
+	
+	public void rePaint()
+	{
+		this.repaint();
+	}
+	
+	
 }

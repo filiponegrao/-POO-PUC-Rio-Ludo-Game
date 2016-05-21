@@ -1,12 +1,5 @@
 package controller;
 
-import java.awt.Graphics2D;
-import java.awt.Image;
-import java.io.File;
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
-import javax.swing.JPanel;
 
 import model.*;
 import view.*;
@@ -33,14 +26,20 @@ public class LudoController {
 	
 	private DiceModel dice;
 	
-	private int diceValue = 1;
-
 	
 	/*******************************/
 	/****** VISUAL COMPONENTS*******/
 	/*******************************/
 
 	private MainWindow mainWindow;
+	
+	/*******************************/
+	/*** CONTROLLERS COMPONENTS*****/
+	/*******************************/
+	
+	private Team currentTurn = Team.Blue;
+	
+	private int diceValue = 0;
 	
 	private LudoController()
 	{
@@ -57,11 +56,9 @@ public class LudoController {
 	{
 		this.mainWindow = new MainWindow("LudoGame", squares);
 		
-		Graphics2D g = this.mainWindow.gamePanel().ludoTable().graphics();
+//		Graphics2D g = this.mainWindow.gamePanel().ludoTable().graphics();
 		
-//		JPanel ludopanel = this.mainWindow.gamePanel().ludoTable();
-		
-		PinView.printPin(g, 200, 200, 100, 100);
+//		PinView.drawPins(this.redPins, g, this.mainWindow.getTableDimension());
 	}
 	
 	public void setDiceValue(int value)
@@ -74,4 +71,106 @@ public class LudoController {
 		return this.diceValue;
 	}
 	
+	public PinModel[] getRedPins()
+	{
+		return this.redPins;
+	}
+	
+	public PinModel[] getBluePins()
+	{
+		return this.bluePins;
+	} 
+	
+	public PinModel[] getYellowPins()
+	{
+		return this.yellowPins;
+	}
+	
+	public PinModel[] getGreenPins()
+	{
+		return this.greenPins;
+	}
+	
+	public PinModel getPinOnPosition(int posx, int posy)
+	{
+		int square = this.mainWindow.gamePanel().ludoTable().getSquareDimension().width;
+		
+		for (int i = 0; i < bluePins.length; i++)
+		{
+			int originx = bluePins[i].getX()*square;
+			int limitx = bluePins[i].getX()*square + square;
+			
+			int originy = bluePins[i].getY()*square;
+			int limity = bluePins[i].getY()*square + square;
+			
+			if( (posx > originx && posx < limitx) && (posy > originy && posy < limity))
+			{
+				return bluePins[i];
+			}
+		}
+		
+		for (int i = 0; i < redPins.length; i++)
+		{
+			int originx = redPins[i].getX()*square;
+			int limitx = redPins[i].getX()*square + square;
+			
+			int originy = redPins[i].getY()*square;
+			int limity = redPins[i].getY()*square + square;
+			
+			if( (posx > originx && posx < limitx) && (posy > originy && posy < limity))
+			{
+				return redPins[i];
+			}
+		}
+		
+		for (int i = 0; i < greenPins.length; i++)
+		{
+			int originx = greenPins[i].getX()*square;
+			int limitx = greenPins[i].getX()*square + square;
+			
+			int originy = greenPins[i].getY()*square;
+			int limity = greenPins[i].getY()*square + square;
+			
+			if( (posx > originx && posx < limitx) && (posy > originy && posy < limity))
+			{
+				return greenPins[i];
+			}
+		}
+		
+		for (int i = 0; i < yellowPins.length; i++)
+		{
+			int originx = yellowPins[i].getX()*square;
+			int limitx = yellowPins[i].getX()*square + square;
+			
+			int originy = yellowPins[i].getY()*square;
+			int limity = yellowPins[i].getY()*square + square;
+			
+			if( (posx > originx && posx < limitx) && (posy > originy && posy < limity))
+			{
+				return yellowPins[i];
+			}
+		}
+		
+		return null;
+		
+	}
+	
+	public Team getCurrentTeam()
+	{
+		return this.currentTurn;
+	}
+	
+	public void movePinToSquare(PinModel p)
+	{
+		Square destin = this.model.getNextSquareWithSteps(p.getX(), p.getY(), p.getTeam(), this.diceValue);
+		
+		if(destin != null)
+		{
+			p.setX(destin.xPosition());
+			p.setY(destin.yPosition());
+			
+			System.out.println("Redesenhando..");
+			this.mainWindow.gamePanel().ludoTable().rePaint();
+		}
+	}
 }

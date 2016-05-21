@@ -140,33 +140,41 @@ public class LudoTableModel
 				sq72,sq71,sq70,sq82};
 		
 		
-		PinModel rp1 = new PinModel(-1,-1,Team.Red);
-		PinModel rp2 = new PinModel(-1,-1,Team.Red);
-		PinModel rp3 = new PinModel(-1,-1,Team.Red);
-		PinModel rp4 = new PinModel(-1,-1,Team.Red);
+		//Red pins
+		
+		PinModel rp1 = new PinModel(2,2,Team.Red);
+		PinModel rp2 = new PinModel(2,3,Team.Red);
+		PinModel rp3 = new PinModel(3,2,Team.Red);
+		PinModel rp4 = new PinModel(3,3,Team.Red);
 		
 		this.redPins = new PinModel[]{rp1,rp2,rp3,rp4};
 		
-		PinModel gp1 = new PinModel(-1,-1,Team.Green);
-		PinModel gp2 = new PinModel(-1,-1,Team.Green);
-		PinModel gp3 = new PinModel(-1,-1,Team.Green);
-		PinModel gp4 = new PinModel(-1,-1,Team.Green);
+		// GREEN PINS
+		PinModel gp1 = new PinModel(11,2,Team.Green);
+		PinModel gp2 = new PinModel(11,3,Team.Green);
+		PinModel gp3 = new PinModel(12,2,Team.Green);
+		PinModel gp4 = new PinModel(12,3,Team.Green);
 		
+	
 		this.greenPins = new PinModel[]{gp1,gp2,gp3,gp4};
+	
+		//YELLOW PINS
 		
-		PinModel yp1 = new PinModel(-1,-1,Team.Yellow);
-		PinModel yp2 = new PinModel(-1,-1,Team.Yellow);
-		PinModel yp3 = new PinModel(-1,-1,Team.Yellow);
-		PinModel yp4 = new PinModel(-1,-1,Team.Yellow);
+		PinModel yp1 = new PinModel(11,11,Team.Yellow);
+		PinModel yp2 = new PinModel(11,12,Team.Yellow);
+		PinModel yp3 = new PinModel(12,11,Team.Yellow);
+		PinModel yp4 = new PinModel(12,12,Team.Yellow);
 		
 		this.yellowPins = new PinModel[]{yp1,yp2,yp3,yp4};
 		
-		PinModel bp1 = new PinModel(-1,-1,Team.Blue);
-		PinModel bp2 = new PinModel(-1,-1,Team.Blue);
-		PinModel bp3 = new PinModel(-1,-1,Team.Blue);
-		PinModel bp4 = new PinModel(-1,-1,Team.Blue);
+		// BLUE PINS
 		
-		this.yellowPins = new PinModel[]{bp1,bp2,bp3,bp4};
+		PinModel bp1 = new PinModel(2,11,Team.Blue);
+		PinModel bp2 = new PinModel(2,12,Team.Blue);
+		PinModel bp3 = new PinModel(3,11,Team.Blue);
+		PinModel bp4 = new PinModel(3,12,Team.Blue);
+		
+		this.bluePins = new PinModel[]{bp1,bp2,bp3,bp4};
 		
 	}
 	
@@ -214,5 +222,44 @@ public class LudoTableModel
 	public PinModel[] getGreenPins()
 	{
 		return this.greenPins;
+	}
+	
+	public Square getNextSquareWithSteps(int x, int y, Team t, int steps)
+	{
+		if(t == Team.Blue)
+		{
+			for (int i = 0; i < bluePath.length; i++)
+			{
+				if(bluePath[i].xPosition() == x && bluePath[i].yPosition() == y)
+				{
+					if(i+steps >= bluePath.length)
+					{
+						return bluePath[bluePath.length-1];
+					}
+					else
+					{
+						return bluePath[(i+steps)];
+					}
+				}
+				else 
+				{
+					return bluePath[0];
+				}
+			}
+		}
+		else if(t == Team.Red)
+		{
+			
+		}
+		else if(t == Team.Green)
+		{
+			
+		}
+		else if(t == Team.Yellow)
+		{
+			
+		}
+		
+		return null;
 	}
 }

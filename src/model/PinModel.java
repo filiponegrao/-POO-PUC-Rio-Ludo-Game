@@ -35,6 +35,11 @@ public class PinModel {
 		return this.y;
 	}
 	
+	public Team getTeam()
+	{
+		return this.team;
+	}
+	
 }
 
 

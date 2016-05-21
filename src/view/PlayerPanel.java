@@ -55,6 +55,8 @@ public class PlayerPanel extends JPanel implements ActionListener
 
 	public void paintComponent(Graphics g)
 	{
+		System.out.println("Pintando o painel do player...");
+		
 		super.paintComponent(g);
 		this.g2d = (Graphics2D) g;
 		this.diceValue = LudoController.sharedInstance.getDiceValue();
@@ -76,7 +78,7 @@ public class PlayerPanel extends JPanel implements ActionListener
 		catch(IOException e)
 		{
 			System.out.println(e.getMessage());
-			System.exit(1);
+//			System.exit(1);
 		}
 	}
 

@@ -1,35 +1,45 @@
 package view;
 
+import java.awt.BasicStroke;
+import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics2D;
-import java.awt.Rectangle;
-import java.awt.TexturePaint;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
+import java.awt.geom.Ellipse2D;
 
-import javax.imageio.ImageIO;
+import model.PinModel;
+import model.Team;
 
 
-public class PinView {
-	
-	public static void printPin(Graphics2D g, int posx, int posy, int width, int height)
+public class PinView
+{
+	public static void drawPins(PinModel[] p, Graphics2D g, Dimension pinDimension)
 	{
-		try
+		for (int i = 0; i < p.length; i++)
 		{
-			BufferedImage image = ImageIO.read(new File("pin.png"));
+			int posx = 0;
+			int posy = 0;
+			
+			int diam = pinDimension.width - 10;
 
-			TexturePaint pin = new TexturePaint(image, new Rectangle(posx, posy, width, height));
+			posx = pinDimension.width * p[i].getX() + 5;
+			posy = pinDimension.height * p[i].getY() + 5;				
 			
-			g.setPaint(pin);
-			g.fillRect(posx, posy, width, height);
-			
+			drawPin(g,posx,posy,diam,diam, p[i].getTeam());
+
 		}
-		catch (IOException ex)
-		{
-			System.out.println("ta dando merda");
-			System.out.println(ex);
-		}
+	}
+	
+	public static void drawPin(Graphics2D g, int posx, int posy, int width, int height, Team t)
+	{
+		Ellipse2D e = new Ellipse2D.Double(posx, posy, width, width);
 		
+		g.setPaint(t.getColor());
+		
+		g.fill(e);
+		
+		g.setStroke(new BasicStroke(1.0f));
+		g.setPaint(Color.white);
+		g.draw(e);
 		
 	}
 

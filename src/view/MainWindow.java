@@ -33,6 +33,21 @@ public class MainWindow extends JFrame
 		return this.gamePanel;
 	}
 	
+	public Dimension getTableDimension()
+	{
+		return this.tableDimension;
+	}
+	
+	public Dimension getMenuDimension()
+	{
+		return this.menuDimension;
+	}
+	
+	public Dimension getPlayerPanelDimension()
+	{
+		return this.playerPanelDimension;
+	}
+	
 	public MainWindow(String title, Square[] squares) 
 	{
 		/******************************************/
@@ -86,7 +101,7 @@ public class MainWindow extends JFrame
 		/******************************************/
 		
 		int xpos = screenWidth/2 - mainDimension.width/2;
-		int ypos = screenHeight/2 - mainDimension.height/2;
+		int ypos = screenHeight/2 - mainDimension.height/2 - 30;
 		
 		this.setLocation(xpos, ypos);		
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
