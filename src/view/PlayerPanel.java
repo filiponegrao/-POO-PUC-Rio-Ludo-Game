@@ -28,7 +28,6 @@ import java.util.Random;
 public class PlayerPanel extends JPanel implements ActionListener
 {
 	private JButton playButton;
-	final BasicStroke stroke = new BasicStroke(3.0f);
 	private Graphics2D g2d;
 	private BufferedImage diceImage;
 	private TexturePaint diceTexture;
@@ -44,7 +43,6 @@ public class PlayerPanel extends JPanel implements ActionListener
 		this.setLayout(null);
 
 		this.playButton = new JButton("Jogar Dado");
-		//		this.playButton.setBackground(Color.white);
 		this.playButton.setContentAreaFilled(true);
 		this.playButton.setOpaque(false);
 		this.playButton.setForeground(MyColors.myDarkGray);
@@ -87,7 +85,6 @@ public class PlayerPanel extends JPanel implements ActionListener
 	{		
 		this.dice.playDice();
 		this.diceValue = LudoController.sharedInstance.getDiceValue();
-//		System.out.println(this.diceValue);
 		this.repaint();
 	}	
 }

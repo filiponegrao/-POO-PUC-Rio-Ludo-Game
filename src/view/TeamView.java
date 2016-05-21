@@ -10,12 +10,6 @@ import java.awt.geom.Rectangle2D;
 
 import javax.swing.*;
 
-/*Classe que deve desenhar os times (suas peças)
- >obter caminhos a serem percorridos por cada time
- >desenhar peças e as movimentar no tabuleiro
- >atualizar informações no modelo sobre status dos times (Classe TeamModel)
- >Sei lá :)
- */
 public class TeamView 
 {
 	private TeamModel redTeam;
@@ -56,7 +50,7 @@ public class TeamView
 		this.blueRoute = this.superLudo.getBluePath();
 	}
 
-	public void createPieces(Team team, int amount, Graphics2D g)
+	public void createPieces(Team team, Graphics2D g)
 	{
 		this.g2d = g;
 
@@ -65,7 +59,7 @@ public class TeamView
 			int x = this.houseDimension.width/3;
 			int y = this.houseDimension.height/3;
 			
-			for (int i = 0; i < amount/2; i++)
+			for (int i = 0; i < 2; i++)
 			{
 				Ellipse2D leftPiece = new Ellipse2D.Double(x, y, squareDimension.width/2, squareDimension.height/2);
 				this.g2d.setPaint(MyColors.myDarkRed);
@@ -82,7 +76,7 @@ public class TeamView
 			int x = this.mainDimension.width - this.houseDimension.width/3 * 2;
 			int y = this.houseDimension.height/3;
 			
-			for (int i = 0; i < amount/2; i++)
+			for (int i = 0; i < 2; i++)
 			{
 				Ellipse2D leftPiece = new Ellipse2D.Double(x, y, squareDimension.width/2, squareDimension.height/2);
 				this.g2d.setPaint(MyColors.myDarkGreen);
@@ -99,7 +93,7 @@ public class TeamView
 			int x = this.houseDimension.width/3;
 			int y = this.mainDimension.height - this.houseDimension.height/3 * 2;
 			
-			for (int i = 0; i < amount/2; i++)
+			for (int i = 0; i < 2; i++)
 			{
 				Ellipse2D leftPiece = new Ellipse2D.Double(x, y, squareDimension.width/2, squareDimension.height/2);
 				this.g2d.setPaint(MyColors.myDarkBlue);
@@ -116,7 +110,7 @@ public class TeamView
 			int x = this.mainDimension.width - this.houseDimension.width/3 * 2;
 			int y = this.mainDimension.height - this.houseDimension.height/3 * 2;
 			
-			for (int i = 0; i < amount/2; i++)
+			for (int i = 0; i < 2; i++)
 			{
 				Ellipse2D leftPiece = new Ellipse2D.Double(x, y, squareDimension.width/2, squareDimension.height/2);
 				this.g2d.setPaint(MyColors.myDarkYellow);
@@ -127,8 +121,7 @@ public class TeamView
 				
 				y += squareDimension.height * 1.5;
 			}
-		}
-		
+		}	
 	}
 
 	public void updatePieces()
@@ -139,18 +132,5 @@ public class TeamView
 	public void moveTo()
 	{
 
-	}
-	public void paintPath()
-	{
-		//metodo provisorio pra testar se paths estao corretos
-		Square[] path = this.blueRoute;
-		for(int i=0;i<path.length;i++)
-		{
-			Double x =  (double) (((double)path[i].xPosition() * (double)squareDimension.width));
-			Double y =  (double) (((double)path[i].yPosition() * (double)squareDimension.height));
-			Rectangle2D square = new Rectangle2D.Double(x,y,(double)squareDimension.width, (double)squareDimension.height);
-			this.g2d.setPaint(Color.CYAN);
-			this.g2d.fill(square);
-		}
 	}
 }

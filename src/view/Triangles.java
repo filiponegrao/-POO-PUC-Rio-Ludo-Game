@@ -8,15 +8,11 @@ public class Triangles
 {
 	private Graphics2D g2d;
 	private Dimension mainDimension;	
-	private Dimension houseDimension;
 	private Dimension squareDimension;
 
 	public Triangles(Dimension d)
 	{
 		this.mainDimension = new Dimension(d.width, d.height);	
-
-		//Propriedades do itens visuais		
-		this.houseDimension = new Dimension((mainDimension.width/15 * 6), (mainDimension.width/15 * 6));
 		this.squareDimension = new Dimension(mainDimension.width/15, mainDimension.height/15);		
 	}
 
@@ -24,6 +20,7 @@ public class Triangles
 	{
 		this.g2d = g;
 
+		//coordenadas x e y necessárias para renderizar triangulos
 		int x1, x2, x3, y1, y2, y3;
 		x1 = (int) (this.mainDimension.width - this.mainDimension.width/2.0); 
 		x2 = (int) ((this.mainDimension.width/2) + (this.squareDimension.width * 1.5)); 
