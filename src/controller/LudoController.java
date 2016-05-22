@@ -168,10 +168,7 @@ public class LudoController {
 			
 			if(destin != null)
 			{
-				p.setX(destin.xPosition());
-				p.setY(destin.yPosition());
-				
-				this.mainWindow.gamePanel().ludoTable().rePaint();
+				animatingMove(p,destin.xPosition(), destin.yPosition());
 				
 				if(this.currentTurn == Team.Blue)
 				{
@@ -192,6 +189,32 @@ public class LudoController {
 				
 				this.diceValue = 0;
 			}
+		}
+	}
+	
+	public void animatingMove(PinModel p, int posx, int posy)
+	{
+		while(p.getX() != posx || p.getY() != posy)
+		{
+			if(posx > p.getX())
+			{
+				p.setX(p.getX()+1);
+			}
+			else if(posx < p.getX())
+			{
+				p.setX(p.getX()-1);
+			}
+			
+			if(posy > p.getY())
+			{
+				p.setY(p.getY()+1);
+			}
+			else if(posy < p.getY())
+			{
+				p.setY(p.getY()-1);
+			}
+			
+			this.mainWindow.gamePanel().ludoTable().rePaint();
 		}
 	}
 }
