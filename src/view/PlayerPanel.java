@@ -31,7 +31,7 @@ public class PlayerPanel extends JPanel implements ActionListener
 	private Graphics2D g2d;
 	private BufferedImage diceImage;
 	private TexturePaint diceTexture;
-	private DiceModel dice= new DiceModel();
+	private DiceModel dice = new DiceModel();
 	private int diceValue;
 
 	public PlayerPanel(Dimension dimension)

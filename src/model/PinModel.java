@@ -1,7 +1,7 @@
 package model;
 
-public class PinModel {
-	
+public class PinModel 
+{	
 	private Team team;
 	
 	private int x;

@@ -203,7 +203,6 @@ public class LudoTableModel
 		return this.bluePath;
 	}
 	
-	
 	public PinModel[] getRedPins()
 	{
 		return this.redPins;

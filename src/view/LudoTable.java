@@ -31,8 +31,8 @@ public class LudoTable extends JPanel
 	private LudoTableModel ludoTable = new LudoTableModel();
 	
 	//VISUAL ELEMENTS
-	private TeamView teams;
 	private HouseView houses;
+	
 	private Triangles triangles;
 
 	private Boolean repainting = true;
@@ -181,9 +181,7 @@ public class LudoTable extends JPanel
 		}
 		
 		this.drawTriangles();
-		this.drawHouses();
-		this.drawTeams();
-		
+		this.drawHouses();		
 		
 		//DESENHA AS PEÇAS
 		
@@ -211,15 +209,6 @@ public class LudoTable extends JPanel
 	{
 		this.triangles = new Triangles(this.mainDimension);
 		this.triangles.drawTriangles(this.g2d);
-	}
-
-	public void drawTeams()
-	{
-		this.teams = new TeamView(this.mainDimension);
-//		this.teams.createPieces(Team.Red, this.g2d);
-//		this.teams.createPieces(Team.Green, this.g2d);
-//		this.teams.createPieces(Team.Yellow, this.g2d);
-//		this.teams.createPieces(Team.Blue, this.g2d);
 	}
 	
 	//Testing

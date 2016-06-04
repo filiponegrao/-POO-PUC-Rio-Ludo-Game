@@ -4,8 +4,8 @@ package controller;
 import model.*;
 import view.*;
 
-public class LudoController {
-
+public class LudoController 
+{
 	public static LudoController sharedInstance = new LudoController();
 	
 	/*******************************/
