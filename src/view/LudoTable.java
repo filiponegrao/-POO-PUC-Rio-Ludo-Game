@@ -89,6 +89,7 @@ public class LudoTable extends JPanel
 			if(squares[i].type() == SquareType.RedRoad)
 			{
 				this.g2d.setPaint(MyColors.myRed);
+
 			}
 			else if(squares[i].type() == SquareType.RedStart)
 			{

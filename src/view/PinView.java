@@ -4,7 +4,11 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.geom.Ellipse2D;
+import java.io.File;
+
+import javax.imageio.ImageIO;
 
 import model.PinModel;
 import model.Team;
@@ -38,8 +42,17 @@ public class PinView
 		g.fill(e);
 		
 		g.setStroke(new BasicStroke(1.0f));
-//		g.setPaint(Color.white);
-//		g.draw(e);
+
+		try 
+		{
+			Image shadow = ImageIO.read(new File("pinSombra.png"));
+			
+			g.drawImage(shadow,posx,posy,width,height, null);
+		}
+		catch(Exception exc)
+		{
+			System.out.print(exc.getMessage());
+		}
 		
 	}
 

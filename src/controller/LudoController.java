@@ -26,7 +26,6 @@ public class LudoController {
 	
 	private DiceModel dice;
 	
-	
 	/*******************************/
 	/****** VISUAL COMPONENTS*******/
 	/*******************************/
@@ -152,7 +151,6 @@ public class LudoController {
 		}
 		
 		return null;
-		
 	}
 	
 	public Team getCurrentTeam()
@@ -217,4 +215,8 @@ public class LudoController {
 			this.mainWindow.gamePanel().ludoTable().rePaint();
 		}
 	}
+	
+	
+	
+	
 }
