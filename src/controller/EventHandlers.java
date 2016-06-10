@@ -20,11 +20,7 @@ public class EventHandlers {
 				
 				if(p != null)
 				{
-					if(p.getTeam() == LudoController.sharedInstance.getCurrentTeam())
-					{
-						System.out.println("Movendo...");
-						LudoController.sharedInstance.movePinToSquare(p);
-					}
+					LudoController.sharedInstance.movePinToSquare(p);
 				}
 			}
 

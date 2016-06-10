@@ -160,33 +160,71 @@ public class LudoController
 	
 	public void movePinToSquare(PinModel p)
 	{
-		if(this.diceValue > 0)
+		Boolean isInitial = this.model.isInitialPin(p);
+		
+		if(p.getTeam() != this.currentTurn)
 		{
-			Square destin = this.model.getNextSquareWithSteps(p.getX(), p.getY(), p.getTeam(), this.diceValue);
-			
-			if(destin != null)
-			{
-				animatingMove(p,destin.xPosition(), destin.yPosition());
+			System.out.println("Não é a sua vez de jogar");
+		}
+		else //se é o time da vez
+		{
+			if(this.diceValue > 0)
+			{	
+				Square destin = this.model.getNextSquareWithSteps(p.getX(), p.getY(), p.getTeam(), this.diceValue);
 				
-				if(this.currentTurn == Team.Blue)
+				if(isInitial == true)
 				{
-					this.currentTurn = Team.Red;
+					if(this.diceValue == 5)
+					{
+						//deixa movimentar
+						System.out.println("Movendo...");
+						if(destin != null)
+						{
+							animatingMove(p,destin.xPosition(), destin.yPosition());
+							setCurrentTeam();								
+							this.diceValue = 0;
+						}
+					}
+					else
+					{
+						//não deixa movimentar
+						System.out.println("Você precisa obter valor 5");
+						setCurrentTeam();								
+						this.diceValue = 0;
+					}
 				}
-				else if (this.currentTurn == Team.Red)
+				else
 				{
-					this.currentTurn = Team.Green;
+					//deixa movimentar
+					System.out.println("Movendo...");
+					if(destin != null)
+					{
+						animatingMove(p,destin.xPosition(), destin.yPosition());
+						setCurrentTeam();								
+						this.diceValue = 0;
+					}
 				}
-				else if (this.currentTurn == Team.Green)
-				{
-					this.currentTurn = Team.Yellow;
-				}
-				else if(this.currentTurn == Team.Yellow)
-				{
-					this.currentTurn = Team.Blue;
-				}
-				
-				this.diceValue = 0;
 			}
+		}
+	}
+	
+	public void setCurrentTeam()
+	{
+		if(this.currentTurn == Team.Blue)
+		{
+			this.currentTurn = Team.Red;
+		}
+		else if (this.currentTurn == Team.Red)
+		{
+			this.currentTurn = Team.Green;
+		}
+		else if (this.currentTurn == Team.Green)
+		{
+			this.currentTurn = Team.Yellow;
+		}
+		else if(this.currentTurn == Team.Yellow)
+		{
+			this.currentTurn = Team.Blue;
 		}
 	}
 	
@@ -214,9 +252,5 @@ public class LudoController
 			
 			this.mainWindow.gamePanel().ludoTable().rePaint();
 		}
-	}
-	
-	
-	
-	
+	}	
 }

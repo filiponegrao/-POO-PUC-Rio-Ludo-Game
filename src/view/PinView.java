@@ -51,7 +51,7 @@ public class PinView
 		}
 		catch(Exception exc)
 		{
-			System.out.print(exc.getMessage());
+//			System.out.print(exc.getMessage());
 		}
 		
 	}

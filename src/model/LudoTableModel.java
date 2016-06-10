@@ -304,4 +304,37 @@ public class LudoTableModel
 		
 		return null;
 	}
+	
+	//função que verifica se o pino está na casa inicial checando se ao adicionar 1 passo 
+	//o pino deve mover-se para casa de saída
+	public Boolean isInitialPin (PinModel p)
+	{
+		Square sq = this.getNextSquareWithSteps(p.getX(), p.getY(), p.getTeam(), 1);
+		
+		if(sq != null)
+		{
+			if(p.getTeam() == Team.Blue && sq == bluePath[0])
+			{
+				return true;
+			}
+			else if(p.getTeam() == Team.Red && sq == redPath[0])
+			{
+				return true;
+			}
+			else if(p.getTeam() == Team.Green && sq == greenPath[0])
+			{
+				return true;
+			}
+			else if(p.getTeam() == Team.Yellow && sq == yellowPath[0])
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
+		 
+		return null;
+	}
 }
