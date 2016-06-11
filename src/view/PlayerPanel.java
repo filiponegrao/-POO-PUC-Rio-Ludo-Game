@@ -23,6 +23,7 @@ import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 
 import controller.LudoController;
 
@@ -34,7 +35,7 @@ public class PlayerPanel extends JPanel implements ActionListener
 	
 	private Graphics2D g2d;
 
-	private int diceValue;
+	private Dimension mainDimension;
 
 	private JLabel teamLabel;
 	
@@ -49,6 +50,8 @@ public class PlayerPanel extends JPanel implements ActionListener
 	private Dimension diceDimension;
 	
 	private Point dicePosition;
+	
+	private int diceValue;
 	
 	private DiceModel dice = new DiceModel();
 	
@@ -78,13 +81,16 @@ public class PlayerPanel extends JPanel implements ActionListener
 		this.dicePosition = new Point(x,y);
 		this.diceDimension = new Dimension(w,h);
 		
+		this.mainDimension = new Dimension(dimension);
+				
 		this.teamLabel = new JLabel(this.labelText + "Azul");		
-		this.teamLabel.setOpaque(true);
 		this.teamLabel.setLocation(20, dimension.height - 200);
 		this.teamLabel.setSize(dimension.width - 40, 60);
-		this.teamLabel.setForeground(MyColors.myBlue);
-		this.teamLabel.setBackground(Color.white);
-		this.teamLabel.setFont(new Font("Helvetica", 0, 15));
+		this.teamLabel.setForeground(MyColors.myDarkGray);
+		this.teamLabel.setOpaque(false);
+		this.teamLabel.setFont(new Font("Helvetica", 0, 16));
+		this.teamLabel.setHorizontalAlignment(SwingConstants.CENTER);
+//		this.teamLabel.setBorder(new RoundedBorder(15));
 		this.add(this.teamLabel);
 			
 	}
@@ -98,6 +104,29 @@ public class PlayerPanel extends JPanel implements ActionListener
 	{		
 		super.paintComponent(g);
 		this.g2d = (Graphics2D) g;
+		
+		//background do label
+		this.g2d.setColor(Color.white);
+        this.g2d.fillRoundRect(20, this.mainDimension.height - 200, this.mainDimension.width - 40, 60, 15, 15);
+        
+        //muda textColor de acordo com time
+        Team current = LudoController.sharedInstance.getCurrentTeam();
+        if (current == Team.Blue)
+        {
+    		this.teamLabel.setForeground(MyColors.myDarkBlue);
+        }
+        else if (current == Team.Red)
+        {
+    		this.teamLabel.setForeground(MyColors.myDarkRed);
+        }
+        else if (current == Team.Green)
+        {
+    		this.teamLabel.setForeground(MyColors.myDarkGreen);
+        }
+        else if (current == Team.Yellow)
+        {
+    		this.teamLabel.setForeground(MyColors.myDarkYellow);
+        }
 		
 		this.diceValue = LudoController.sharedInstance.getDiceValue();
 		try
