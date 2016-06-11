@@ -337,4 +337,45 @@ public class LudoTableModel
 		 
 		return null;
 	}
+	
+	public Boolean hasPossibilites(PinModel[] pins)
+	{
+		for (PinModel pin : pins)
+		{
+			Team team = pin.getTeam();
+			
+			Square teste = this.getNextSquareWithSteps(pin.getX(), pin.getY(), team, 1);
+			
+			if(team == Team.Blue)
+			{
+				if(!teste.equals(this.bluePath[0]))
+				{
+					return true;
+				}
+			}
+			else if(team == Team.Red)
+			{
+				if(!teste.equals(this.redPath[0]))
+				{
+					return true;
+				}
+			}
+			else if(team == Team.Green)
+			{
+				if(!teste.equals(this.greenPath[0]))
+				{
+					return true;
+				}
+			}
+			else if(team == Team.Yellow)
+			{
+				if(!teste.equals(this.yellowPath[0]))
+				{
+					return true;
+				}
+			}			
+		}
+		
+		return false;
+	}
 }

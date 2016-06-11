@@ -84,7 +84,7 @@ public class PlayerPanel extends JPanel implements ActionListener
 		this.teamLabel.setSize(dimension.width - 40, 60);
 		this.teamLabel.setForeground(MyColors.myBlue);
 		this.teamLabel.setBackground(Color.white);
-		this.teamLabel.setFont(new Font("Helvetica", 0, 20));
+		this.teamLabel.setFont(new Font("Helvetica", 0, 15));
 		this.add(this.teamLabel);
 			
 	}

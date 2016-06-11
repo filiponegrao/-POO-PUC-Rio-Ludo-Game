@@ -1,6 +1,8 @@
 package controller;
 
 
+import javax.swing.JOptionPane;
+
 import model.*;
 import view.*;
 
@@ -162,48 +164,25 @@ public class LudoController
 	{
 		Boolean isInitial = this.model.isInitialPin(p);
 		
-		if(p.getTeam() != this.currentTurn)
+		Square destin = this.model.getNextSquareWithSteps(p.getX(), p.getY(), p.getTeam(), this.diceValue);
+
+		if(p.getTeam() == this.currentTurn)
 		{
-			System.out.println("Não é a sua vez de jogar");
-		}
-		else //se é o time da vez
-		{
-			if(this.diceValue > 0)
-			{	
-				Square destin = this.model.getNextSquareWithSteps(p.getX(), p.getY(), p.getTeam(), this.diceValue);
+			if(isInitial && this.diceValue == 5)
+			{
+				if(destin != null)
+				{
+					this.animatingMove(p, destin.xPosition(), destin.yPosition());
+					this.setCurrentTeam();
+				}
+			}
+			else if(this.diceValue == 6)
+			{
 				
-				if(isInitial == true)
-				{
-					if(this.diceValue == 5)
-					{
-						//deixa movimentar
-						System.out.println("Movendo...");
-						if(destin != null)
-						{
-							animatingMove(p,destin.xPosition(), destin.yPosition());
-							setCurrentTeam();								
-							this.diceValue = 0;
-						}
-					}
-					else
-					{
-						//não deixa movimentar
-						System.out.println("Você precisa obter valor 5");
-						setCurrentTeam();								
-						this.diceValue = 0;
-					}
-				}
-				else
-				{
-					//deixa movimentar
-					System.out.println("Movendo...");
-					if(destin != null)
-					{
-						animatingMove(p,destin.xPosition(), destin.yPosition());
-						setCurrentTeam();								
-						this.diceValue = 0;
-					}
-				}
+			}
+			else if(this.diceValue != 5 && !this.model.hasPossibilites(this.getCurrentPlayerPins()))
+			{
+				this.skipPlayer();
 			}
 		}
 	}
@@ -229,7 +208,6 @@ public class LudoController
 		{
 			this.currentTurn = Team.Blue;
 			this.mainWindow.gamePanel().playerPanel().setLabelTeam(Team.Blue);
-
 		}
 	}
 	
@@ -258,4 +236,33 @@ public class LudoController
 			this.mainWindow.gamePanel().ludoTable().rePaint();
 		}
 	}	
+	
+	public void skipPlayer()
+	{
+		JOptionPane.showMessageDialog(null, "Voce precisa tirar o valor 5 no dado para começar!");
+
+		this.setCurrentTeam();
+	}
+	
+	public PinModel[] getCurrentPlayerPins()
+	{
+		if(this.currentTurn == Team.Red)
+		{
+			return this.redPins;
+		}
+		else if(this.currentTurn == Team.Blue)
+		{
+			return this.bluePins;
+		}
+		else if(this.currentTurn == Team.Green)
+		{
+			return this.greenPins;
+		}
+		else if(this.currentTurn == Team.Yellow)
+		{
+			return this.yellowPins;
+		}
+		
+		return null;
+	}
 }

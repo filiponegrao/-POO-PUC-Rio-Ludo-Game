@@ -19,6 +19,7 @@ public enum Team
 	Team(Color c, String name)
 	{
 		this.color = c;
+		this.name = name;
 	}
 	
 	public Color getColor()
