@@ -280,4 +280,15 @@ public class LudoController
 		
 		return null;
 	}
+	
+	public Team getBarrierOn(int x, int y)
+	{
+		
+	}
+	
+	public void checkEndMovement()
+	{
+		
+	}
+	
 }
