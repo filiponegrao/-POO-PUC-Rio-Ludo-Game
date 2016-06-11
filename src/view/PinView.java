@@ -10,6 +10,7 @@ import java.io.File;
 
 import javax.imageio.ImageIO;
 
+import controller.LudoController;
 import model.PinModel;
 import model.Team;
 
@@ -24,12 +25,23 @@ public class PinView
 			int posy = 0;
 			
 			int diam = pinDimension.width - 10;
-
-			posx = pinDimension.width * p[i].getX() + 5;
-			posy = pinDimension.height * p[i].getY() + 5;				
 			
-			drawPin(g,posx,posy,diam,diam, p[i].getTeam());
-
+			Team barrier = LudoController.sharedInstance.getBarrierOn(p[i].getX(), p[i].getY());
+			
+			if(barrier != null)
+			{
+				posx = pinDimension.width * p[i].getX() + 5;
+				posy = pinDimension.height * p[i].getY() + 5;
+				
+				drawBarrier(g,posx,posy,diam,diam, p[i].getTeam());
+			}
+			else
+			{
+				posx = pinDimension.width * p[i].getX() + 5;
+				posy = pinDimension.height * p[i].getY() + 5;				
+				
+				drawPin(g,posx,posy,diam,diam, p[i].getTeam());
+			}
 		}
 	}
 	
@@ -37,23 +49,38 @@ public class PinView
 	{
 		Ellipse2D e = new Ellipse2D.Double(posx, posy, width, width);
 		
+		g.setStroke(new BasicStroke(1.0f));
+
 		g.setPaint(t.getColor());
 		
 		g.fill(e);
 		
+		g.setPaint(Color.black);
+		g.draw(e);
+		
+	}
+
+	public static void drawBarrier(Graphics2D g, int posx, int posy, int width, int height, Team t)
+	{
+		Ellipse2D e1 = new Ellipse2D.Double(posx - width/3, posy - width/3, width, width);
+		Ellipse2D e2 = new Ellipse2D.Double(posx + width/3, posy + width/3, width, width);
+
 		g.setStroke(new BasicStroke(1.0f));
 
-		try 
-		{
-			Image shadow = ImageIO.read(new File("pinSombra.png"));
-			
-			g.drawImage(shadow,posx,posy,width,height, null);
-		}
-		catch(Exception exc)
-		{
-//			System.out.print(exc.getMessage());
-		}
+		g.setPaint(t.getColor());
+		g.fill(e1);
 		
+		g.setPaint(Color.black);
+		g.draw(e1);
+
+		g.setPaint(t.getColor());
+		g.fill(e2);
+		
+		g.setPaint(Color.black);
+		g.draw(e2);
+		
+
+
 	}
 
 }

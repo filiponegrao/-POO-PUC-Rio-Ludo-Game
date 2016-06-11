@@ -169,8 +169,8 @@ public class LudoTableModel
 		
 		// BLUE PINS
 		
-		PinModel bp1 = new PinModel(2,11,Team.Blue);
-		PinModel bp2 = new PinModel(2,12,Team.Blue);
+		PinModel bp1 = new PinModel(6,13,Team.Blue);
+		PinModel bp2 = new PinModel(6,13,Team.Blue);
 		PinModel bp3 = new PinModel(3,11,Team.Blue);
 		PinModel bp4 = new PinModel(3,12,Team.Blue);
 		
@@ -388,57 +388,67 @@ public class LudoTableModel
 		
 		if(team == Team.Red)
 		{
-			squares.add(new Coord(2,2));
-			squares.add(new Coord(2,3));
-			squares.add(new Coord(3,2));
-			squares.add(new Coord(3,3));
+			Coord c1 = new Coord(2,2);
+			Coord c2 = new Coord(2,3);
+			Coord c3 = new Coord(3,2);
+			Coord c4 = new Coord(3,3);
+
+			squares.add(c1);
+			squares.add(c2);
+			squares.add(c3);
+			squares.add(c4);
 			
 			for (PinModel pin : pins)
 			{				
-				if(pin.getX() == squares.get(0).x)
+				if(pin.getX() == c1.x && pin.getY() == c1.y)
 				{
-					squares.remove(0);
+					squares.remove(c1);
 				}
-				else if(pin.getX() == squares.get(1).x)
+				else if(pin.getX() == c2.x && pin.getY() == c2.y)
 				{
-					squares.remove(1);
+					squares.remove(c2);
 				}
-				else if(pin.getX() == squares.get(2).x)
+				else if(pin.getX() == c3.x && pin.getY() == c3.y)
 				{
-					squares.remove(2);
+					squares.remove(c3);
 				}
-				else if(pin.getX() == squares.get(3).x)	
+				else if(pin.getX() == c4.x && pin.getY() == c4.y)
 				{
-					squares.remove(3);
+					squares.remove(c4);
 				}
 			}
 			
 			return squares.get(0);
 		}
 		else if(team == Team.Blue)
-		{	
-			squares.add(new Coord(2,11));
-			squares.add(new Coord(2,12));
-			squares.add(new Coord(3,11));
-			squares.add(new Coord(3,12));
+		{			
+			Coord c1 = new Coord(2,11);
+			Coord c2 = new Coord(2,12);
+			Coord c3 = new Coord(3,11);
+			Coord c4 = new Coord(3,12);
+
+			squares.add(c1);
+			squares.add(c2);
+			squares.add(c3);
+			squares.add(c4);
 			
 			for (PinModel pin : pins)
 			{				
-				if(pin.getX() == squares.get(0).x)
+				if(pin.getX() == c1.x && pin.getY() == c1.y)
 				{
-					squares.remove(0);
+					squares.remove(c1);
 				}
-				else if(pin.getX() == squares.get(1).x)
+				else if(pin.getX() == c2.x && pin.getY() == c2.y)
 				{
-					squares.remove(1);
+					squares.remove(c2);
 				}
-				else if(pin.getX() == squares.get(2).x)
+				else if(pin.getX() == c3.x && pin.getY() == c3.y)
 				{
-					squares.remove(2);
+					squares.remove(c3);
 				}
-				else if(pin.getX() == squares.get(3).x)	
+				else if(pin.getX() == c4.x && pin.getY() == c4.y)
 				{
-					squares.remove(3);
+					squares.remove(c4);
 				}
 			}
 			
@@ -446,28 +456,33 @@ public class LudoTableModel
 		}
 		else if(team == Team.Green)
 		{
-			squares.add(new Coord(11,2));
-			squares.add(new Coord(11,3));
-			squares.add(new Coord(12,2));
-			squares.add(new Coord(12,3));
+			Coord c1 = new Coord(11,2);
+			Coord c2 = new Coord(11,3);
+			Coord c3 = new Coord(12,2);
+			Coord c4 = new Coord(12,3);
+
+			squares.add(c1);
+			squares.add(c2);
+			squares.add(c3);
+			squares.add(c4);
 			
 			for (PinModel pin : pins)
 			{				
-				if(pin.getX() == squares.get(0).x)
+				if(pin.getX() == c1.x && pin.getY() == c1.y)
 				{
-					squares.remove(0);
+					squares.remove(c1);
 				}
-				else if(pin.getX() == squares.get(1).x)
+				else if(pin.getX() == c2.x && pin.getY() == c2.y)
 				{
-					squares.remove(1);
+					squares.remove(c2);
 				}
-				else if(pin.getX() == squares.get(2).x)
+				else if(pin.getX() == c3.x && pin.getY() == c3.y)
 				{
-					squares.remove(2);
+					squares.remove(c3);
 				}
-				else if(pin.getX() == squares.get(3).x)	
+				else if(pin.getX() == c4.x && pin.getY() == c4.y)
 				{
-					squares.remove(3);
+					squares.remove(c4);
 				}
 			}
 			
@@ -475,28 +490,33 @@ public class LudoTableModel
 		}
 		else if(team == Team.Yellow)
 		{
-			squares.add(new Coord(11,11));
-			squares.add(new Coord(11,12));
-			squares.add(new Coord(12,11));
-			squares.add(new Coord(12,12));
+			Coord c1 = new Coord(11,11);
+			Coord c2 = new Coord(11,12);
+			Coord c3 = new Coord(12,11);
+			Coord c4 = new Coord(12,12);
+
+			squares.add(c1);
+			squares.add(c2);
+			squares.add(c3);
+			squares.add(c4);
 			
 			for (PinModel pin : pins)
 			{				
-				if(pin.getX() == squares.get(0).x)
+				if(pin.getX() == c1.x && pin.getY() == c1.y)
 				{
-					squares.remove(0);
+					squares.remove(c1);
 				}
-				else if(pin.getX() == squares.get(1).x)
+				else if(pin.getX() == c2.x && pin.getY() == c2.y)
 				{
-					squares.remove(1);
+					squares.remove(c2);
 				}
-				else if(pin.getX() == squares.get(2).x)
+				else if(pin.getX() == c3.x && pin.getY() == c3.y)
 				{
-					squares.remove(2);
+					squares.remove(c3);
 				}
-				else if(pin.getX() == squares.get(3).x)	
+				else if(pin.getX() == c4.x && pin.getY() == c4.y)
 				{
-					squares.remove(3);
+					squares.remove(c4);
 				}
 			}
 			
@@ -504,5 +524,17 @@ public class LudoTableModel
 		}
 		
 		return null;
+	}
+	
+	public List<Square> getPathForSteps(PinModel pin, int steps)
+	{
+		List<Square> squares = new ArrayList<Square>();
+		
+		for(int i = 1; i <= steps; i++)
+		{
+			squares.add(this.getNextSquareWithSteps(pin.getX(), pin.getY(), pin.getTeam(), i));
+		}
+		
+		return squares;
 	}
 }
