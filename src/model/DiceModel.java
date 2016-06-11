@@ -25,9 +25,13 @@ public class DiceModel
 				randomNum = rand.nextInt(7);
 			}
 		}
-		
 		this.value = randomNum;
 		this.setValue();
+		
+		if(this.value != 5)
+		{
+			LudoController.sharedInstance.skipPlayer();
+		}
 	}
 	
 	public void setValue()

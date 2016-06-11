@@ -65,6 +65,7 @@ public class LudoController
 	public void setDiceValue(int value)
 	{
 		this.diceValue = value;
+		this.mainWindow.gamePanel().playerPanel().repaint();
 	}
 	
 	public int getDiceValue()
@@ -180,9 +181,14 @@ public class LudoController
 			{
 				
 			}
-			else if(this.diceValue != 5 && !this.model.hasPossibilites(this.getCurrentPlayerPins()))
+			else if(this.diceValue != 5 && this.diceValue != 0 && !this.model.hasPossibilites(this.getCurrentPlayerPins()))
 			{
 				this.skipPlayer();
+			}
+			else
+			{
+				this.animatingMove(p, destin.xPosition(), destin.yPosition());
+				this.setCurrentTeam();
 			}
 		}
 	}
@@ -209,6 +215,9 @@ public class LudoController
 			this.currentTurn = Team.Blue;
 			this.mainWindow.gamePanel().playerPanel().setLabelTeam(Team.Blue);
 		}
+		
+		this.setDiceValue(0);
+		
 	}
 	
 	public void animatingMove(PinModel p, int posx, int posy)
@@ -239,9 +248,15 @@ public class LudoController
 	
 	public void skipPlayer()
 	{
-		JOptionPane.showMessageDialog(null, "Voce precisa tirar o valor 5 no dado para começar!");
-
-		this.setCurrentTeam();
+		if(this.diceValue != 5 && !this.model.hasPossibilites(this.getCurrentPlayerPins()))
+		{
+			
+			JOptionPane.showMessageDialog(null,
+						"Ops! Voce precisa tirar 5 para sair com uma peça!",
+						"Não foi dessa vez!", JOptionPane.INFORMATION_MESSAGE);
+			
+			this.setCurrentTeam();
+		}
 	}
 	
 	public PinModel[] getCurrentPlayerPins()
