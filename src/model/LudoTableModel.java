@@ -1,8 +1,7 @@
 package model;
 
-import java.awt.List;
+import java.util.List;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class LudoTableModel 
 {
@@ -381,32 +380,129 @@ public class LudoTableModel
 	}
 	
 	
-	public (int x, int y) getHouseSquareAvaliable(PinModel[] pins)
+	public Coord getHouseSquareAvaliable(PinModel[] pins)
 	{
-		ArrayList squares = new ArrayList<Square>();
+		List<Coord> squares = new ArrayList<Coord>();
 		
 		Team team = pins[0].getTeam();
 		
 		if(team == Team.Red)
 		{
-			squares.add(e)
+			squares.add(new Coord(2,2));
+			squares.add(new Coord(2,3));
+			squares.add(new Coord(3,2));
+			squares.add(new Coord(3,3));
 			
 			for (PinModel pin : pins)
-			{
-				
+			{				
+				if(pin.getX() == squares.get(0).x)
+				{
+					squares.remove(0);
+				}
+				else if(pin.getX() == squares.get(1).x)
+				{
+					squares.remove(1);
+				}
+				else if(pin.getX() == squares.get(2).x)
+				{
+					squares.remove(2);
+				}
+				else if(pin.getX() == squares.get(3).x)	
+				{
+					squares.remove(3);
+				}
 			}
+			
+			return squares.get(0);
 		}
 		else if(team == Team.Blue)
-		{
+		{	
+			squares.add(new Coord(2,11));
+			squares.add(new Coord(2,12));
+			squares.add(new Coord(3,11));
+			squares.add(new Coord(3,12));
 			
+			for (PinModel pin : pins)
+			{				
+				if(pin.getX() == squares.get(0).x)
+				{
+					squares.remove(0);
+				}
+				else if(pin.getX() == squares.get(1).x)
+				{
+					squares.remove(1);
+				}
+				else if(pin.getX() == squares.get(2).x)
+				{
+					squares.remove(2);
+				}
+				else if(pin.getX() == squares.get(3).x)	
+				{
+					squares.remove(3);
+				}
+			}
+			
+			return squares.get(0);
 		}
 		else if(team == Team.Green)
 		{
+			squares.add(new Coord(11,2));
+			squares.add(new Coord(11,3));
+			squares.add(new Coord(12,2));
+			squares.add(new Coord(12,3));
 			
+			for (PinModel pin : pins)
+			{				
+				if(pin.getX() == squares.get(0).x)
+				{
+					squares.remove(0);
+				}
+				else if(pin.getX() == squares.get(1).x)
+				{
+					squares.remove(1);
+				}
+				else if(pin.getX() == squares.get(2).x)
+				{
+					squares.remove(2);
+				}
+				else if(pin.getX() == squares.get(3).x)	
+				{
+					squares.remove(3);
+				}
+			}
+			
+			return squares.get(0);
 		}
 		else if(team == Team.Yellow)
 		{
+			squares.add(new Coord(11,11));
+			squares.add(new Coord(11,12));
+			squares.add(new Coord(12,11));
+			squares.add(new Coord(12,12));
 			
+			for (PinModel pin : pins)
+			{				
+				if(pin.getX() == squares.get(0).x)
+				{
+					squares.remove(0);
+				}
+				else if(pin.getX() == squares.get(1).x)
+				{
+					squares.remove(1);
+				}
+				else if(pin.getX() == squares.get(2).x)
+				{
+					squares.remove(2);
+				}
+				else if(pin.getX() == squares.get(3).x)	
+				{
+					squares.remove(3);
+				}
+			}
+			
+			return squares.get(0);
 		}
+		
+		return null;
 	}
 }

@@ -1,6 +1,9 @@
 package controller;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.swing.JOptionPane;
 
 import model.*;
@@ -26,6 +29,8 @@ public class LudoController
 	
 	private PinModel[] yellowPins;
 	
+	private List<PinModel> allPins = new ArrayList<PinModel>();
+	
 	private DiceModel dice;
 	
 	/*******************************/
@@ -38,17 +43,44 @@ public class LudoController
 	/*** CONTROLLERS COMPONENTS*****/
 	/*******************************/
 	
-	private Team currentTurn = Team.Blue;
+	private Team currentTeam = Team.Blue;
+	
+	private Team lastTeam = Team.None;
 	
 	private int diceValue = 0;
+	
+	private int lastDiceValue = 0;
+	
+	private PinModel lastPinPlayed;
 	
 	private LudoController()
 	{
 		this.squares = this.model.getModel();
+		
 		this.redPins = this.model.getRedPins();
 		this.bluePins = this.model.getBluePins();
 		this.greenPins = this.model.getGreenPins();
 		this.yellowPins = this.model.getYellowPins();
+		
+		for(PinModel pin : this.redPins)
+		{
+			this.allPins.add(pin);
+		}
+		
+		for(PinModel pin : this.bluePins)
+		{
+			this.allPins.add(pin);
+		}
+		
+		for(PinModel pin : this.greenPins)
+		{
+			this.allPins.add(pin);
+		}
+		
+		for(PinModel pin : this.yellowPins)
+		{
+			this.allPins.add(pin);
+		}
 		
 		this.dice = new DiceModel();
 	}
@@ -158,7 +190,7 @@ public class LudoController
 	
 	public Team getCurrentTeam()
 	{
-		return this.currentTurn;
+		return this.currentTeam;
 	}
 	
 	public void movePinToSquare(PinModel p)
@@ -168,13 +200,14 @@ public class LudoController
 		
 		Square destin = this.model.getNextSquareWithSteps(p.getX(), p.getY(), p.getTeam(), this.diceValue);
 
-		if(p.getTeam() == this.currentTurn)
+		if(p.getTeam() == this.currentTeam)
 		{
 			if(isInitial && this.diceValue == 5)
 			{
 				if(destin != null)
 				{
 					this.animatingMove(p, destin.xPosition(), destin.yPosition());
+					
 					this.setCurrentTeam();
 				}
 			}
@@ -188,13 +221,14 @@ public class LudoController
 			{
 				
 			}
-			else if(this.diceValue != 5 && this.diceValue != 0 && !this.model.hasPossibilites(this.getCurrentPlayerPins()))
+			else if(this.diceValue != 5 && this.diceValue != 0 && !this.model.hasPossibilites(this.getCurrentPlayerPins(this.currentTeam)))
 			{
 				this.skipPlayer();
 			}
 			else
 			{
 				this.animatingMove(p, destin.xPosition(), destin.yPosition());
+				
 				this.setCurrentTeam();
 			}
 		}
@@ -202,24 +236,28 @@ public class LudoController
 	
 	public void setCurrentTeam()
 	{
-		if(this.currentTurn == Team.Blue)
+		this.lastDiceValue = this.diceValue;
+		this.lastTeam = this.currentTeam;
+		
+		
+		if(this.currentTeam == Team.Blue)
 		{
-			this.currentTurn = Team.Red;
+			this.currentTeam = Team.Red;
 			this.mainWindow.gamePanel().playerPanel().setLabelTeam(Team.Red);
 		}
-		else if (this.currentTurn == Team.Red)
+		else if (this.currentTeam == Team.Red)
 		{
-			this.currentTurn = Team.Green;
+			this.currentTeam = Team.Green;
 			this.mainWindow.gamePanel().playerPanel().setLabelTeam(Team.Green);
 		}
-		else if (this.currentTurn == Team.Green)
+		else if (this.currentTeam == Team.Green)
 		{
-			this.currentTurn = Team.Yellow;
+			this.currentTeam = Team.Yellow;
 			this.mainWindow.gamePanel().playerPanel().setLabelTeam(Team.Yellow);
 		}
-		else if(this.currentTurn == Team.Yellow)
+		else if(this.currentTeam == Team.Yellow)
 		{
-			this.currentTurn = Team.Blue;
+			this.currentTeam = Team.Blue;
 			this.mainWindow.gamePanel().playerPanel().setLabelTeam(Team.Blue);
 		}
 		
@@ -249,13 +287,14 @@ public class LudoController
 				p.setY(p.getY()-1);
 			}
 			
+			this.lastPinPlayed = p;
 			this.mainWindow.gamePanel().ludoTable().rePaint();
 		}
 	}	
 	
 	public void skipPlayer()
 	{
-		if(this.diceValue != 5 && !this.model.hasPossibilites(this.getCurrentPlayerPins()))
+		if(this.diceValue != 5 && !this.model.hasPossibilites(this.getCurrentPlayerPins(this.currentTeam)))
 		{
 			
 			JOptionPane.showMessageDialog(null,
@@ -266,21 +305,23 @@ public class LudoController
 		}
 	}
 	
-	public PinModel[] getCurrentPlayerPins()
+	public PinModel[] getCurrentPlayerPins(Team team)
 	{
-		if(this.currentTurn == Team.Red)
+		Team currentTeam = team;
+		
+		if(currentTeam == Team.Red)
 		{
 			return this.redPins;
 		}
-		else if(this.currentTurn == Team.Blue)
+		else if(currentTeam == Team.Blue)
 		{
 			return this.bluePins;
 		}
-		else if(this.currentTurn == Team.Green)
+		else if(currentTeam == Team.Green)
 		{
 			return this.greenPins;
 		}
-		else if(this.currentTurn == Team.Yellow)
+		else if(currentTeam == Team.Yellow)
 		{
 			return this.yellowPins;
 		}
@@ -354,10 +395,59 @@ public class LudoController
 		
 		return null;
 	}
-//	
-//	public void checkEndMovement()
-//	{
-//		
-//	}
-//	
+	
+	public Boolean checkPathClear(PinModel pin, Square[] squares)
+	{
+		for (Square square : squares)
+		{
+			Team barrier = this.getBarrierOn(square.xPosition(), square.yPosition());
+			
+			if(barrier != null) { return false; }
+		}
+		
+		return true;	
+	}
+
+	public Boolean PinStrikes()	
+	{
+		for (PinModel pin : allPins)
+		{
+			for (PinModel otherPin : allPins)
+			{
+				if(	pin.getX() == otherPin.getX() &&
+					pin.getY() == otherPin.getY() &&
+					pin.getTeam() != otherPin.getTeam())
+				{
+					if(pin.equals(this.lastPinPlayed))
+					{
+						Coord coord = this.model.getHouseSquareAvaliable(this.getCurrentPlayerPins(otherPin.getTeam()));
+						
+						otherPin.setX(coord.x);
+						otherPin.setY(coord.y);
+						
+						this.mainWindow.gamePanel().ludoTable().rePaint();
+						
+						return true;
+					}
+					else
+					{
+						Coord coord = this.model.getHouseSquareAvaliable(this.getCurrentPlayerPins(pin.getTeam()));
+
+						pin.setX(coord.x);
+						pin.setY(coord.y);
+						
+						this.mainWindow.gamePanel().ludoTable().rePaint();
+						
+						return true;
+					}
+				}
+			}
+		}
+		
+		return false;
+	}
+	
+	
+	
+	
 }
