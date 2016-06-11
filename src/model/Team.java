@@ -6,11 +6,17 @@ import view.MyColors;
 
 public enum Team 
 {
-	None(Color.WHITE), Red(MyColors.myDarkRed), Green(MyColors.myDarkGreen), Yellow(MyColors.myDarkYellow), Blue(MyColors.myDarkBlue);	
+	None(Color.WHITE,"Nada"),
+	Red(MyColors.myDarkRed,"Vermelho"),
+	Green(MyColors.myDarkGreen,"Verde"),
+	Yellow(MyColors.myDarkYellow, "Amarelo"),
+	Blue(MyColors.myDarkBlue,"Azul");	
 	
 	Color color;
 	
-	Team(Color c)
+	String name;
+	
+	Team(Color c, String name)
 	{
 		this.color = c;
 	}
@@ -18,5 +24,10 @@ public enum Team
 	public Color getColor()
 	{
 		return this.color;
+	}
+	
+	public String getName()
+	{
+		return this.name;
 	}
 }

@@ -213,18 +213,23 @@ public class LudoController
 		if(this.currentTurn == Team.Blue)
 		{
 			this.currentTurn = Team.Red;
+			this.mainWindow.gamePanel().playerPanel().setLabelTeam(Team.Red);
 		}
 		else if (this.currentTurn == Team.Red)
 		{
 			this.currentTurn = Team.Green;
+			this.mainWindow.gamePanel().playerPanel().setLabelTeam(Team.Green);
 		}
 		else if (this.currentTurn == Team.Green)
 		{
 			this.currentTurn = Team.Yellow;
+			this.mainWindow.gamePanel().playerPanel().setLabelTeam(Team.Yellow);
 		}
 		else if(this.currentTurn == Team.Yellow)
 		{
 			this.currentTurn = Team.Blue;
+			this.mainWindow.gamePanel().playerPanel().setLabelTeam(Team.Blue);
+
 		}
 	}
 	

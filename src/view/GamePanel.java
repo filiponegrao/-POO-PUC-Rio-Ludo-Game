@@ -27,6 +27,11 @@ public class GamePanel extends JPanel
 		return this.ludoTable;
 	}
 	
+	public PlayerPanel playerPanel()
+	{
+		return this.playerPanel;
+	}
+	
 	public GamePanel(Dimension mainDimension, Dimension tableDimension, Dimension menuDimension, Dimension panelDimension, JFrame jframe, Square[] squares)
 	{
 		this.jframe = jframe;
