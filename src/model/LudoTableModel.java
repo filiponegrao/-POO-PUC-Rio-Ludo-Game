@@ -1,6 +1,7 @@
 package model;
 
 import java.awt.List;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class LudoTableModel 
@@ -377,5 +378,35 @@ public class LudoTableModel
 		}
 		
 		return false;
+	}
+	
+	
+	public (int x, int y) getHouseSquareAvaliable(PinModel[] pins)
+	{
+		ArrayList squares = new ArrayList<Square>();
+		
+		Team team = pins[0].getTeam();
+		
+		if(team == Team.Red)
+		{
+			squares.add(e)
+			
+			for (PinModel pin : pins)
+			{
+				
+			}
+		}
+		else if(team == Team.Blue)
+		{
+			
+		}
+		else if(team == Team.Green)
+		{
+			
+		}
+		else if(team == Team.Yellow)
+		{
+			
+		}
 	}
 }

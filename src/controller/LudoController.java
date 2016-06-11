@@ -163,6 +163,7 @@ public class LudoController
 	
 	public void movePinToSquare(PinModel p)
 	{
+		System.out.println("passa na funcao");
 		Boolean isInitial = this.model.isInitialPin(p);
 		
 		Square destin = this.model.getNextSquareWithSteps(p.getX(), p.getY(), p.getTeam(), this.diceValue);
@@ -176,6 +177,12 @@ public class LudoController
 					this.animatingMove(p, destin.xPosition(), destin.yPosition());
 					this.setCurrentTeam();
 				}
+			}
+			else if(isInitial && this.diceValue != 5 && this.diceValue != 0)
+			{
+				JOptionPane.showMessageDialog(null,
+						"Com esse valor voce so pode mover peças fora da casa de inicio.",
+						"Ops!", JOptionPane.INFORMATION_MESSAGE);
 			}
 			else if(this.diceValue == 6)
 			{
@@ -283,12 +290,74 @@ public class LudoController
 	
 	public Team getBarrierOn(int x, int y)
 	{
+		Team onePin = null;
 		
-	}
-	
-	public void checkEndMovement()
-	{
+		for (PinModel pin : this.bluePins)
+		{
+			if(pin.getX() == x && pin.getY() == y)
+			{
+				if(onePin == null)
+				{
+					onePin = pin.getTeam();
+				}
+				else
+				{
+					return pin.getTeam();
+				}
+			}
+		}
 		
+		for (PinModel pin : this.redPins)
+		{
+			if(pin.getX() == x && pin.getY() == y)
+			{
+				if(onePin == null)
+				{
+					onePin = pin.getTeam();
+				}
+				else
+				{
+					return pin.getTeam();
+				}
+			}
+		}
+		
+		for (PinModel pin : this.greenPins)
+		{
+			if(pin.getX() == x && pin.getY() == y)
+			{
+				if(onePin == null)
+				{
+					onePin = pin.getTeam();
+				}
+				else
+				{
+					return pin.getTeam();
+				}
+			}
+		}
+		
+		for (PinModel pin : this.yellowPins)
+		{
+			if(pin.getX() == x && pin.getY() == y)
+			{
+				if(onePin == null)
+				{
+					onePin = pin.getTeam();
+				}
+				else
+				{
+					return pin.getTeam();
+				}
+			}
+		}
+		
+		return null;
 	}
-	
+//	
+//	public void checkEndMovement()
+//	{
+//		
+//	}
+//	
 }
