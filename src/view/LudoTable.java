@@ -64,6 +64,8 @@ public class LudoTable extends JPanel
 		this.houseDimension = new Dimension((mainDimension.width/15 * 6), (mainDimension.width/15 * 6));
 		this.squareDimension = new Dimension(mainDimension.width/15, mainDimension.width/15);
 		
+		addMouseListener(EventHandlers.getMouseEvent());		
+
 	}
 
 	public void paintComponent(Graphics g)
@@ -87,8 +89,6 @@ public class LudoTable extends JPanel
 		PinView.drawPins(blues, g2d, this.squareDimension);
 		PinView.drawPins(greens, g2d, this.squareDimension);
 		PinView.drawPins(yellows, g2d, this.squareDimension);
-		
-		addMouseListener(EventHandlers.getMouseEvent());		
 	}
 
 	public void drawSquares()

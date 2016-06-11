@@ -53,6 +53,8 @@ public class LudoController
 	
 	private PinModel lastPinPlayed;
 	
+	private int sequence = 0;
+	
 	private LudoController()
 	{
 		this.squares = this.model.getModel();
@@ -209,6 +211,7 @@ public class LudoController
 					this.animatingMove(p, destin.xPosition(), destin.yPosition());
 					
 					this.setCurrentTeam();
+					this.PinStrikes();
 				}
 			}
 			else if(isInitial && this.diceValue != 5 && this.diceValue != 0)
@@ -217,9 +220,34 @@ public class LudoController
 						"Com esse valor voce so pode mover peças fora da casa de inicio.",
 						"Ops!", JOptionPane.INFORMATION_MESSAGE);
 			}
-			else if(this.diceValue == 6)
+			else if(this.diceValue == 6 && sequence != 3)
 			{
-				
+				//Verifica a presenca de barreiras
+				if(this.checkPathClear(p))
+				{
+					this.animatingMove(p, destin.xPosition(), destin.yPosition());
+					this.PinStrikes();
+					
+					this.setDiceValue(0);
+					
+					JOptionPane.showMessageDialog(null,
+							"Voce pode jogar novamente pois tirou um 6!",
+							"Oba!", JOptionPane.INFORMATION_MESSAGE);
+					
+					sequence += 1;
+				}
+				else
+				{
+					JOptionPane.showMessageDialog(null,
+							"Não é possivel atravessar uma barreira",
+							"Ops!", JOptionPane.INFORMATION_MESSAGE);
+				}
+			}
+			else if(this.diceValue == 6 && sequence == 3)
+			{
+				JOptionPane.showMessageDialog(null,
+						"Voce tirou 6 tres vezes! Volte uma casa",
+						"Ops!", JOptionPane.INFORMATION_MESSAGE);
 			}
 			else if(this.diceValue != 5 && this.diceValue != 0 && !this.model.hasPossibilites(this.getCurrentPlayerPins(this.currentTeam)))
 			{
@@ -227,9 +255,14 @@ public class LudoController
 			}
 			else
 			{
-				this.animatingMove(p, destin.xPosition(), destin.yPosition());
-				
-				this.setCurrentTeam();
+				//Verifica a presenca de barreiras
+				if(this.checkPathClear(p))
+				{
+					this.animatingMove(p, destin.xPosition(), destin.yPosition());
+					
+					this.setCurrentTeam();
+					this.PinStrikes();
+				}
 			}
 		}
 	}
@@ -288,6 +321,12 @@ public class LudoController
 			}
 			
 			this.lastPinPlayed = p;
+			
+			if(this.diceValue != 6)
+			{
+				this.sequence = 0;
+			}
+			
 			this.mainWindow.gamePanel().ludoTable().rePaint();
 		}
 	}	
@@ -396,8 +435,10 @@ public class LudoController
 		return null;
 	}
 	
-	public Boolean checkPathClear(PinModel pin, Square[] squares)
+	public Boolean checkPathClear(PinModel pin)
 	{
+		List<Square> squares = this.model.getPathForSteps(pin, this.diceValue);
+		
 		for (Square square : squares)
 		{
 			Team barrier = this.getBarrierOn(square.xPosition(), square.yPosition());
@@ -408,7 +449,7 @@ public class LudoController
 		return true;	
 	}
 
-	public Boolean PinStrikes()	
+	public void PinStrikes()	
 	{
 		for (PinModel pin : allPins)
 		{
@@ -426,8 +467,6 @@ public class LudoController
 						otherPin.setY(coord.y);
 						
 						this.mainWindow.gamePanel().ludoTable().rePaint();
-						
-						return true;
 					}
 					else
 					{
@@ -438,13 +477,10 @@ public class LudoController
 						
 						this.mainWindow.gamePanel().ludoTable().rePaint();
 						
-						return true;
 					}
 				}
 			}
 		}
-		
-		return false;
 	}
 	
 	

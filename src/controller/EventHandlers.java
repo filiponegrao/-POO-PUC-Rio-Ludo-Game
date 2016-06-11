@@ -21,7 +21,6 @@ public class EventHandlers {
 				if(p != null)
 				{
 					LudoController.sharedInstance.movePinToSquare(p);
-					System.out.println("passa no touch do pino");
 				}
 			}
 
