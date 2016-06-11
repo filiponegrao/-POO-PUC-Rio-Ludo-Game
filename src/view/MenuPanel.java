@@ -7,7 +7,8 @@ import javax.swing.JMenuItem;
 
 import controller.LudoController;
 
-public class MenuPanel extends JMenuBar {
+public class MenuPanel extends JMenuBar 
+{
 	
 	private JMenu menu;
 		
@@ -22,9 +23,13 @@ public class MenuPanel extends JMenuBar {
         //Cria opcoes
         JMenuItem novoJogo = new JMenuItem("Novo Jogo");
         JMenuItem salvarJogo = new JMenuItem("Salvar Jogo");
+        JMenuItem carregarJogo = new JMenuItem("Carregar Jogo ");
+        JMenuItem voltarEtapa = new JMenuItem("Voltar uma etapa");
         
         this.menu.add(novoJogo);
         this.menu.add(salvarJogo);
+        this.menu.add(carregarJogo);
+        this.menu.add(voltarEtapa);
         
         this.add(this.menu);
         

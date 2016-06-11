@@ -141,6 +141,7 @@ public class PlayerPanel extends JPanel implements ActionListener
         }
 		
 		this.diceValue = LudoController.sharedInstance.getDiceValue();
+		
 		try
 		{
 			int x = this.getWidth()/4;
