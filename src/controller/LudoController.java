@@ -195,6 +195,10 @@ public class LudoController
 		return this.currentTeam;
 	}
 	
+	/**
+	 * MÉTODO RESPONSAVEL PELO CONTROLE DOS MOVIMENTOS
+	 * Checa-se regras de movimentacao e possiveis impedimentos.
+	 */
 	public void movePinToSquare(PinModel p)
 	{
 		System.out.println("passa na funcao");
@@ -210,8 +214,18 @@ public class LudoController
 				{
 					this.animatingMove(p, destin.xPosition(), destin.yPosition());
 					
-					this.setCurrentTeam();
-					this.PinStrikes();
+					if (this.pinStrikes())
+					{
+						JOptionPane.showMessageDialog(null,
+								"Voce pode andar 20 casas por ter capturado uma peça!",
+								"Oba!", JOptionPane.INFORMATION_MESSAGE);
+						
+						this.setDiceValue(20);
+					}
+					else
+					{
+						this.setCurrentTeam();
+					}
 				}
 			}
 			else if(isInitial && this.diceValue != 5 && this.diceValue != 0)
@@ -225,16 +239,47 @@ public class LudoController
 				//Verifica a presenca de barreiras
 				if(this.checkPathClear(p))
 				{
-					this.animatingMove(p, destin.xPosition(), destin.yPosition());
-					this.PinStrikes();
-					
-					this.setDiceValue(0);
-					
-					JOptionPane.showMessageDialog(null,
-							"Voce pode jogar novamente pois tirou um 6!",
-							"Oba!", JOptionPane.INFORMATION_MESSAGE);
-					
-					sequence += 1;
+					if(this.teamHasABarrier(p.getTeam()))
+					{
+						Team barrier = this.getBarrierOn(p.getX(), p.getY());
+						
+						if(barrier != null && barrier == p.getTeam())
+						{
+							this.animatingMove(p, destin.xPosition(), destin.yPosition());
+							this.pinStrikes();
+							
+							this.setDiceValue(0);
+							
+							JOptionPane.showMessageDialog(null,
+									"Voce pode jogar novamente pois tirou um 6!",
+									"Oba!", JOptionPane.INFORMATION_MESSAGE);
+							
+							sequence += 1;
+						}
+						else
+						{
+							JOptionPane.showMessageDialog(null,
+									"Voce precisa desfazer sua barreira!",
+									"Ops!", JOptionPane.INFORMATION_MESSAGE);
+						}
+						return;
+					}
+					else
+					{
+						
+						this.animatingMove(p, destin.xPosition(), destin.yPosition());
+						this.pinStrikes();
+						
+						this.setDiceValue(0);
+						
+						JOptionPane.showMessageDialog(null,
+								"Voce pode jogar novamente pois tirou um 6!",
+								"Oba!", JOptionPane.INFORMATION_MESSAGE);
+						
+						sequence += 1;
+						
+						return;
+					}
 				}
 				else
 				{
@@ -253,6 +298,16 @@ public class LudoController
 			{
 				this.skipPlayer();
 			}
+			else if(this.diceValue == 7)
+			{
+				if(this.checkPathClear(p))
+				{
+					this.animatingMove(p, destin.xPosition(), destin.yPosition());
+
+					this.setCurrentTeam();
+					this.pinStrikes();
+				}
+			}
 			else
 			{
 				//Verifica a presenca de barreiras
@@ -261,7 +316,7 @@ public class LudoController
 					this.animatingMove(p, destin.xPosition(), destin.yPosition());
 					
 					this.setCurrentTeam();
-					this.PinStrikes();
+					this.pinStrikes();
 				}
 			}
 		}
@@ -449,7 +504,7 @@ public class LudoController
 		return true;	
 	}
 
-	public void PinStrikes()	
+	public Boolean pinStrikes()	
 	{
 		for (PinModel pin : allPins)
 		{
@@ -467,6 +522,8 @@ public class LudoController
 						otherPin.setY(coord.y);
 						
 						this.mainWindow.gamePanel().ludoTable().rePaint();
+						
+						return true;
 					}
 					else
 					{
@@ -477,12 +534,50 @@ public class LudoController
 						
 						this.mainWindow.gamePanel().ludoTable().rePaint();
 						
+						return true;
+						
 					}
 				}
 			}
 		}
+		
+		return false;
 	}
 	
+	public Boolean teamHasABarrier(Team team)
+	{
+		for (PinModel pin : allPins)
+		{
+			Team barrier = this.getBarrierOn(pin.getX(), pin.getY());
+			
+			if(barrier != null && barrier == team)
+			{
+				return true;
+			}
+		}
+		
+		return false;
+	}
+	
+	public Boolean checkSevenSteps()
+	{
+		PinModel[] pins = this.getCurrentPlayerPins(this.currentTeam);
+		
+		int n = this.model.numberOfHousesAvaliable(pins);
+		
+		if(this.diceValue == 6 && n == 4)
+		{
+			JOptionPane.showMessageDialog(null,
+					"Voce tirou 6 e nao tem mais peças na sua casa de inicio. Ande 7 casas!",
+					"Oba!", JOptionPane.INFORMATION_MESSAGE);
+			
+			this.setDiceValue(7);
+			
+			return true;
+		}
+		
+		return false;
+	}
 	
 	
 	

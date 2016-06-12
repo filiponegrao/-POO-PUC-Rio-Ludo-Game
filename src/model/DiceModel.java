@@ -32,6 +32,10 @@ public class DiceModel
 		{
 			LudoController.sharedInstance.skipPlayer();
 		}
+		else if(this.value == 6)
+		{
+			LudoController.sharedInstance.checkSevenSteps();
+		}
 	}
 	
 	public void setValue()
