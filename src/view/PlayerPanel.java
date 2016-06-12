@@ -27,9 +27,11 @@ import javax.swing.SwingConstants;
 
 import controller.LudoController;
 
+import java.util.Observable;
+import java.util.Observer;
 import java.util.Random;
 
-public class PlayerPanel extends JPanel implements ActionListener
+public class PlayerPanel extends JPanel implements ActionListener, Observer
 {
 	private JButton playButton;
 	
@@ -40,6 +42,8 @@ public class PlayerPanel extends JPanel implements ActionListener
 	private JLabel teamLabel;
 	
 	private String labelText = "Turno do jogador: ";
+	
+	private Team observedTeam;
 	
 	/** Propriedades do dado */
 	
@@ -59,7 +63,7 @@ public class PlayerPanel extends JPanel implements ActionListener
 	{
 		super();
 
-		this.setBackground(MyColors.myDarkGray);
+		this.setBackground(MyColors.myDarkBlue);
 
 		this.setLayout(null);
 
@@ -86,19 +90,21 @@ public class PlayerPanel extends JPanel implements ActionListener
 		this.teamLabel = new JLabel(this.labelText + "Azul");		
 		this.teamLabel.setLocation(20, dimension.height - dimension.height/5 * 2);
 		this.teamLabel.setSize(dimension.width - 40, 40);
-		this.teamLabel.setForeground(Color.white);
+		this.teamLabel.setForeground(MyColors.myDarkBlue);
 		this.teamLabel.setOpaque(false);
 		this.teamLabel.setFont(new Font("Helvetica", 0, 16));
 		this.teamLabel.setHorizontalAlignment(SwingConstants.CENTER);
 //		this.teamLabel.setBorder(new RoundedBorder(15));
 		this.add(this.teamLabel);
+		
+
 			
 	}
 
-	public void setLabelTeam(Team team)
-	{
-		this.teamLabel.setText(this.labelText + team.getName());
-	}
+//	public void setLabelTeam(Team team)
+//	{
+//		this.teamLabel.setText(this.labelText + team.getName());
+//	}
 	
 	public void paintComponent(Graphics g)
 	{		
@@ -108,37 +114,6 @@ public class PlayerPanel extends JPanel implements ActionListener
 		//background do label
 		this.g2d.setColor(Color.white);
         this.g2d.fillRoundRect(20, this.mainDimension.height - this.mainDimension.height/5 * 2, this.mainDimension.width - 40, 40, 15, 15);
-        
-        //muda textColor de acordo com time
-        Team current = LudoController.sharedInstance.getCurrentTeam();
-        if (current == Team.Blue)
-        {
-//    		this.g2d.setColor(MyColors.myLightBlue);
-//            this.g2d.fillRoundRect(20, this.mainDimension.height - this.mainDimension.height/5 * 2, this.mainDimension.width - 40, 40, 15, 15);
-    		this.teamLabel.setForeground(MyColors.myDarkBlue);
-    		this.setBackground(MyColors.myDarkBlue);
-        }
-        else if (current == Team.Red)
-        {
-//        	this.g2d.setColor(MyColors.myLightRed);
-//            this.g2d.fillRoundRect(20, this.mainDimension.height - this.mainDimension.height/5 * 2, this.mainDimension.width - 40, 40, 15, 15);
-    		this.teamLabel.setForeground(MyColors.myDarkRed);
-    		this.setBackground(MyColors.myDarkRed);
-        }
-        else if (current == Team.Green)
-        {
-//        	this.g2d.setColor(MyColors.myLightGreen);
-//            this.g2d.fillRoundRect(20, this.mainDimension.height - this.mainDimension.height/5 * 2, this.mainDimension.width - 40, 40, 15, 15);
-    		this.teamLabel.setForeground(MyColors.myDarkGreen);
-    		this.setBackground(MyColors.myDarkGreen);
-        }
-        else if (current == Team.Yellow)
-        {
-//        	this.g2d.setColor(MyColors.myLightYellow);
-//            this.g2d.fillRoundRect(20, this.mainDimension.height - this.mainDimension.height/5 * 2, this.mainDimension.width - 40, 40, 15, 15);
-    		this.teamLabel.setForeground(MyColors.myDarkYellow);
-    		this.setBackground(MyColors.myDarkYellow);
-        }
 		
 		this.diceValue = LudoController.sharedInstance.getDiceValue();
 		
@@ -174,5 +149,38 @@ public class PlayerPanel extends JPanel implements ActionListener
 		this.dice.playDice();
 		this.diceValue = LudoController.sharedInstance.getDiceValue();
 		this.repaint();
+	}
+
+	/* (non-Javadoc)
+	 * @see java.util.Observer#update(java.util.Observable, java.lang.Object)
+	 */
+	@Override
+	public void update(Observable o, Object arg) 
+	{
+		this.observedTeam = (Team) arg;
+		this.teamLabel.setText(this.labelText + this.observedTeam.getName());
+		
+		 if (this.observedTeam == Team.Blue)
+	        {
+	    		this.teamLabel.setForeground(MyColors.myDarkBlue);
+	    		this.setBackground(MyColors.myDarkBlue);
+	        }
+	        else if (this.observedTeam == Team.Red)
+	        {
+	    		this.teamLabel.setForeground(MyColors.myDarkRed);
+	    		this.setBackground(MyColors.myDarkRed);
+	        }
+	        else if (this.observedTeam == Team.Green)
+	        {
+	    		this.teamLabel.setForeground(MyColors.myDarkGreen);
+	    		this.setBackground(MyColors.myDarkGreen);
+	        }
+	        else if (this.observedTeam == Team.Yellow)
+	        {
+	    		this.teamLabel.setForeground(MyColors.myDarkYellow);
+	    		this.setBackground(MyColors.myDarkYellow);
+	        }
+		 
+		 this.repaint();
 	}	
 }
