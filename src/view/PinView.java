@@ -49,15 +49,32 @@ public class PinView
 	{
 		Ellipse2D e = new Ellipse2D.Double(posx, posy, width, width);
 		
-		g.setStroke(new BasicStroke(1.0f));
+		g.setStroke(new BasicStroke(3.0f));
 
 		g.setPaint(t.getColor());
 		
 		g.fill(e);
 		
-		g.setPaint(Color.black);
-		g.draw(e);
-		
+		if(t.getName().equals("Azul"))
+		{
+			g.setPaint(MyColors.blueBoader);
+			g.draw(e);
+		}
+		else if(t.getName().equals("Vermelho"))
+		{
+			g.setPaint(MyColors.redBoader);
+			g.draw(e);
+		}
+		else if(t.getName().equals("Verde"))
+		{
+			g.setPaint(MyColors.greenBoader);
+			g.draw(e);
+		}
+		else if(t.getName().equals("Amarelo"))
+		{
+			g.setPaint(MyColors.yellowBoader);
+			g.draw(e);
+		}		
 	}
 
 	public static void drawBarrier(Graphics2D g, int posx, int posy, int width, int height, Team t)
@@ -65,22 +82,54 @@ public class PinView
 		Ellipse2D e1 = new Ellipse2D.Double(posx - width/3, posy - width/3, width, width);
 		Ellipse2D e2 = new Ellipse2D.Double(posx + width/3, posy + width/3, width, width);
 
-		g.setStroke(new BasicStroke(1.0f));
+		g.setStroke(new BasicStroke(3.0f));
 
 		g.setPaint(t.getColor());
 		g.fill(e1);
 		
-		g.setPaint(Color.black);
-		g.draw(e1);
-
+		if(t.getName().equals("Azul"))
+		{
+			g.setPaint(MyColors.blueBoader);
+			g.draw(e1);
+		}
+		else if(t.getName().equals("Vermelho"))
+		{
+			g.setPaint(MyColors.redBoader);
+			g.draw(e1);
+		}
+		else if(t.getName().equals("Verde"))
+		{
+			g.setPaint(MyColors.greenBoader);
+			g.draw(e1);
+		}
+		else if(t.getName().equals("Amarelo"))
+		{
+			g.setPaint(MyColors.yellowBoader);
+			g.draw(e1);
+		}
+		
 		g.setPaint(t.getColor());
 		g.fill(e2);
 		
-		g.setPaint(Color.black);
-		g.draw(e2);
-		
-
-
+		if(t.getName().equals("Azul"))
+		{
+			g.setPaint(MyColors.blueBoader);
+			g.draw(e2);
+		}
+		else if(t.getName().equals("Vermelho"))
+		{
+			g.setPaint(MyColors.redBoader);
+			g.draw(e2);
+		}
+		else if(t.getName().equals("Verde"))
+		{
+			g.setPaint(MyColors.greenBoader);
+			g.draw(e2);
+		}
+		else if(t.getName().equals("Amarelo"))
+		{
+			g.setPaint(MyColors.yellowBoader);
+			g.draw(e2);
+		}
 	}
-
 }

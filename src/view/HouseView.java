@@ -26,7 +26,7 @@ public class HouseView
 	public void createHouses(Graphics2D g)
 	{
 		this.g2d = g;
-		final BasicStroke stroke = new BasicStroke(3.0f);
+		final BasicStroke stroke = new BasicStroke(4.0f);
 
 		//Pinta a casa Vermelha
 		this.g2d.setPaint(MyColors.myRed);
