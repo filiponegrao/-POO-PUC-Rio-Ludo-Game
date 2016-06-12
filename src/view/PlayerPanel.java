@@ -63,7 +63,7 @@ public class PlayerPanel extends JPanel implements ActionListener, Observer
 	{
 		super();
 
-		this.setBackground(MyColors.myDarkBlue);
+		this.setBackground(MyColors.myBlue);
 
 		this.setLayout(null);
 
@@ -163,22 +163,22 @@ public class PlayerPanel extends JPanel implements ActionListener, Observer
 		 if (this.observedTeam == Team.Blue)
 	        {
 	    		this.teamLabel.setForeground(MyColors.myDarkBlue);
-	    		this.setBackground(MyColors.myDarkBlue);
+	    		this.setBackground(MyColors.myBlue);
 	        }
 	        else if (this.observedTeam == Team.Red)
 	        {
 	    		this.teamLabel.setForeground(MyColors.myDarkRed);
-	    		this.setBackground(MyColors.myDarkRed);
+	    		this.setBackground(MyColors.myRed);
 	        }
 	        else if (this.observedTeam == Team.Green)
 	        {
 	    		this.teamLabel.setForeground(MyColors.myDarkGreen);
-	    		this.setBackground(MyColors.myDarkGreen);
+	    		this.setBackground(MyColors.myGreen);
 	        }
 	        else if (this.observedTeam == Team.Yellow)
 	        {
 	    		this.teamLabel.setForeground(MyColors.myDarkYellow);
-	    		this.setBackground(MyColors.myDarkYellow);
+	    		this.setBackground(MyColors.myYellow);
 	        }
 		 
 		 this.repaint();
