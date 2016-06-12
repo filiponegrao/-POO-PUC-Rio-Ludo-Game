@@ -42,8 +42,12 @@ public class LudoController
 	/*******************************/
 	/*** CONTROLLERS COMPONENTS*****/
 	/*******************************/
-	
+		
 	private Team currentTeam = Team.Blue;
+	
+	private ObservableTeam teamObserved = new ObservableTeam();
+	
+	private PlayerPanel panelObserver;
 	
 	private Team lastTeam = Team.None;
 	
@@ -85,11 +89,14 @@ public class LudoController
 		}
 		
 		this.dice = new DiceModel();
+		
 	}
 	
 	public void loadScreen()
 	{
 		this.mainWindow = new MainWindow("LudoGame", squares);
+		this.panelObserver = this.mainWindow.gamePanel().playerPanel();
+		this.teamObserved.addObserver(this.panelObserver);
 		
 //		Graphics2D g = this.mainWindow.gamePanel().ludoTable().graphics();
 		
@@ -190,10 +197,10 @@ public class LudoController
 		return null;
 	}
 	
-	public Team getCurrentTeam()
-	{
-		return this.currentTeam;
-	}
+//	public Team getCurrentTeam()
+//	{
+//		return this.currentTeam;
+//	}
 	
 	public void movePinToSquare(PinModel p)
 	{
@@ -276,26 +283,26 @@ public class LudoController
 		if(this.currentTeam == Team.Blue)
 		{
 			this.currentTeam = Team.Red;
-			this.mainWindow.gamePanel().playerPanel().setLabelTeam(Team.Red);
+//			this.mainWindow.gamePanel().playerPanel().setLabelTeam(Team.Red);
 		}
 		else if (this.currentTeam == Team.Red)
 		{
 			this.currentTeam = Team.Green;
-			this.mainWindow.gamePanel().playerPanel().setLabelTeam(Team.Green);
+//			this.mainWindow.gamePanel().playerPanel().setLabelTeam(Team.Green);
 		}
 		else if (this.currentTeam == Team.Green)
 		{
 			this.currentTeam = Team.Yellow;
-			this.mainWindow.gamePanel().playerPanel().setLabelTeam(Team.Yellow);
+//			this.mainWindow.gamePanel().playerPanel().setLabelTeam(Team.Yellow);
 		}
 		else if(this.currentTeam == Team.Yellow)
 		{
 			this.currentTeam = Team.Blue;
-			this.mainWindow.gamePanel().playerPanel().setLabelTeam(Team.Blue);
+//			this.mainWindow.gamePanel().playerPanel().setLabelTeam(Team.Blue);
 		}
 		
 		this.setDiceValue(0);
-		
+		this.teamObserved.setValue(this.currentTeam);
 	}
 	
 	public void animatingMove(PinModel p, int posx, int posy)
