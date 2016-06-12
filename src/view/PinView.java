@@ -28,6 +28,8 @@ public class PinView
 			
 			Team barrier = LudoController.sharedInstance.getBarrierOn(p[i].getX(), p[i].getY());
 			
+			Team[] twoPins = LudoController.sharedInstance.getTwoPins(p[i].getX(), p[i].getY());
+			
 			if(barrier != null)
 			{
 				posx = pinDimension.width * p[i].getX() + 5;
@@ -35,8 +37,15 @@ public class PinView
 				
 				drawBarrier(g,posx,posy,diam,diam, p[i].getTeam());
 			}
-			else
+			else if(twoPins != null)
 			{
+				posx = pinDimension.width * p[i].getX() + 5;
+				posy = pinDimension.height * p[i].getY() + 5;
+				
+				drawTwoPins(g,posx,posy,diam,diam, twoPins[0], twoPins[1]);
+			}
+			else
+			{				
 				posx = pinDimension.width * p[i].getX() + 5;
 				posy = pinDimension.height * p[i].getY() + 5;				
 				
@@ -127,6 +136,62 @@ public class PinView
 			g.draw(e2);
 		}
 		else if(t.getName().equals("Amarelo"))
+		{
+			g.setPaint(MyColors.yellowBoader);
+			g.draw(e2);
+		}
+	}
+	
+	public static void drawTwoPins(Graphics2D g, int posx, int posy, int width, int height, Team t1, Team t2)
+	{
+		Ellipse2D e1 = new Ellipse2D.Double(posx - width/3, posy - width/3, width, width);
+		Ellipse2D e2 = new Ellipse2D.Double(posx + width/3, posy + width/3, width, width);
+
+		g.setStroke(new BasicStroke(3.0f));
+
+		g.setPaint(t1.getColor());
+		g.fill(e1);
+		
+		if(t1.getName().equals("Azul"))
+		{
+			g.setPaint(MyColors.blueBoader);
+			g.draw(e1);
+		}
+		else if(t1.getName().equals("Vermelho"))
+		{
+			g.setPaint(MyColors.redBoader);
+			g.draw(e1);
+		}
+		else if(t1.getName().equals("Verde"))
+		{
+			g.setPaint(MyColors.greenBoader);
+			g.draw(e1);
+		}
+		else if(t1.getName().equals("Amarelo"))
+		{
+			g.setPaint(MyColors.yellowBoader);
+			g.draw(e1);
+		}
+		
+		g.setPaint(t2.getColor());
+		g.fill(e2);
+		
+		if(t2.getName().equals("Azul"))
+		{
+			g.setPaint(MyColors.blueBoader);
+			g.draw(e2);
+		}
+		else if(t2.getName().equals("Vermelho"))
+		{
+			g.setPaint(MyColors.redBoader);
+			g.draw(e2);
+		}
+		else if(t2.getName().equals("Verde"))
+		{
+			g.setPaint(MyColors.greenBoader);
+			g.draw(e2);
+		}
+		else if(t2.getName().equals("Amarelo"))
 		{
 			g.setPaint(MyColors.yellowBoader);
 			g.draw(e2);

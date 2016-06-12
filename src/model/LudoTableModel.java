@@ -67,6 +67,7 @@ public class LudoTableModel
 		Square sq39 = new Square(5, 7, Team.Red, SquareType.RedRoad);
 		Square sq40 = new Square(6, 7, Team.Red, SquareType.RedRoad);
 		Square sq41 = new Square(7, 7, Team.None, SquareType.Normal);
+		
 		Square sq42 = new Square(8, 7, Team.Yellow, SquareType.YellowRoad);
 		Square sq43 = new Square(9, 7, Team.Yellow, SquareType.YellowRoad);
 		Square sq44 = new Square(10, 7, Team.Yellow, SquareType.YellowRoad);
@@ -338,6 +339,14 @@ public class LudoTableModel
 		return null;
 	}
 	
+	/**
+	 *  Funcao que verifica o caso da unica movimentacao
+	 *  de todas as peças de um jogador, ser a casa inicial.
+	 *  Nesse caso a funcao retorna false, pois nao ha possibilidades
+	 *  além de tirar uma peça da casa inicial.
+	 * @param pins
+	 * @return Boolean
+	 */
 	public Boolean hasPossibilites(PinModel[] pins)
 	{
 		for (PinModel pin : pins)
@@ -689,5 +698,122 @@ public class LudoTableModel
 		}
 		
 		return squares.size();			
+	}
+	
+	public Boolean isOnVictoryRoad(PinModel pin)
+	{
+		Team team  = pin.getTeam();
+		
+		int x = pin.getX();
+		
+		int y = pin.getY();
+		
+		if(team == Team.Blue)
+		{
+			for (Square square : bluePath)
+			{
+				if(square.xPosition() == x && square.yPosition() == y)
+				{
+					if(square.type() == SquareType.BlueRoad)
+					{
+						return true;
+					}
+				}
+			}
+		}
+		else if(team == Team.Red)
+		{
+			for (Square square : redPath)
+			{
+				if(square.xPosition() == x && square.yPosition() == y)
+				{
+					if(square.type() == SquareType.RedRoad)
+					{
+						return true;
+					}
+				}
+			}
+		}
+		else if(team == Team.Green)
+		{
+			for (Square square : greenPath)
+			{
+				if(square.xPosition() == x && square.yPosition() == y)
+				{
+					if(square.type() == SquareType.GreenRoad)
+					{
+						return true;
+					}
+				}
+			}
+		}
+		else if(team == Team.Yellow)
+		{
+			for (Square square : yellowPath)
+			{
+				if(square.xPosition() == x && square.yPosition() == y)
+				{
+					if(square.type() == SquareType.YellowRoad)
+					{
+						return true;
+					}
+				}
+			}
+		}
+		
+		return false;
+	}
+	
+	public Boolean isPinOnFinal(PinModel pin)
+	{
+		if(pin == null) { return false; }
+		
+		Team team = pin.getTeam();
+		int x = pin.getX();
+		int y = pin.getY();
+		
+		if(team == Team.Red)
+		{
+			if(	x == this.redPath[this.redPath.length-1].xPosition() &&
+				y == this.redPath[this.redPath.length-1].yPosition())
+			{
+				return true;
+			}
+			
+			return false;
+		}
+		else if(team == Team.Blue)
+		{
+			if(	x == this.bluePath[this.bluePath.length-1].xPosition() &&
+					y == this.bluePath[this.bluePath.length-1].yPosition())
+				{
+					return true;
+				}
+				
+			return false;
+		}
+		else if(team == Team.Green)
+		{
+			if(	x == this.greenPath[this.greenPath.length-1].xPosition() &&
+					y == this.greenPath[this.greenPath.length-1].yPosition())
+				{
+					return true;
+				}
+				
+			return false;
+			
+		}
+		else if(team == Team.Yellow)
+		{
+			if(	x == this.yellowPath[this.yellowPath.length-1].xPosition() &&
+					y == this.yellowPath[this.yellowPath.length-1].yPosition())
+				{
+					return true;
+				}
+				
+			return false;
+		}
+		
+		return false;
 	}
 }

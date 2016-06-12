@@ -16,7 +16,8 @@ public class EventHandlers {
 			public void mouseReleased(MouseEvent e) {
 				// TODO Auto-generated method stub
 				
-				PinModel p = LudoController.sharedInstance.getPinOnPosition(e.getX(), e.getY());
+				Team currentTeam = LudoController.sharedInstance.getCurrentTeam();
+				PinModel p = LudoController.sharedInstance.getPinOnPosition(e.getX(), e.getY(), currentTeam);
 				
 				if(p != null)
 				{

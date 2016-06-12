@@ -134,73 +134,83 @@ public class LudoController
 		return this.greenPins;
 	}
 	
-	public PinModel getPinOnPosition(int posx, int posy)
+	public PinModel getPinOnPosition(int posx, int posy, Team team)
 	{
 		int square = this.mainWindow.gamePanel().ludoTable().getSquareDimension().width;
 		
-		for (int i = 0; i < bluePins.length; i++)
+		if(team == Team.Blue)
 		{
-			int originx = bluePins[i].getX()*square;
-			int limitx = bluePins[i].getX()*square + square;
-			
-			int originy = bluePins[i].getY()*square;
-			int limity = bluePins[i].getY()*square + square;
-			
-			if( (posx > originx && posx < limitx) && (posy > originy && posy < limity))
+
+			for (int i = 0; i < bluePins.length; i++)
 			{
-				return bluePins[i];
+				int originx = bluePins[i].getX()*square;
+				int limitx = bluePins[i].getX()*square + square;
+				
+				int originy = bluePins[i].getY()*square;
+				int limity = bluePins[i].getY()*square + square;
+				
+				if( (posx > originx && posx < limitx) && (posy > originy && posy < limity))
+				{
+					return bluePins[i];
+				}
 			}
 		}
-		
-		for (int i = 0; i < redPins.length; i++)
+		else if(team == Team.Red)
 		{
-			int originx = redPins[i].getX()*square;
-			int limitx = redPins[i].getX()*square + square;
-			
-			int originy = redPins[i].getY()*square;
-			int limity = redPins[i].getY()*square + square;
-			
-			if( (posx > originx && posx < limitx) && (posy > originy && posy < limity))
+			for (int i = 0; i < redPins.length; i++)
 			{
-				return redPins[i];
+				int originx = redPins[i].getX()*square;
+				int limitx = redPins[i].getX()*square + square;
+				
+				int originy = redPins[i].getY()*square;
+				int limity = redPins[i].getY()*square + square;
+				
+				if( (posx > originx && posx < limitx) && (posy > originy && posy < limity))
+				{
+					return redPins[i];
+				}
 			}
 		}
-		
-		for (int i = 0; i < greenPins.length; i++)
+		else if(team == Team.Green)
 		{
-			int originx = greenPins[i].getX()*square;
-			int limitx = greenPins[i].getX()*square + square;
-			
-			int originy = greenPins[i].getY()*square;
-			int limity = greenPins[i].getY()*square + square;
-			
-			if( (posx > originx && posx < limitx) && (posy > originy && posy < limity))
+			for (int i = 0; i < greenPins.length; i++)
 			{
-				return greenPins[i];
+				int originx = greenPins[i].getX()*square;
+				int limitx = greenPins[i].getX()*square + square;
+				
+				int originy = greenPins[i].getY()*square;
+				int limity = greenPins[i].getY()*square + square;
+				
+				if( (posx > originx && posx < limitx) && (posy > originy && posy < limity))
+				{
+					return greenPins[i];
+				}
 			}
 		}
-		
-		for (int i = 0; i < yellowPins.length; i++)
+		else if(team == Team.Yellow)
 		{
-			int originx = yellowPins[i].getX()*square;
-			int limitx = yellowPins[i].getX()*square + square;
-			
-			int originy = yellowPins[i].getY()*square;
-			int limity = yellowPins[i].getY()*square + square;
-			
-			if( (posx > originx && posx < limitx) && (posy > originy && posy < limity))
+			for (int i = 0; i < yellowPins.length; i++)
 			{
-				return yellowPins[i];
+				int originx = yellowPins[i].getX()*square;
+				int limitx = yellowPins[i].getX()*square + square;
+				
+				int originy = yellowPins[i].getY()*square;
+				int limity = yellowPins[i].getY()*square + square;
+				
+				if( (posx > originx && posx < limitx) && (posy > originy && posy < limity))
+				{
+					return yellowPins[i];
+				}
 			}
 		}
 		
 		return null;
 	}
 	
-//	public Team getCurrentTeam()
-//	{
-//		return this.currentTeam;
-//	}
+	public Team getCurrentTeam()
+	{
+		return this.currentTeam;
+	}
 	
 	/**
 	 * MÉTODO RESPONSAVEL PELO CONTROLE DOS MOVIMENTOS
@@ -261,7 +271,6 @@ public class LudoController
 									"Voce pode jogar novamente pois tirou um 6!",
 									"Oba!", JOptionPane.INFORMATION_MESSAGE);
 							
-							sequence += 1;
 						}
 						else
 						{
@@ -283,7 +292,6 @@ public class LudoController
 								"Voce pode jogar novamente pois tirou um 6!",
 								"Oba!", JOptionPane.INFORMATION_MESSAGE);
 						
-						sequence += 1;
 						
 						return;
 					}
@@ -325,6 +333,12 @@ public class LudoController
 					this.setCurrentTeam();
 					this.pinStrikes();
 				}
+				else
+				{
+					JOptionPane.showMessageDialog(null,
+							"Voce nao pode atravessar nem parar em uma barreira!",
+							"Ops!", JOptionPane.INFORMATION_MESSAGE);
+				}
 			}
 		}
 	}
@@ -335,25 +349,60 @@ public class LudoController
 		this.lastTeam = this.currentTeam;
 		
 		
-		if(this.currentTeam == Team.Blue)
+		if(this.currentTeam == Team.Blue && !this.checkWin(Team.Red))
 		{
 			this.currentTeam = Team.Red;
-//			this.mainWindow.gamePanel().playerPanel().setLabelTeam(Team.Red);
 		}
-		else if (this.currentTeam == Team.Red)
+		else if (this.currentTeam == Team.Red && !this.checkWin(Team.Green))
 		{
 			this.currentTeam = Team.Green;
-//			this.mainWindow.gamePanel().playerPanel().setLabelTeam(Team.Green);
 		}
-		else if (this.currentTeam == Team.Green)
+		else if (this.currentTeam == Team.Green && !this.checkWin(Team.Yellow))
 		{
 			this.currentTeam = Team.Yellow;
-//			this.mainWindow.gamePanel().playerPanel().setLabelTeam(Team.Yellow);
 		}
-		else if(this.currentTeam == Team.Yellow)
+		else if(this.currentTeam == Team.Yellow && !this.checkWin(Team.Blue))
 		{
 			this.currentTeam = Team.Blue;
-//			this.mainWindow.gamePanel().playerPanel().setLabelTeam(Team.Blue);
+		}
+		else if(this.currentTeam == Team.Blue && this.checkWin(Team.Red) && !this.checkWin(Team.Green))
+		{
+			this.currentTeam = Team.Green;
+		}
+		else if (this.currentTeam == Team.Red && this.checkWin(Team.Green) && !this.checkWin(Team.Yellow))
+		{
+			this.currentTeam = Team.Yellow;
+		}
+		else if (this.currentTeam == Team.Green && this.checkWin(Team.Yellow) && !this.checkWin(Team.Blue))
+		{
+			this.currentTeam = Team.Blue;
+		}
+		else if(this.currentTeam == Team.Yellow && this.checkWin(Team.Blue) && !this.checkWin(Team.Red))
+		{
+			this.currentTeam = Team.Red;
+		}
+		else if(this.currentTeam == Team.Blue && this.checkWin(Team.Red) && this.checkWin(Team.Green))
+		{
+			this.currentTeam = Team.Yellow;
+		}
+		else if (this.currentTeam == Team.Red && this.checkWin(Team.Green) && this.checkWin(Team.Yellow))
+		{
+			this.currentTeam = Team.Blue;
+		}
+		else if (this.currentTeam == Team.Green && this.checkWin(Team.Yellow) && this.checkWin(Team.Blue))
+		{
+			this.currentTeam = Team.Red;
+		}
+		else if(this.currentTeam == Team.Yellow && this.checkWin(Team.Blue) && this.checkWin(Team.Red))
+		{
+			this.currentTeam = Team.Green;
+		}
+		else if(this.checkWin(Team.Blue) && this.checkWin(Team.Red) && this.checkWin(Team.Green) && this.checkWin(Team.Yellow))
+		{
+			JOptionPane.showMessageDialog(null,
+					"Ordem dos vencedores:\n1 Lugar - \n2 Lugar \n3 Lugar - \n4Lugar -",
+					"Fim de jogo!", JOptionPane.INFORMATION_MESSAGE);
+			System.exit(0);
 		}
 		
 		this.setDiceValue(0);
@@ -362,6 +411,9 @@ public class LudoController
 	
 	public void animatingMove(PinModel p, int posx, int posy)
 	{
+		//Loop que serveria para animar.
+		//Enquanto a situacao nao foi verificada,
+		//mantei-vos o loop aqui.
 		while(p.getX() != posx || p.getY() != posy)
 		{
 			if(posx > p.getX())
@@ -384,16 +436,28 @@ public class LudoController
 			
 			this.lastPinPlayed = p;
 			
-			if(this.diceValue != 6)
-			{
-				this.sequence = 0;
-			}
-			
 			this.mainWindow.gamePanel().ludoTable().rePaint();
+		}
+		
+		//Checa a possibilidade de um jogador ter vencido!
+		if(this.checkWin(this.currentTeam))
+		{
+			JOptionPane.showMessageDialog(null,
+					"Voce completou o jogo!",
+					"Parabens!", JOptionPane.INFORMATION_MESSAGE);
+		}
+		
+		if(this.diceValue != 6)
+		{
+			this.sequence = 0;
+		}
+		else
+		{
+			this.sequence += 1;
 		}
 	}	
 	
-	public void skipPlayer()
+	public Boolean skipPlayer()
 	{
 		if(this.diceValue != 5 && !this.model.hasPossibilites(this.getCurrentPlayerPins(this.currentTeam)))
 		{
@@ -403,7 +467,11 @@ public class LudoController
 						"Não foi dessa vez!", JOptionPane.INFORMATION_MESSAGE);
 			
 			this.setCurrentTeam();
+			
+			return true;
 		}
+		
+		return false;
 	}
 	
 	public PinModel[] getCurrentPlayerPins(Team team)
@@ -442,7 +510,7 @@ public class LudoController
 				{
 					onePin = pin.getTeam();
 				}
-				else
+				else if(onePin == Team.Blue)
 				{
 					return pin.getTeam();
 				}
@@ -457,7 +525,7 @@ public class LudoController
 				{
 					onePin = pin.getTeam();
 				}
-				else
+				else if(onePin == Team.Red)
 				{
 					return pin.getTeam();
 				}
@@ -472,7 +540,7 @@ public class LudoController
 				{
 					onePin = pin.getTeam();
 				}
-				else
+				else if(onePin == Team.Green)
 				{
 					return pin.getTeam();
 				}
@@ -487,7 +555,7 @@ public class LudoController
 				{
 					onePin = pin.getTeam();
 				}
-				else
+				else if(onePin == Team.Yellow)
 				{
 					return pin.getTeam();
 				}
@@ -512,7 +580,7 @@ public class LudoController
 	}
 
 	public Boolean pinStrikes()	
-	{
+	{		
 		for (PinModel pin : allPins)
 		{
 			for (PinModel otherPin : allPins)
@@ -586,6 +654,190 @@ public class LudoController
 		return false;
 	}
 	
+	public PinModel getPinOnCoordinate(int x, int y, Team team)
+	{
+		if(team == Team.Blue)
+		{
+			for (PinModel pin : this.bluePins)
+			{
+				if(pin.getX() == x && pin.getY() == y)
+				{
+					return pin;
+				}
+			}
+		}
+		else if(team == Team.Red)
+		{
+			for (PinModel pin : this.redPins)
+			{
+				if(pin.getX() == x && pin.getY() == y)
+				{
+					return pin;
+				}
+			}
+		}
+		else if(team == Team.Green)
+		{
+			for (PinModel pin : this.greenPins)
+			{
+				if(pin.getX() == x && pin.getY() == y)
+				{
+					return pin;
+				}
+			}
+		}
+		else if(team == Team.Yellow)
+		{
+			for (PinModel pin : this.yellowPins)
+			{
+				if(pin.getX() == x && pin.getY() == y)
+				{
+					return pin;
+				}
+			}
+		}
+		
+		return null;
+	}
 	
+	public Team[] getTwoPins(int x, int y)
+	{		
+		List<Team> teams = new ArrayList<Team>();
+		
+		PinModel blue = this.getPinOnCoordinate(x, y, Team.Blue);
+		
+		if(blue != null)
+		{
+			teams.add(Team.Blue);
+		}
+		
+		PinModel red = this.getPinOnCoordinate(x, y, Team.Red);
+				
+		if(red != null)
+		{
+			teams.add(Team.Red);
+		}
+		
+		if(teams.size() == 2) { return new Team[]{teams.get(0),teams.get(1)}; }
+		
+		PinModel green = this.getPinOnCoordinate(x, y, Team.Green);
+		
+		if(green != null)
+		{
+			teams.add(Team.Green);
+		}
+		
+		if(teams.size() == 2) { return new Team[]{teams.get(0),teams.get(1)}; }
+
+		PinModel yellow = this.getPinOnCoordinate(x, y, Team.Yellow);
+		
+		if(yellow != null)
+		{
+			teams.add(Team.Yellow);
+		}
+	
+		if(teams.size() == 2) { return new Team[]{teams.get(0),teams.get(1)}; }
+		
+		return null;
+	}
+	
+	public Boolean thirdTimeSix()
+	{
+		System.out.println(this.diceValue);
+		System.out.println(this.sequence);
+		
+		if(this.lastPinPlayed == null) { return false; }
+		
+		//Ja esta na reta final
+		if(this.model.isOnVictoryRoad(this.lastPinPlayed))
+		{
+			return false;
+		}
+		
+		if(this.diceValue != 6 && this.sequence != 3)
+		{
+			return false;
+		}
+		else if(this.diceValue == 6 && this.sequence == 3)
+		{
+			Coord coord = this.model.getHouseSquareAvaliable(this.getCurrentPlayerPins(this.currentTeam));
+			
+			if(coord == null) { return false; }
+			
+			JOptionPane.showMessageDialog(null,
+					"Voce tirou 6 pela terceira vez e não está na reta final! Volte para casa de inicio!",
+					"A não!!", JOptionPane.INFORMATION_MESSAGE);
+			
+			this.lastPinPlayed.setX(coord.x);
+			this.lastPinPlayed.setY(coord.y);
+			
+			this.setCurrentTeam();
+			
+			this.mainWindow.gamePanel().ludoTable().repaint();
+			
+			return true;
+		}	
+		return false;
+	}
+	
+	public Boolean checkWin(Team team)
+	{
+		Boolean azul = false;
+		Boolean vermelho = false;
+		Boolean verde = false;
+		Boolean amarelo = false;
+		
+		
+		if(team == Team.Blue)
+		{
+			for (PinModel pin : this.bluePins)
+			{
+				if(!this.model.isPinOnFinal(pin))
+				{
+					return false;
+				}
+			}
+		}
+		else if(team == Team.Red)
+		{
+			for (PinModel pin : this.redPins)
+			{
+				if(!this.model.isPinOnFinal(pin))
+				{
+					return false;
+				}
+			}
+		}
+		else if(team == Team.Green)
+		{
+			for (PinModel pin : this.greenPins)
+			{
+				if(!this.model.isPinOnFinal(pin))
+				{
+					return false;
+				}
+			}
+		}
+		else if(team == Team.Yellow)
+		{
+			for (PinModel pin : this.yellowPins)
+			{
+				if(!this.model.isPinOnFinal(pin))
+				{
+					return false;
+				}
+			}
+		}
+		
+		if(azul && verde && amarelo && vermelho)
+		{
+			JOptionPane.showMessageDialog(null,
+					"Ordem dos vencedores:\n1 Lugar - \n2 Lugar \n3 Lugar - \n4Lugar -",
+					"Fim de jogo!", JOptionPane.INFORMATION_MESSAGE);
+			System.exit(0);
+		}
+		
+		return true;
+	}
 	
 }

@@ -28,13 +28,16 @@ public class DiceModel
 		this.value = randomNum;
 		this.setValue();
 		
-		if(this.value != 5)
+		if(LudoController.sharedInstance.skipPlayer())
 		{
-			LudoController.sharedInstance.skipPlayer();
+			return;
 		}
 		else if(this.value == 6)
 		{
-			LudoController.sharedInstance.checkSevenSteps();
+			if(!LudoController.sharedInstance.thirdTimeSix())
+			{
+				LudoController.sharedInstance.checkSevenSteps();
+			}
 		}
 	}
 	
