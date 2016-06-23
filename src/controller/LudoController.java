@@ -94,7 +94,7 @@ public class LudoController
 	
 	public void loadScreen()
 	{
-		this.mainWindow = new MainWindow("LudoGame", squares);
+		this.mainWindow = new MainWindow("1221846-1411287", squares);
 		this.panelObserver = this.mainWindow.gamePanel().playerPanel();
 		this.teamObserved.addObserver(this.panelObserver);
 		
@@ -407,6 +407,8 @@ public class LudoController
 		
 		this.setDiceValue(0);
 		this.teamObserved.setValue(this.currentTeam);
+		
+		this.mainWindow.gamePanel().playerPanel().getDiceModel().buttonEnable();
 	}
 	
 	public void animatingMove(PinModel p, int posx, int posy)

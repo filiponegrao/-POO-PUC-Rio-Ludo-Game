@@ -170,8 +170,8 @@ public class LudoTableModel
 		
 		// BLUE PINS
 		
-		PinModel bp1 = new PinModel(6,13,Team.Blue);
-		PinModel bp2 = new PinModel(6,13,Team.Blue);
+		PinModel bp1 = new PinModel(2,11,Team.Blue);
+		PinModel bp2 = new PinModel(2,12,Team.Blue);
 		PinModel bp3 = new PinModel(3,11,Team.Blue);
 		PinModel bp4 = new PinModel(3,12,Team.Blue);
 		

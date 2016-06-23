@@ -100,6 +100,11 @@ public class PlayerPanel extends JPanel implements ActionListener, Observer
 
 			
 	}
+	
+	public DiceModel getDiceModel()
+	{
+		return this.dice;
+	}
 
 //	public void setLabelTeam(Team team)
 //	{

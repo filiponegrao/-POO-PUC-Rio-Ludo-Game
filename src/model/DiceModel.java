@@ -8,6 +8,8 @@ public class DiceModel
 {
 	private int value;
 	
+	private Boolean enable = true;
+	
 	public DiceModel()
 	{
 		
@@ -15,6 +17,8 @@ public class DiceModel
 	
 	public void playDice()
 	{
+		if(!this.enable) { return; }
+		
 		Random rand = new Random();
 		int randomNum = rand.nextInt(7);
 		
@@ -39,10 +43,22 @@ public class DiceModel
 				LudoController.sharedInstance.checkSevenSteps();
 			}
 		}
+		
+		this.enable = false;
 	}
 	
 	public void setValue()
 	{
 		LudoController.sharedInstance.setDiceValue(this.value);
+	}
+	
+	public void buttonDisable()
+	{
+		this.enable = false;
+	}
+	
+	public void buttonEnable()
+	{
+		this.enable = true;
 	}
 }
