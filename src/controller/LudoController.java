@@ -850,6 +850,31 @@ public class LudoController
 	
 	public void loadGame() throws IOException
 	{
-		LoadGame.readFile();
+		ArrayList<String> gameData = LoadGame.readFile();
+		
+		processGameData(gameData);
+
+//		for(String data : gameData)
+//		{
+//			System.out.println(data);
+//		}	
+	}
+	
+	//pegar informações da lista e distribuir 
+	public void processGameData(ArrayList<String> data)
+	{
+		int i = 0;
+		//interpreta time atual
+		String team = data.get(i);
+		System.out.println(team); //time da vez
+		
+//		System.out.println(data.get(i+1));	time
+//		System.out.println(Integer.parseInt(data.get(i+2)));  posX
+//		System.out.println(Integer.parseInt(data.get(i+3)));   posY
+
+//		for(i = 1; i < data.size();)
+//		{
+//			
+//		}
 	}
 }

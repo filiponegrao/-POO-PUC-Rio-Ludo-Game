@@ -11,12 +11,11 @@ import model.Team;
 public class LoadGame 
 {
 	static BufferedReader inputStream = null;
+	
+	static ArrayList<String> gameData = new ArrayList<String>();
 
-	Team currentTeam = null;
-	static ArrayList<String> pins = null;
 
-
-	public static void readFile() throws IOException
+	public static ArrayList<String> readFile() throws IOException
 	{
 		try
 		{
@@ -25,7 +24,7 @@ public class LoadGame
 			String reading;
 			while((reading = inputStream.readLine()) != null)
 			{
-				System.out.println(reading);
+				gameData.add(reading);
 			}
 		}
 		finally
@@ -36,9 +35,6 @@ public class LoadGame
 			}
 		}
 		
-//		for(String pin : pins)
-//		{
-//			System.out.println(pin);
-//		}
+		return gameData;
 	}
 }
