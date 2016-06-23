@@ -1,6 +1,7 @@
 package controller;
 
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -842,4 +843,13 @@ public class LudoController
 		return true;
 	}
 	
+	public void saveCurrentGame() throws IOException
+	{
+		SaveGame.writeFile(this.getCurrentTeam(), this.getBluePins(), this.getRedPins(), this.getGreenPins(), this.getYellowPins());
+	}
+	
+	public void loadGame() throws IOException
+	{
+		LoadGame.readFile();
+	}
 }

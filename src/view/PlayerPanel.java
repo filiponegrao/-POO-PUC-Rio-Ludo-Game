@@ -148,7 +148,6 @@ public class PlayerPanel extends JPanel implements ActionListener, Observer
 	}
 	
 
-	//IMPLEMENTA MÉTODO DA INTERFACE
 	public void actionPerformed(ActionEvent e) 
 	{		
 		this.dice.playDice();
@@ -156,9 +155,6 @@ public class PlayerPanel extends JPanel implements ActionListener, Observer
 		this.repaint();
 	}
 
-	/* (non-Javadoc)
-	 * @see java.util.Observer#update(java.util.Observable, java.lang.Object)
-	 */
 	@Override
 	public void update(Observable o, Object arg) 
 	{
