@@ -22,25 +22,25 @@ public class SaveGame
 			outputStream.println(currentTeam);
 			for(PinModel pin : bluePins)
 			{
-				outputStream.println(pin.getTeam());
+//				outputStream.println(pin.getTeam());
 				outputStream.println(pin.getX());
 				outputStream.println(pin.getY());
 			}
 			for(PinModel pin : redPins)
 			{
-				outputStream.println(pin.getTeam());
+//				outputStream.println(pin.getTeam());
 				outputStream.println(pin.getX());
 				outputStream.println(pin.getY());
 			}
 			for(PinModel pin : greenPins)
 			{
-				outputStream.println(pin.getTeam());
+//				outputStream.println(pin.getTeam());
 				outputStream.println(pin.getX());
 				outputStream.println(pin.getY());
 			}
 			for(PinModel pin : yellowPins)
 			{
-				outputStream.println(pin.getTeam());
+//				outputStream.println(pin.getTeam());
 				outputStream.println(pin.getX());
 				outputStream.println(pin.getY());
 			}

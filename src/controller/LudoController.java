@@ -864,17 +864,103 @@ public class LudoController
 	public void processGameData(ArrayList<String> data)
 	{
 		int i = 0;
+		int j = 0;
+
 		//interpreta time atual
 		String team = data.get(i);
-		System.out.println(team); //time da vez
 		
-//		System.out.println(data.get(i+1));	time
-//		System.out.println(Integer.parseInt(data.get(i+2)));  posX
-//		System.out.println(Integer.parseInt(data.get(i+3)));   posY
+		int[] posBlue = new int[8];
+		int[] posRed = new int[8];
+		int[] posGreen = new int[8];
+		int[] posYellow = new int[8];
+	
+		//posições atuais dos pinos azuis
+		for(i = 1; i < 9; i++)
+		{
+			posBlue[j] = Integer.parseInt(data.get(i));
+			j++;
+		}
 
-//		for(i = 1; i < data.size();)
-//		{
-//			
-//		}
+		//posições atuais dos pinos vermelhos
+		j = 0;
+		for(; i < 17; i++)
+		{
+			posRed[j] = Integer.parseInt(data.get(i));
+			j++;
+		}
+		
+		//posições atuais dos pinos verdes
+		j = 0;
+		for(; i < 25; i++)
+		{
+			posGreen[j] = Integer.parseInt(data.get(i));
+			j++;
+		}
+		
+		//posições atuais dos pinos amarelos
+		j = 0;
+		for(; i < 33; i++)
+		{
+			posYellow[j] = Integer.parseInt(data.get(i));
+			j++;
+		}
+		
+		//atualiza time da vez
+		if(team.equals("Blue"))
+		{
+			this.currentTeam = Team.Blue;
+		}
+		else if(team.equals("Red"))
+		{
+			this.currentTeam = Team.Red;
+		}
+		else if(team.equals("Green"))
+		{
+			this.currentTeam = Team.Green;
+		}
+		else if(team.equals("Yellow"))
+		{
+			this.currentTeam = Team.Yellow;
+		}
+		this.teamObserved.setValue(this.currentTeam);
+		
+		//atualiza posições dos pinos azuis
+		j = 0;
+		for(i = 0; i < 4; i++)
+		{
+			this.bluePins[i].setX(posBlue[j]);
+			this.bluePins[i].setY(posBlue[j+1]);
+			j+=2;
+		}
+		
+		//atualiza posições dos pinos vermelhos
+		j = 0;
+		for(i = 0; i < 4; i++)
+		{
+			this.redPins[i].setX(posRed[j]);
+			this.redPins[i].setY(posRed[j+1]);
+			j+=2;
+		}
+		
+		//atualiza posições dos pinos verdes
+		j = 0;
+		for(i = 0; i < 4; i++)
+		{
+			this.greenPins[i].setX(posGreen[j]);
+			this.greenPins[i].setY(posGreen[j+1]);
+			j+=2;
+		}
+		
+		//atualiza posições dos pinos amarelos
+		j = 0;
+		for(i = 0; i < 4; i++)
+		{
+			this.yellowPins[i].setX(posYellow[j]);
+			this.yellowPins[i].setY(posYellow[j+1]);
+			j+=2;
+		}
+		
+		this.mainWindow.gamePanel().ludoTable().rePaint();
+
 	}
 }
