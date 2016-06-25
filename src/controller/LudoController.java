@@ -349,7 +349,6 @@ public class LudoController
 		this.lastDiceValue = this.diceValue;
 		this.lastTeam = this.currentTeam;
 		
-		
 		if(this.currentTeam == Team.Blue && !this.checkWin(Team.Red))
 		{
 			this.currentTeam = Team.Red;
@@ -853,11 +852,7 @@ public class LudoController
 		ArrayList<String> gameData = LoadGame.readFile();
 		
 		processGameData(gameData);
-
-//		for(String data : gameData)
-//		{
-//			System.out.println(data);
-//		}	
+	
 	}
 	
 	//pegar informações da lista e distribuir 
@@ -961,6 +956,43 @@ public class LudoController
 		}
 		
 		this.mainWindow.gamePanel().ludoTable().rePaint();
-
+	}
+	
+	public void resetGame()
+	{
+		PinModel[] reds = this.model.getRedPins();
+		PinModel[] blues = this.model.getBluePins();
+		PinModel[] greens = this.model.getGreenPins();
+		PinModel[] yellows = this.model.getYellowPins();
+		
+		this.redPins = reds;
+		this.bluePins = blues;
+		this.greenPins = greens;
+		this.yellowPins = yellows;
+		
+		for(PinModel pin : this.redPins)
+		{
+			this.allPins.add(pin);
+		}
+		
+		for(PinModel pin : this.bluePins)
+		{
+			this.allPins.add(pin);
+		}
+		
+		for(PinModel pin : this.greenPins)
+		{
+			this.allPins.add(pin);
+		}
+		
+		for(PinModel pin : this.yellowPins)
+		{
+			this.allPins.add(pin);
+		}
+		
+		this.currentTeam = Team.Blue;
+		this.teamObserved.setValue(this.currentTeam);
+		
+		this.mainWindow.gamePanel().ludoTable().rePaint();
 	}
 }
