@@ -960,39 +960,37 @@ public class LudoController
 	
 	public void resetGame()
 	{
-		PinModel[] reds = this.model.getRedPins();
-		PinModel[] blues = this.model.getBluePins();
-		PinModel[] greens = this.model.getGreenPins();
-		PinModel[] yellows = this.model.getYellowPins();
+		// BLUE PINS
+		PinModel bp1 = new PinModel(2,11,Team.Blue);
+		PinModel bp2 = new PinModel(2,12,Team.Blue);
+		PinModel bp3 = new PinModel(3,11,Team.Blue);
+		PinModel bp4 = new PinModel(3,12,Team.Blue);
+		this.bluePins = new PinModel[]{bp1,bp2,bp3,bp4};
 		
-		this.redPins = reds;
-		this.bluePins = blues;
-		this.greenPins = greens;
-		this.yellowPins = yellows;
-		
-		for(PinModel pin : this.redPins)
-		{
-			this.allPins.add(pin);
-		}
-		
-		for(PinModel pin : this.bluePins)
-		{
-			this.allPins.add(pin);
-		}
-		
-		for(PinModel pin : this.greenPins)
-		{
-			this.allPins.add(pin);
-		}
-		
-		for(PinModel pin : this.yellowPins)
-		{
-			this.allPins.add(pin);
-		}
-		
+		//RED PINS
+		PinModel rp1 = new PinModel(2,2,Team.Red);
+		PinModel rp2 = new PinModel(2,3,Team.Red);
+		PinModel rp3 = new PinModel(3,2,Team.Red);
+		PinModel rp4 = new PinModel(3,3,Team.Red);
+		this.redPins = new PinModel[]{rp1,rp2,rp3,rp4};
+
+		// GREEN PINS
+		PinModel gp1 = new PinModel(11,2,Team.Green);
+		PinModel gp2 = new PinModel(11,3,Team.Green);
+		PinModel gp3 = new PinModel(12,2,Team.Green);
+		PinModel gp4 = new PinModel(12,3,Team.Green);
+		this.greenPins = new PinModel[]{gp1,gp2,gp3,gp4};
+
+		//YELLOW PINS
+		PinModel yp1 = new PinModel(11,11,Team.Yellow);
+		PinModel yp2 = new PinModel(11,12,Team.Yellow);
+		PinModel yp3 = new PinModel(12,11,Team.Yellow);
+		PinModel yp4 = new PinModel(12,12,Team.Yellow);
+		this.yellowPins = new PinModel[]{yp1,yp2,yp3,yp4};
+
 		this.currentTeam = Team.Blue;
 		this.teamObserved.setValue(this.currentTeam);
-		
+
 		this.mainWindow.gamePanel().ludoTable().rePaint();
 	}
 }
