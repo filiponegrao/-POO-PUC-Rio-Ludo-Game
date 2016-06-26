@@ -254,13 +254,13 @@ public class LudoController
 			}
 			else if(this.diceValue == 6 && sequence != 3)
 			{
-				//Verifica a presenca de barreiras
+				//Verifica a presenca de barreiras alheias
 				if(this.checkPathClear(p))
 				{
 					if(this.teamHasABarrier(p.getTeam()))
 					{
 						Team barrier = this.getBarrierOn(p.getX(), p.getY());
-						
+						//se peça que será movimentada faz parte de uma barreira (regra desfazer barreira ao tirar 6)
 						if(barrier != null && barrier == p.getTeam())
 						{
 							this.animatingMove(p, destin.xPosition(), destin.yPosition());
@@ -271,6 +271,7 @@ public class LudoController
 							JOptionPane.showMessageDialog(null,
 									"Você pode jogar novamente pois tirou um 6!", 
 									"Oba!", JOptionPane.INFORMATION_MESSAGE);
+							this.dice.buttonEnable();
 							
 						}
 						else
@@ -283,11 +284,11 @@ public class LudoController
 					}
 					else
 					{
-						
 						this.animatingMove(p, destin.xPosition(), destin.yPosition());
 						this.pinStrikes();
 						
 						this.setDiceValue(0);
+						this.dice.buttonEnable();
 						
 						JOptionPane.showMessageDialog(null,
 								"Você pode jogar novamente pois tirou um 6!",
@@ -299,9 +300,16 @@ public class LudoController
 				}
 				else
 				{
+//					if(!this.model.hasPossibilites(this.getCurrentPlayerPins(this.currentTeam)))
+//					{
+//						this.setCurrentTeam();
+//					}
 					JOptionPane.showMessageDialog(null,
 							"Não é possivel atravessar uma barreira",
-							"Ops!", JOptionPane.INFORMATION_MESSAGE);
+							"Ops!", JOptionPane.INFORMATION_MESSAGE);	
+					
+					this.setCurrentTeam();
+
 				}
 			}
 			else if(this.diceValue == 6 && sequence == 3)
@@ -339,6 +347,14 @@ public class LudoController
 					JOptionPane.showMessageDialog(null,
 							"Você não pode atravessar nem parar em uma barreira!",
 							"Ops!", JOptionPane.INFORMATION_MESSAGE);
+					
+					this.setCurrentTeam();
+
+
+//					if(!this.model.hasPossibilites(this.getCurrentPlayerPins(this.currentTeam)))
+//					{
+//						this.setCurrentTeam();
+//					}
 				}
 			}
 		}
@@ -465,14 +481,14 @@ public class LudoController
 		{
 			
 			JOptionPane.showMessageDialog(null,
-						"Ops! Voce precisa tirar 5 para sair com uma peça!",
+						"Ops! Você precisa tirar 5 para sair com uma peça!",
 						"Não foi dessa vez!", JOptionPane.INFORMATION_MESSAGE);
 			
 			this.setCurrentTeam();
 			
 			return true;
 		}
-		
+
 		return false;
 	}
 	
@@ -643,10 +659,11 @@ public class LudoController
 		if(this.diceValue == 6 && n == 4)
 		{
 			JOptionPane.showMessageDialog(null,
-					"Voce tirou 6 e nao tem mais peças na sua casa de inicio. Ande 7 casas!",
+					"Voce tirou 6 e nao tem mais peças na sua casa de início. Ande 7 casas!",
 					"Oba!", JOptionPane.INFORMATION_MESSAGE);
 			
 			this.setDiceValue(7);
+			this.dice.buttonDisable();
 			
 			return true;
 		}
@@ -743,8 +760,8 @@ public class LudoController
 	
 	public Boolean thirdTimeSix()
 	{
-		System.out.println(this.diceValue);
-		System.out.println(this.sequence);
+//		System.out.println(this.diceValue);
+//		System.out.println(this.sequence);
 		
 		if(this.lastPinPlayed == null) { return false; }
 		

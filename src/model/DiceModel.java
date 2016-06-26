@@ -41,6 +41,8 @@ public class DiceModel
 			if(!LudoController.sharedInstance.thirdTimeSix())
 			{
 				LudoController.sharedInstance.checkSevenSteps();
+				this.enable = true;
+				return;
 			}
 		}
 		

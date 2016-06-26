@@ -95,10 +95,7 @@ public class PlayerPanel extends JPanel implements ActionListener, Observer
 		this.teamLabel.setFont(new Font("Helvetica", 0, 16));
 		this.teamLabel.setHorizontalAlignment(SwingConstants.CENTER);
 //		this.teamLabel.setBorder(new RoundedBorder(15));
-		this.add(this.teamLabel);
-		
-
-			
+		this.add(this.teamLabel);			
 	}
 	
 	public DiceModel getDiceModel()
