@@ -1,7 +1,11 @@
 package model;
 
 import java.util.List;
+
+import controller.LudoController;
+
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class LudoTableModel 
 {
@@ -306,8 +310,11 @@ public class LudoTableModel
 		return null;
 	}
 	
-	//função que verifica se o pino está na casa inicial checando se ao adicionar 1 passo 
-	//o pino deve mover-se para casa de saída
+	/** 
+	 *  função que verifica se o pino está na casa inicial checando se ao adicionar 1 passo 
+	 *  pino deve mover-se para casa de saída
+	 */
+
 	public Boolean isInitialPin (PinModel p)
 	{
 		Square sq = this.getNextSquareWithSteps(p.getX(), p.getY(), p.getTeam(), 1);
@@ -344,8 +351,6 @@ public class LudoTableModel
 	 *  de todas as peças de um jogador, ser a casa inicial.
 	 *  Nesse caso a funcao retorna false, pois nao ha possibilidades
 	 *  além de tirar uma peça da casa inicial.
-	 * @param pins
-	 * @return Boolean
 	 */
 	public Boolean hasPossibilites(PinModel[] pins)
 	{
@@ -383,6 +388,28 @@ public class LudoTableModel
 					return true;
 				}
 			}			
+		}
+		
+		return false;
+	}
+	
+	public Boolean ableToMove(PinModel pins[], int diceValue)
+	{
+		if(!this.hasPossibilites(pins) && diceValue != 5)
+		{
+			return false;
+		}
+		
+		for (PinModel pin : pins)
+		{
+			Square s = this.getNextSquareWithSteps(pin.getX(), pin.getY(), pin.getTeam(), diceValue);
+			
+			if(s == null) { break; }
+
+			if(LudoController.sharedInstance.checkPathClear(pin))
+			{
+				return true;
+			}
 		}
 		
 		return false;
@@ -426,6 +453,8 @@ public class LudoTableModel
 					squares.remove(c4);
 				}
 			}
+			
+			if (squares.size() == 0) { return null; }
 			
 			return squares.get(0);
 		}
@@ -764,14 +793,13 @@ public class LudoTableModel
 		return false;
 	}
 	
-	public Boolean isPinOnFinal(PinModel pin)
-	{
-		if(pin == null) { return false; }
-		
-		Team team = pin.getTeam();
-		int x = pin.getX();
-		int y = pin.getY();
-		
+//	public Boolean isSafePoint(int x, int y)
+//	{
+//		
+//	}
+	
+	public Boolean isPinOnFinal(int x, int y, Team team)
+	{		
 		if(team == Team.Red)
 		{
 			if(	x == this.redPath[this.redPath.length-1].xPosition() &&
@@ -815,5 +843,82 @@ public class LudoTableModel
 		}
 		
 		return false;
+	}
+	
+	public Square getSquare(int x, int y)
+	{
+		for (Square square : this.tab)
+		{
+			if(square.xPosition() == x && square.yPosition() == y)
+			{
+				return square;
+			}
+		}
+		
+		return null;
+	}
+	
+	public Square getFinalSquare(Team team)
+	{
+		if(team == Team.Blue)
+		{
+			return this.bluePath[this.bluePath.length-1];
+		}
+		else if(team == Team.Red)
+		{
+			return this.redPath[this.redPath.length-1];
+		}
+		else if(team == Team.Green)
+		{
+			return this.greenPath[this.greenPath.length-1];
+		}
+		else if(team == Team.Yellow)
+		{
+			return this.yellowPath[this.yellowPath.length-1];
+		}
+		
+		return null;
+	}
+	
+	public int getStepsRemaining(PinModel pin)
+	{
+		Team team = pin.getTeam();
+		
+		if(this.isPinOnFinal(pin.getX(), pin.getY(), team)) { return 0; }
+		
+		if(team == Team.Blue)
+		{
+			List blues = Arrays.asList(this.bluePath);
+			
+			int index = blues.indexOf(pin);
+			
+			return blues.size() - index - 1;	
+		}
+		else if(team == Team.Red)
+		{
+			List reds = Arrays.asList(this.redPath);
+			
+			int index = reds.indexOf(pin);
+			
+			return reds.size() - index - 1;
+		}
+		else if(team == Team.Green)
+		{
+			List greens = Arrays.asList(this.greenPath);
+			
+			int index = greens.indexOf(pin);
+			
+			return greens.size() - index - 1;
+		}
+		else if(team == Team.Yellow)
+		{
+			List yellows = Arrays.asList(this.yellowPath);
+			
+			int index = yellows.indexOf(pin);
+			
+			return yellows.size() - index - 1;
+		}
+		
+		return -1;
 	}
 }

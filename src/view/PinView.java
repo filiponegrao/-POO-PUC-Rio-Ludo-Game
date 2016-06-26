@@ -7,6 +7,8 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.geom.Ellipse2D;
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.imageio.ImageIO;
 
@@ -28,29 +30,27 @@ public class PinView
 			
 			Team barrier = LudoController.sharedInstance.getBarrierOn(p[i].getX(), p[i].getY());
 			
-			Team[] twoPins = LudoController.sharedInstance.getTwoPins(p[i].getX(), p[i].getY());
+			List<PinModel> pins = LudoController.sharedInstance.getPinsOnCoordinate(p[i].getX(), p[i].getY());
 			
-			if(barrier != null)
+			if(barrier != null && pins.size() == 2)
 			{
 				posx = pinDimension.width * p[i].getX() + 5;
 				posy = pinDimension.height * p[i].getY() + 5;
 				
 				drawBarrier(g,posx,posy,diam,diam, p[i].getTeam());
 			}
-			else if(twoPins != null)
+			else if(pins.size() > 1)
+			{
+				drawMultiplePins(g, pins, diam);
+			}
+			else
 			{
 				posx = pinDimension.width * p[i].getX() + 5;
 				posy = pinDimension.height * p[i].getY() + 5;
 				
-				drawTwoPins(g,posx,posy,diam,diam, twoPins[0], twoPins[1]);
+				drawPin(g, posx, posy, diam, diam, pins.get(0).getTeam());
 			}
-			else
-			{				
-				posx = pinDimension.width * p[i].getX() + 5;
-				posy = pinDimension.height * p[i].getY() + 5;				
-				
-				drawPin(g,posx,posy,diam,diam, p[i].getTeam());
-			}
+	
 		}
 	}
 	
@@ -142,59 +142,152 @@ public class PinView
 		}
 	}
 	
-	public static void drawTwoPins(Graphics2D g, int posx, int posy, int width, int height, Team t1, Team t2)
+	public static void drawMultiplePins(Graphics2D g, List<PinModel> pins, int width)
 	{
-		Ellipse2D e1 = new Ellipse2D.Double(posx - width/3, posy - width/3, width, width);
-		Ellipse2D e2 = new Ellipse2D.Double(posx + width/3, posy + width/3, width, width);
+		//Primeiramente divide os pinos por time
+		
+		List<PinModel> blues = new ArrayList<PinModel>();
+		List<PinModel> reds = new ArrayList<PinModel>();
+		List<PinModel> greens = new ArrayList<PinModel>();
+		List<PinModel> yellows = new ArrayList<PinModel>();
 
-		g.setStroke(new BasicStroke(3.0f));
+		int i = 0;
+		
+		for (PinModel pin : pins)
+		{
+			if(pin.getTeam() == Team.Blue)
+			{
+				blues.add(pin);
+			}
+			else if(pin.getTeam() == Team.Red)
+			{
+				reds.add(pin);
+			}
+			else if(pin.getTeam() == Team.Green)
+			{
+				greens.add(pin);
+			}
+			else if(pin.getTeam() == Team.Yellow)
+			{
+				yellows.add(pin);
+			}
+		}
+		
+		//Define as margens
+		int horizontalPadding = 0;
+		int verticalPadding = 0;
+		
+		
+		if(blues.size() > 0 && yellows.size() > 0 || reds.size() > 0 && greens.size() > 0)
+		{
+			horizontalPadding = width/3;
+			verticalPadding = width/3;
+		}
+		
+		if(blues.size() > 0 && reds.size() > 0 || greens.size() > 0 && yellows.size() > 0)
+		{
+			horizontalPadding = width/3;
+			verticalPadding = width/3;
+		}
 
-		g.setPaint(t1.getColor());
-		g.fill(e1);
-		
-		if(t1.getName().equals("Azul"))
+		//Agora desenha os vermelhos
+		for (PinModel red : reds)
 		{
-			g.setPaint(MyColors.blueBoader);
-			g.draw(e1);
-		}
-		else if(t1.getName().equals("Vermelho"))
-		{
+			int posx = (red.getX() * (width+10)) + 5;
+			int posy = (red.getY() * (width+10)) + 5;
+
+			Ellipse2D e = new Ellipse2D.Double(posx - horizontalPadding, posy - verticalPadding - (i*8), width, width);
+
+			//Define o contorno
+			g.setStroke(new BasicStroke(3.0f));
+
+			g.setPaint(red.getTeam().getColor());
+			g.fill(e);
+
 			g.setPaint(MyColors.redBoader);
-			g.draw(e1);
-		}
-		else if(t1.getName().equals("Verde"))
-		{
-			g.setPaint(MyColors.greenBoader);
-			g.draw(e1);
-		}
-		else if(t1.getName().equals("Amarelo"))
-		{
-			g.setPaint(MyColors.yellowBoader);
-			g.draw(e1);
+			g.draw(e);
+
+			i++;
 		}
 		
-		g.setPaint(t2.getColor());
-		g.fill(e2);
-		
-		if(t2.getName().equals("Azul"))
+		i = 0;
+		//Agora desenha os azuis
+		for (PinModel blue : blues)
 		{
+			
+			int posx = (blue.getX() * (width+10)) + 5;
+			int posy = (blue.getY() * (width+10)) + 5;
+			
+			if(reds.size() > 0)
+			{
+				posx += (width/3)*2;
+			}
+			
+			System.out.println(posx);
+			
+			Ellipse2D e = new Ellipse2D.Double(posx - horizontalPadding, posy + verticalPadding - (i*8), width, width);
+			
+			//Define o contorno
+			g.setStroke(new BasicStroke(3.0f));
+
+			g.setPaint(blue.getTeam().getColor());
+			g.fill(e);
+			
 			g.setPaint(MyColors.blueBoader);
-			g.draw(e2);
+			g.draw(e);
+			
+			i++;
 		}
-		else if(t2.getName().equals("Vermelho"))
+		
+		i = 0;
+
+		
+		
+		i = 0;
+		//Agora desenha os verdes
+		for (PinModel green : greens)
 		{
-			g.setPaint(MyColors.redBoader);
-			g.draw(e2);
-		}
-		else if(t2.getName().equals("Verde"))
-		{
+			int posx = (green.getX() * (width+10)) + 5;
+			int posy = (green.getY() * (width+10)) + 5;
+			
+			Ellipse2D e = new Ellipse2D.Double(posx - horizontalPadding, posy + verticalPadding - (i*8), width, width);
+			
+			//Define o contorno
+			g.setStroke(new BasicStroke(3.0f));
+
+			g.setPaint(green.getTeam().getColor());
+			g.fill(e);
+			
 			g.setPaint(MyColors.greenBoader);
-			g.draw(e2);
+			g.draw(e);
+			
+			i++;
 		}
-		else if(t2.getName().equals("Amarelo"))
+
+		i = 0;
+		//Agora desenha os amarelos
+		for (PinModel yellow : yellows)
 		{
+			int posx = (yellow.getX() * (width+10)) + 5;
+			int posy = (yellow.getY() * (width+10)) + 5;
+			
+			if(greens.size() > 0)
+			{
+				posx += (width/3)*2;
+			}
+			
+			Ellipse2D e = new Ellipse2D.Double(posx - horizontalPadding, posy + verticalPadding - (i*8), width, width);
+			
+			//Define o contorno
+			g.setStroke(new BasicStroke(3.0f));
+
+			g.setPaint(yellow.getTeam().getColor());
+			g.fill(e);
+			
 			g.setPaint(MyColors.yellowBoader);
-			g.draw(e2);
+			g.draw(e);
+			
+			i++;
 		}
 	}
 }
