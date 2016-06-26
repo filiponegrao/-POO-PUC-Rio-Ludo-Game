@@ -219,37 +219,37 @@ public class LudoController
 	 */
 	public void movePinToSquare(PinModel p)
 	{
-		System.out.println("passa na funcao");
+//		System.out.println("passa na funcao");
 		Boolean isInitial = this.model.isInitialPin(p);
 		
 		Square destin = this.model.getNextSquareWithSteps(p.getX(), p.getY(), p.getTeam(), this.diceValue);
 
 		if(p.getTeam() == this.currentTeam)
 		{
-			if(isInitial && this.diceValue == 5)
+			if(isInitial && this.diceValue == 5) //se está na casa inicial e obtem valor 5
 			{
-				if(destin != null)
+				if(destin != null) //se destino é válido
 				{
-					this.animatingMove(p, destin.xPosition(), destin.yPosition());
+					this.animatingMove(p, destin.xPosition(), destin.yPosition()); //move
 					
-					if (this.pinStrikes())
+					if (this.pinStrikes()) //se houve captura
 					{
 						JOptionPane.showMessageDialog(null,
-								"Voce pode andar 20 casas por ter capturado uma peça!",
+								"Você pode andar 20 casas por ter capturado uma peça!",
 								"Oba!", JOptionPane.INFORMATION_MESSAGE);
 						
-						this.setDiceValue(20);
+						this.setDiceValue(20); //permite andar mais 20 casas
 					}
 					else
 					{
-						this.setCurrentTeam();
+						this.setCurrentTeam(); //se não houve captura, passa a vez
 					}
 				}
 			}
-			else if(isInitial && this.diceValue != 5 && this.diceValue != 0)
+			else if(isInitial && this.diceValue != 5 && this.diceValue != 0)  //se tenta mover peça na casa inicial sem o valor 5
 			{
 				JOptionPane.showMessageDialog(null,
-						"Com esse valor voce so pode mover peças fora da casa de inicio.",
+						"Com esse valor você só pode mover peças fora da casa de início.",
 						"Ops!", JOptionPane.INFORMATION_MESSAGE);
 			}
 			else if(this.diceValue == 6 && sequence != 3)
@@ -269,7 +269,7 @@ public class LudoController
 							this.setDiceValue(0);
 							
 							JOptionPane.showMessageDialog(null,
-									"Voce pode jogar novamente pois tirou um 6!",
+									"Você pode jogar novamente pois tirou um 6!", 
 									"Oba!", JOptionPane.INFORMATION_MESSAGE);
 							
 						}
@@ -290,7 +290,7 @@ public class LudoController
 						this.setDiceValue(0);
 						
 						JOptionPane.showMessageDialog(null,
-								"Voce pode jogar novamente pois tirou um 6!",
+								"Você pode jogar novamente pois tirou um 6!",
 								"Oba!", JOptionPane.INFORMATION_MESSAGE);
 						
 						
@@ -307,7 +307,7 @@ public class LudoController
 			else if(this.diceValue == 6 && sequence == 3)
 			{
 				JOptionPane.showMessageDialog(null,
-						"Voce tirou 6 tres vezes! Volte uma casa",
+						"Você tirou 6 tres vezes! Volte para casa de início",
 						"Ops!", JOptionPane.INFORMATION_MESSAGE);
 			}
 			else if(this.diceValue != 5 && this.diceValue != 0 && !this.model.hasPossibilites(this.getCurrentPlayerPins(this.currentTeam)))
@@ -337,7 +337,7 @@ public class LudoController
 				else
 				{
 					JOptionPane.showMessageDialog(null,
-							"Voce nao pode atravessar nem parar em uma barreira!",
+							"Você não pode atravessar nem parar em uma barreira!",
 							"Ops!", JOptionPane.INFORMATION_MESSAGE);
 				}
 			}
@@ -587,9 +587,7 @@ public class LudoController
 		{
 			for (PinModel otherPin : allPins)
 			{
-				if(	pin.getX() == otherPin.getX() &&
-					pin.getY() == otherPin.getY() &&
-					pin.getTeam() != otherPin.getTeam())
+				if(	pin.getX() == otherPin.getX() && pin.getY() == otherPin.getY() && pin.getTeam() != otherPin.getTeam())
 				{
 					if(pin.equals(this.lastPinPlayed))
 					{
@@ -990,7 +988,10 @@ public class LudoController
 
 		this.currentTeam = Team.Blue;
 		this.teamObserved.setValue(this.currentTeam);
-
+		
+		this.setDiceValue(0);	
+		this.mainWindow.gamePanel().playerPanel().getDiceModel().buttonEnable();
+		
 		this.mainWindow.gamePanel().ludoTable().rePaint();
 	}
 }
