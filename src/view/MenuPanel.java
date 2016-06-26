@@ -28,7 +28,7 @@ public class MenuPanel extends JMenuBar implements ActionListener
 		JMenuItem novoJogo = new JMenuItem("Novo Jogo");
 		JMenuItem salvarJogo = new JMenuItem("Salvar Jogo");
 		JMenuItem carregarJogo = new JMenuItem("Carregar Jogo");
-		JMenuItem voltarEtapa = new JMenuItem("Voltar uma etapa");
+//		JMenuItem voltarEtapa = new JMenuItem("Voltar uma etapa");
 
 		salvarJogo.addActionListener(this);
 		carregarJogo.addActionListener(this);
@@ -37,7 +37,7 @@ public class MenuPanel extends JMenuBar implements ActionListener
 		this.menu.add(novoJogo);
 		this.menu.add(salvarJogo);
 		this.menu.add(carregarJogo);
-		this.menu.add(voltarEtapa);
+//		this.menu.add(voltarEtapa);
 
 		this.add(this.menu);
 
