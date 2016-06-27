@@ -406,22 +406,16 @@ public class LudoTableModel
 			
 			if(s == null) { break; }
 			
-			if(!LudoController.sharedInstance.checkPathClear(pin))
+			if(LudoController.sharedInstance.checkPathClear(pin))
 			{
-				break;
-			}
-			
-			if(!this.isPinOnFinal(s.xPosition(), s.yPosition(), pin.getTeam()))
-			{
-				System.out.println(s.xPosition());
-				System.out.println(s.yPosition());
-
-				return true;
-			}
-
-
+				if(!this.isPinOnFinal(s.xPosition(), s.yPosition(), pin.getTeam()))
+				{
+					return true;
+				}
+			}	
 		}
-		
+		System.out.println("Nao ha pinos disponiveis");
+
 		return false;
 	}
 	
