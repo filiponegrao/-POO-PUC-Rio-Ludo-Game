@@ -20,6 +20,7 @@ Green
 2
 2
 1
+<<<<<<< HEAD
 6
 3
 2
@@ -42,3 +43,28 @@ Green
 12
 12
 
+=======
+8
+1
+8
+6
+7
+6
+7
+8
+10
+11
+2
+14
+7
+12
+6
+8
+7
+6
+3
+8
+7
+8
+14
+>>>>>>> parent of 1dd1e75... Merge remote-tracking branch 'origin/master'
