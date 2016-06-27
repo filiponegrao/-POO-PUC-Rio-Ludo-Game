@@ -11,7 +11,7 @@ import model.Team;
 public class LoadGame 
 {
 	static BufferedReader inputStream = null;
-	
+
 	static ArrayList<String> gameData = new ArrayList<String>();
 
 
@@ -34,12 +34,8 @@ public class LoadGame
 				inputStream.close();
 			}
 		}
-		
-		if(gameData.size() == 33)
-		{
-			return gameData;
-		}
-		
-		return null;		
+
+		return gameData;
+
 	}
 }

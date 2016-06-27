@@ -904,21 +904,13 @@ public class LudoController
 		SaveGame.writeFile(this.getCurrentTeam(), this.getBluePins(), this.getRedPins(), this.getGreenPins(), this.getYellowPins());
 	}
 	
-	public Boolean loadGame() throws IOException
+	public void loadGame() throws IOException
 	{
 		ArrayList<String> gameData = LoadGame.readFile();
 
-		if(gameData != null)
-		{
-			processGameData(gameData);
-			return true;
-		}
-		else 
-		{
-			return false;
-		}
+		processGameData(gameData);	
 	}
-	
+
 	//pegar informações da lista e distribuir 
 	public void processGameData(ArrayList<String> data)
 	{

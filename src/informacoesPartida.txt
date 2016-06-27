@@ -1,14 +1,4 @@
-Green
-2
-11
-2
-12
-3
-11
-3
-12
-2
-2
+Red
 2
 11
 2
@@ -19,13 +9,12 @@ Green
 12
 2
 2
-1
-<<<<<<< HEAD
-6
+2
+3
 3
 2
-1
-6
+3
+3
 11
 2
 11
@@ -42,35 +31,3 @@ Green
 11
 12
 12
-
-=======
-8
-<<<<<<< HEAD
-1
-8
-=======
->>>>>>> parent of 1dd1e75... Merge remote-tracking branch 'origin/master'
-6
-7
-6
-7
-8
-10
-11
-2
-14
-7
-12
-6
-8
-7
-6
-3
-8
-7
-8
-14
-<<<<<<< HEAD
->>>>>>> parent of 1dd1e75... Merge remote-tracking branch 'origin/master'
-=======
->>>>>>> parent of 1dd1e75... Merge remote-tracking branch 'origin/master'
