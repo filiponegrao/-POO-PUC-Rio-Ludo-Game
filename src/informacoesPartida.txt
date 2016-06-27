@@ -45,8 +45,11 @@ Green
 
 =======
 8
+<<<<<<< HEAD
 1
 8
+=======
+>>>>>>> parent of 1dd1e75... Merge remote-tracking branch 'origin/master'
 6
 7
 6
@@ -67,4 +70,7 @@ Green
 7
 8
 14
+<<<<<<< HEAD
+>>>>>>> parent of 1dd1e75... Merge remote-tracking branch 'origin/master'
+=======
 >>>>>>> parent of 1dd1e75... Merge remote-tracking branch 'origin/master'
