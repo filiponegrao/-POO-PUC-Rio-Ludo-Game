@@ -67,12 +67,24 @@ public class MenuPanel extends JMenuBar implements ActionListener
 		}
 		else if(command.equals("Carregar Jogo"))
 		{
+			Boolean load = false;
 			try 
 			{
-				LudoController.sharedInstance.loadGame();
-				JOptionPane.showMessageDialog(null,
-						"Seu jogo foi carregado! Agora você pode continuar a partida anterior.",
-						"Carregar Jogo", JOptionPane.INFORMATION_MESSAGE);
+				load = LudoController.sharedInstance.loadGame();
+				
+				if(load)
+				{
+					JOptionPane.showMessageDialog(null,
+							"Seu jogo foi carregado! Agora você pode continuar a partida anterior.",
+							"Carregar Jogo", JOptionPane.INFORMATION_MESSAGE);
+				}
+				else
+				{
+					JOptionPane.showMessageDialog(null,
+							"Não há partida salva.",
+							"Carregar Jogo", JOptionPane.INFORMATION_MESSAGE);
+				}
+				
 			} 
 			catch (IOException e2) 
 			{

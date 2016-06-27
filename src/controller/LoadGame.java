@@ -35,6 +35,11 @@ public class LoadGame
 			}
 		}
 		
-		return gameData;
+		if(gameData.size() == 33)
+		{
+			return gameData;
+		}
+		
+		return null;		
 	}
 }
