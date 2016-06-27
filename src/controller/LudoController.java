@@ -599,6 +599,8 @@ public class LudoController
 	{
 		List<Square> squares = this.model.getPathForSteps(pin, this.diceValue);
 		
+		if(squares.size() == 0) { return false; }
+		
 		for (Square square : squares)
 		{
 			Team barrier = this.getBarrierOn(square.xPosition(), square.yPosition());

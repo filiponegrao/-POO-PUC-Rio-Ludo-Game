@@ -405,11 +405,21 @@ public class LudoTableModel
 			Square s = this.getNextSquareWithSteps(pin.getX(), pin.getY(), pin.getTeam(), diceValue);
 			
 			if(s == null) { break; }
-
-			if(LudoController.sharedInstance.checkPathClear(pin))
+			
+			if(!LudoController.sharedInstance.checkPathClear(pin))
 			{
+				break;
+			}
+			
+			if(!this.isPinOnFinal(s.xPosition(), s.yPosition(), pin.getTeam()))
+			{
+				System.out.println(s.xPosition());
+				System.out.println(s.yPosition());
+
 				return true;
 			}
+
+
 		}
 		
 		return false;
@@ -572,9 +582,11 @@ public class LudoTableModel
 	}
 	
 	public List<Square> getPathForSteps(PinModel pin, int steps)
-	{
+	{		
 		List<Square> squares = new ArrayList<Square>();
 		
+		if(this.isPinOnFinal(pin.getX(), pin.getY(), pin.getTeam())) { return squares; }
+
 		for(int i = 1; i <= steps; i++)
 		{
 			squares.add(this.getNextSquareWithSteps(pin.getX(), pin.getY(), pin.getTeam(), i));
