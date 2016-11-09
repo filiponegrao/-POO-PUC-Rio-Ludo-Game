@@ -13,5 +13,12 @@ public class Main
 	{
 		LudoController.sharedInstance.loadScreen();
 		SocketController.sharedInstance().connect("127.0.0.1", 6969);
+		
+		Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
+		    public void run() {
+		    	SocketController.sharedInstance().disconnect();
+		    }
+		}));
+		
 	}
 }

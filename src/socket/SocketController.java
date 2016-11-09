@@ -1,5 +1,6 @@
 package socket;
 
+import java.io.IOException;
 import java.net.Socket;
 import java.util.List;
 import java.util.Observable;
@@ -49,6 +50,18 @@ public class SocketController
 		}
 		
 		return false;
+	}
+	
+	public void disconnect()
+	{
+		try {
+			this.socket.close();
+			System.out.println("Desconectado!");
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 
