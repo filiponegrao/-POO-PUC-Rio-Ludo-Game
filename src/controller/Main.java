@@ -1,5 +1,6 @@
 package controller;
 
+import socket.SocketController;
 import view.*;
 
 //Autores:
@@ -11,5 +12,6 @@ public class Main
 	public static void main(String[] args) 
 	{
 		LudoController.sharedInstance.loadScreen();
+		SocketController.sharedInstance().connect("127.0.0.1", 6969);
 	}
 }
