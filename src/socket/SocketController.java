@@ -9,11 +9,10 @@ import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
-import com.sun.javafx.collections.MappingChange.Map;
-
 import model.*;
+import view.PreGame;
 
-public class SocketController implements Observer
+public class SocketController extends Observable implements Observer 
 {
 
 	private static SocketController data = new SocketController();
@@ -37,7 +36,7 @@ public class SocketController implements Observer
 	public String myNickname;
 	
 //	public List<Player> players;
-	
+		
 	
 	static public SocketController sharedInstance()
 	{
@@ -62,9 +61,6 @@ public class SocketController implements Observer
 			Thread thread = new Thread(handler);
 			thread.start();
 			
-			// para fins de teste
-			this.serverAuthenticate("filiponegrao");
-			this.serverSendGame();
 			
 		} catch (Exception e) {
 			System.out.println(e);
@@ -135,6 +131,10 @@ public class SocketController implements Observer
 		HashMap<String, Object> map = (HashMap<String, Object>) arg;
 		
 		System.out.println(map);
+		
+		this.setChanged();
+		this.notifyObservers(map);
+		
 	}
 	
 }

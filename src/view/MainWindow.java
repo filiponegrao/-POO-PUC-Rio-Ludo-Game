@@ -18,7 +18,7 @@ public class MainWindow extends JFrame
 	private int height;
 		
 	private GamePanel gamePanel;
-	
+		
 	//Tamanhos
 	private Dimension tableDimension;
 	
@@ -87,7 +87,7 @@ public class MainWindow extends JFrame
 		mainDimension.height += 20;
 				
 		this.setSize(mainDimension.width, mainDimension.height);
-				
+	
 
 		/******************************************/
 		/*********** TELA DA APLICACAO ************/

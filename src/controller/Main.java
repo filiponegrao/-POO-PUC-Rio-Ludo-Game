@@ -11,7 +11,8 @@ public class Main
 {
 	public static void main(String[] args) 
 	{
-		LudoController.sharedInstance.loadScreen();
+		
+		LudoController.sharedInstance.loadPreJogo();
 		SocketController.sharedInstance().connect("127.0.0.1", 6969);
 		
 		Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {

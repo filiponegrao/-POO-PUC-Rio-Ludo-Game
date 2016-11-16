@@ -40,13 +40,14 @@ public class LudoController
 	/*******************************/
 
 	private MainWindow mainWindow;
+	private PreGame preGameWindow;
 	
 	/*******************************/
 	/*** CONTROLLERS COMPONENTS*****/
 	/*******************************/
 		
-	private Team currentTeam = Team.Blue;
-	
+	private Team currentTeam = Team.Blue; //time que esta jogando
+		
 	private ObservableTeam teamObserved = new ObservableTeam();
 	
 	private PlayerPanel panelObserver;
@@ -102,6 +103,11 @@ public class LudoController
 		{
 			this.allPins.add(pin);
 		}
+	}
+	
+	public void loadPreJogo()
+	{
+		this.preGameWindow = new PreGame("Pré-Jogo");
 	}
 	
 	public void loadScreen()
