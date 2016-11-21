@@ -10,6 +10,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 import controller.LudoController;
 import model.Team;
@@ -19,8 +20,6 @@ public class PreGame extends JFrame implements Observer
 {
 private Toolkit tk;
 	
-	private int width;	
-	private int height;
 	private Dimension dimension;
 	
 	private PreGamePanel prePanel;
@@ -93,10 +92,15 @@ private Toolkit tk;
 					SocketController.sharedInstance().myTeam = Team.Yellow;
 				}
 				
-				LudoController.sharedInstance.loadScreen();
-				
-				this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
+				LudoController.sharedInstance.loadScreen();	
 			}
+			/*
+			else
+			{
+				JOptionPane.showMessageDialog(null,
+						"Por favor tente novamente!",
+						"Problemas com autenticação.", JOptionPane.INFORMATION_MESSAGE);
+			}*/
 		}
 	}
 

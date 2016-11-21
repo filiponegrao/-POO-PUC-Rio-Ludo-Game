@@ -1,5 +1,6 @@
 package view;
 import model.*;
+import socket.SocketController;
 
 import java.awt.BasicStroke;
 import java.awt.BorderLayout;
@@ -59,6 +60,10 @@ public class PlayerPanel extends JPanel implements ActionListener, Observer
 	
 	private DiceModel dice = new DiceModel();
 	
+	/** Dados do jogador **/
+	private JLabel playerName;
+	private JLabel playerTeam;
+	
 	public PlayerPanel(Dimension dimension)
 	{
 		super();
@@ -95,7 +100,24 @@ public class PlayerPanel extends JPanel implements ActionListener, Observer
 		this.teamLabel.setFont(new Font("Helvetica", 0, 16));
 		this.teamLabel.setHorizontalAlignment(SwingConstants.CENTER);
 //		this.teamLabel.setBorder(new RoundedBorder(15));
-		this.add(this.teamLabel);			
+		this.add(this.teamLabel);	
+		
+		String nickname = SocketController.sharedInstance().myNickname;
+		Team team = SocketController.sharedInstance().myTeam;
+		
+		this.playerName = new JLabel("Olá " + nickname + ",");
+		this.playerName.setLocation(20, dimension.height/12);
+		this.playerName.setSize(dimension.width - 40, 40);
+		this.playerName.setForeground(Color.WHITE);
+		this.playerName.setHorizontalAlignment(SwingConstants.CENTER);
+		this.add(this.playerName);
+		
+		this.playerTeam = new JLabel("Seu time é: " + team.getName());
+		this.playerTeam.setLocation(20, dimension.height/10 + 10);
+		this.playerTeam.setSize(dimension.width - 40, 40);
+		this.playerTeam.setForeground(Color.WHITE);
+		this.playerTeam.setHorizontalAlignment(SwingConstants.CENTER);
+		this.add(this.playerTeam);
 	}
 	
 	public DiceModel getDiceModel()

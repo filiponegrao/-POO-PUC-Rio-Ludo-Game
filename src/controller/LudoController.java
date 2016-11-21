@@ -116,6 +116,7 @@ public class LudoController
 		this.panelObserver = this.mainWindow.gamePanel().playerPanel();
 		this.teamObserved.addObserver(this.panelObserver);
 		this.mainWindow.setVisible(true);
+		this.preGameWindow.setVisible(false);
 		
 //		Graphics2D g = this.mainWindow.gamePanel().ludoTable().graphics();
 		
