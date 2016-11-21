@@ -94,6 +94,7 @@ private Toolkit tk;
 				}
 				
 				LudoController.sharedInstance.loadScreen();
+				
 				this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
 			}
 		}
