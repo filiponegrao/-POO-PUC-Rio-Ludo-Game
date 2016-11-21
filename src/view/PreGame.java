@@ -70,7 +70,11 @@ private Toolkit tk;
 		
 		if(map.containsKey("nickname"))
 		{
-			if(this.nickname.equals(map.get("nickname")))
+			String shortNickname = this.nickname;
+			
+			shortNickname = shortNickname.replaceAll(" ", "");
+			
+			if(shortNickname.equals(map.get("nickname")))
 			{
 				String team = (String) map.get("team");
 				SocketController.sharedInstance().myNickname = this.nickname;
