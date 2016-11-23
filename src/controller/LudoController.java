@@ -308,6 +308,8 @@ public class LudoController
 						"Oba!", JOptionPane.INFORMATION_MESSAGE);
 				
 				this.setDiceValue(20); //permite andar mais 20 casas
+				this.refreshOnServer();
+
 			}
 			else if(this.checkDonePath(p))
 			{
@@ -319,6 +321,9 @@ public class LudoController
 					message += "\nTerceiro lugar: " + ranking.get(2).getName();
 					
 					JOptionPane.showMessageDialog(null, message, "PARABENS!", JOptionPane.INFORMATION_MESSAGE);
+					
+					//TODO
+					//SOCKET MESSAGE GAME OVER
 				}
 				else
 				{
@@ -327,6 +332,7 @@ public class LudoController
 							"Oba!", JOptionPane.INFORMATION_MESSAGE);
 					
 					this.setDiceValue(10); //permite andar mais 10 casas
+					this.refreshOnServer();
 				}
 			}
 			else if(this.diceValue == 6)
@@ -337,11 +343,13 @@ public class LudoController
 						"Você pode jogar novamente pois tirou um 6!", 
 						"Oba!", JOptionPane.INFORMATION_MESSAGE);
 				this.dice.buttonEnable();
+				this.refreshOnServer();
 			}
 			else
 			{
 				this.setDiceValue(0);
 				this.setCurrentTeam();
+				this.refreshOnServer();
 			}
 		}
 		else
@@ -351,7 +359,7 @@ public class LudoController
 					"Ops!", JOptionPane.INFORMATION_MESSAGE);
 			
 		}
-		
+			
 		return;
 	}
 	
@@ -418,7 +426,7 @@ public class LudoController
 		
 		this.setDiceValue(0);
 		this.teamObserved.setValue(this.currentTeam);
-		
+				
 		this.mainWindow.gamePanel().playerPanel().getDiceModel().buttonEnable();
 	}
 	
@@ -923,6 +931,7 @@ public class LudoController
 	public void refreshOnServer()
 	{
 		try {
+			
 			this.saveCurrentGame();
 			
 			ArrayList<String> gameData = LoadGame.readFile();

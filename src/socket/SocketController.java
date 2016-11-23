@@ -37,9 +37,8 @@ public class SocketController extends Observable implements Observer
 	
 	public String myNickname;
 	
-//	public List<Player> players;
+	public List<Player> players = new ArrayList<Player>();
 		
-	
 	static public SocketController sharedInstance()
 	{
 		return data;
@@ -106,6 +105,8 @@ public class SocketController extends Observable implements Observer
 		map.put("game", gamedata);
 		map.put("dice", dicevalue);
 		
+		System.out.println("Map que estou e viando!: " + map);
+		
 		String text = map.toString() + "\n";
 		
 		this.sendMessage(text.getBytes());
@@ -134,23 +135,19 @@ public class SocketController extends Observable implements Observer
 		
 		if(map.containsKey("nickname"))
 		{
+			String nickname = (String) map.get("nickname");
 			String teamstring = (String) map.get("team");
 			
-			if(teamstring == Team.Blue.getName())
+			if (nickname == this.myNickname)
 			{
-				this.myTeam = Team.Blue;
+				this.myTeam = Team.newTeam(teamstring);
 			}
-			else if (teamstring == Team.Red.getName())
+			else
 			{
-				this.myTeam = Team.Red;
-			}
-			else if (teamstring == Team.Green.getName())
-			{
-				this.myTeam = Team.Green;
-			}
-			else if (teamstring == Team.Yellow.getName())
-			{
-				this.myTeam = Team.Yellow;
+				Team team = Team.newTeam(teamstring);
+				Player player = new Player(nickname, team);
+								
+				this.players.add(player);
 			}
 		}
 		else if(map.containsKey("game"))
@@ -166,7 +163,17 @@ public class SocketController extends Observable implements Observer
 		
 		this.setChanged();
 		this.notifyObservers(map);
-		
 	}
 	
+	public Boolean isReady()
+	{
+		if (this.players.size() == 3)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
 }

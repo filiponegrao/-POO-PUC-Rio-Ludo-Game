@@ -31,4 +31,27 @@ public enum Team
 	{
 		return this.name;
 	}
+	
+	public static Team newTeam(String name)
+	{
+		if(name == Team.Blue.getName())
+		{
+			return Team.Blue;
+		}
+		else if(name == Team.Red.getName())
+		{
+			return Team.Red;
+		}
+		else if(name == Team.Green.getName())
+		{
+			return Team.Green;
+		}
+		else if(name == Team.Yellow.getName())
+		{
+			return Team.Yellow;
+		}
+		
+		return Team.Blue;
+	}
+	
 }
