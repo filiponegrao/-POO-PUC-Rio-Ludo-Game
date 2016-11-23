@@ -4,11 +4,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
+import controller.LudoController;
 import model.*;
 import view.PreGame;
 
@@ -97,12 +99,12 @@ public class SocketController extends Observable implements Observer
 		}
 	}
 	
-	public Boolean serverSendGame()
+	public Boolean serverSendGame(ArrayList<String> gamedata, int dicevalue)
 	{
 		HashMap<String, Object> map =  new HashMap<String, Object>();
 		
-		map.put("teste1", "teste1");
-		map.put("teste2", "teste2");
+		map.put("game", gamedata);
+		map.put("dice", dicevalue);
 		
 		String text = map.toString() + "\n";
 		
@@ -129,6 +131,36 @@ public class SocketController extends Observable implements Observer
 		// TODO Auto-generated method stub
 		
 		HashMap<String, Object> map = (HashMap<String, Object>) arg;
+		
+		if(map.containsKey("nickname"))
+		{
+			String teamstring = (String) map.get("team");
+			
+			if(teamstring == Team.Blue.getName())
+			{
+				this.myTeam = Team.Blue;
+			}
+			else if (teamstring == Team.Red.getName())
+			{
+				this.myTeam = Team.Red;
+			}
+			else if (teamstring == Team.Green.getName())
+			{
+				this.myTeam = Team.Green;
+			}
+			else if (teamstring == Team.Yellow.getName())
+			{
+				this.myTeam = Team.Yellow;
+			}
+		}
+		else if(map.containsKey("game"))
+		{
+			ArrayList<String> gamedata = (ArrayList<String>) map.get("game");
+			int dice = (int) map.get("dice");
+			
+			LudoController.sharedInstance.setDiceValue(dice);
+			LudoController.sharedInstance.processGameData(gamedata);
+		}
 		
 		System.out.println(map);
 		

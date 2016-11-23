@@ -9,6 +9,7 @@ import java.util.List;
 import javax.swing.JOptionPane;
 
 import model.*;
+import socket.SocketController;
 import view.*;
 
 public class LudoController 
@@ -918,7 +919,23 @@ public class LudoController
 
 		processGameData(gameData);	
 	}
+	
+	public void refreshOnServer()
+	{
+		try {
+			this.saveCurrentGame();
+			
+			ArrayList<String> gameData = LoadGame.readFile();
+			
+			SocketController.sharedInstance().serverSendGame(gameData, this.diceValue);
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
+	
 	//pegar informações da lista e distribuir 
 	public void processGameData(ArrayList<String> data)
 	{

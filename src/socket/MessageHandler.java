@@ -3,6 +3,7 @@ package socket;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Observable;
@@ -39,7 +40,14 @@ public class MessageHandler extends Observable implements Runnable
 				{
 					String content = scanner.nextLine();
 					
-					map = this.stringToHashMap(content);
+					if (content.contains("game"))
+					{
+						map = this.stringToHashMapGame(content);
+					}
+					else
+					{
+						map = this.stringToHashMap(content);
+					}
 					
 					//da o update
 					this.setChanged();
@@ -82,4 +90,32 @@ public class MessageHandler extends Observable implements Runnable
 		return map;
 	}
 
+	
+	public HashMap<String, Object> stringToHashMapGame(String s)
+	{
+		HashMap<String, Object> map = new HashMap<String, Object>();		
+		
+		String arraystring = s.split("\\[")[1];
+		arraystring = arraystring.split("\\]")[0];
+				
+		String[] strings = arraystring.split(", ");
+		
+		String dicestring = s.split(", dice=")[1];
+
+		dicestring = dicestring.substring(0, 1);
+		int dicevalue = Integer.parseInt(dicestring);
+		
+		ArrayList<String> infos = new ArrayList<String>();
+		
+		for (String info : strings)
+		{
+			infos.add(info);
+		}
+
+		map.put("game", infos);
+		map.put("dice", dicevalue);
+		
+		return map;
+	}
+	
 }

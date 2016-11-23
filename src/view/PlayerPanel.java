@@ -23,6 +23,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
@@ -169,8 +170,20 @@ public class PlayerPanel extends JPanel implements ActionListener, Observer
 
 	public void actionPerformed(ActionEvent e) 
 	{		
+		Team currentTeam = LudoController.sharedInstance.getCurrentTeam();
+		Team myTeam = SocketController.sharedInstance().myTeam;
+		
+		if (myTeam != currentTeam)
+		{
+			JOptionPane.showMessageDialog(null, "Não é a sua vez!");
+			return;
+		}
+		
 		this.dice.playDice();
 		this.diceValue = LudoController.sharedInstance.getDiceValue();
+		
+		LudoController.sharedInstance.refreshOnServer();
+		
 		this.repaint();
 	}
 

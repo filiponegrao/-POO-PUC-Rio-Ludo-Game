@@ -3,7 +3,10 @@ package controller;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+import javax.swing.JOptionPane;
+
 import model.*;
+import socket.SocketController;
 
 public class EventHandlers {
 
@@ -16,8 +19,17 @@ public class EventHandlers {
 			public void mouseReleased(MouseEvent e) {
 				// TODO Auto-generated method stub
 				
+				
 				Team currentTeam = LudoController.sharedInstance.getCurrentTeam();
-				PinModel p = LudoController.sharedInstance.getPinOnPosition(e.getX(), e.getY(), currentTeam);
+				Team myTeam = SocketController.sharedInstance().myTeam;
+				
+				if(myTeam != currentTeam)
+				{
+					JOptionPane.showMessageDialog(null, "Não é a sua vez!");
+					return;
+				}
+				
+				PinModel p = LudoController.sharedInstance.getPinOnPosition(e.getX(), e.getY(), myTeam);
 				
 				if(p != null)
 				{
