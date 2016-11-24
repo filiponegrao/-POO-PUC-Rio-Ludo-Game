@@ -18,7 +18,7 @@ import socket.SocketController;
 
 public class PreGame extends JFrame implements Observer
 {
-private Toolkit tk;
+	private Toolkit tk;
 	
 	private Dimension dimension;
 	
@@ -96,7 +96,7 @@ private Toolkit tk;
 					SocketController.sharedInstance().myTeam = Team.Yellow;
 				}
 				
-				LudoController.sharedInstance.loadScreen();	
+				LudoController.sharedInstance.waitingGame();	
 			}
 			/*
 			else

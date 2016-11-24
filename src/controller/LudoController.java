@@ -42,6 +42,7 @@ public class LudoController
 
 	private MainWindow mainWindow;
 	private PreGame preGameWindow;
+	private WaitingGameWindow waitingWindow;
 	
 	/*******************************/
 	/*** CONTROLLERS COMPONENTS*****/
@@ -111,13 +112,20 @@ public class LudoController
 		this.preGameWindow = new PreGame("Pré-Jogo");
 	}
 	
+	public void waitingGame()
+	{
+		this.waitingWindow = new WaitingGameWindow();
+		this.waitingWindow.setVisible(true);
+		this.preGameWindow.setVisible(false);
+	}
+	
 	public void loadScreen()
 	{
 		this.mainWindow = new MainWindow("1221846-1411287", squares);
 		this.panelObserver = this.mainWindow.gamePanel().playerPanel();
 		this.teamObserved.addObserver(this.panelObserver);
 		this.mainWindow.setVisible(true);
-		this.preGameWindow.setVisible(false);
+		this.waitingWindow.setVisible(false);
 		
 //		Graphics2D g = this.mainWindow.gamePanel().ludoTable().graphics();
 		
