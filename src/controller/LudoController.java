@@ -1,6 +1,7 @@
 package controller;
 
 
+import java.awt.event.WindowEvent;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -110,13 +111,16 @@ public class LudoController
 	public void loadPreJogo()
 	{
 		this.preGameWindow = new PreGame("Pré-Jogo");
+		this.preGameWindow.setVisible(true); //mostra pré-jogo
 	}
 	
 	public void waitingGame()
 	{
 		this.waitingWindow = new WaitingGameWindow();
-		this.waitingWindow.setVisible(true);
+		this.waitingWindow.setVisible(true); //mostra aguardando
+		
 		this.preGameWindow.setVisible(false);
+		this.preGameWindow.dispose();
 	}
 	
 	public void loadScreen()
@@ -124,8 +128,11 @@ public class LudoController
 		this.mainWindow = new MainWindow("1221846-1411287", squares);
 		this.panelObserver = this.mainWindow.gamePanel().playerPanel();
 		this.teamObserved.addObserver(this.panelObserver);
-		this.mainWindow.setVisible(true);
+		
+		this.mainWindow.setVisible(true); //mostra ludo
+		
 		this.waitingWindow.setVisible(false);
+		this.waitingWindow.dispose();
 		
 //		Graphics2D g = this.mainWindow.gamePanel().ludoTable().graphics();
 		

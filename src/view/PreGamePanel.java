@@ -70,6 +70,7 @@ public class PreGamePanel extends JPanel implements ActionListener
 		if(this.nickname != null && !this.nickname.isEmpty())
 		{
 			this.gameWindow.setNickname(this.nickname);
+			SocketController.sharedInstance().myNickname = this.nickname;
 			SocketController.sharedInstance().serverAuthenticate(this.nickname);
 		}
 		else

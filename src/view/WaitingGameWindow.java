@@ -13,6 +13,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
+import controller.LudoController;
 import model.Team;
 import socket.SocketController;
 
@@ -88,8 +89,7 @@ public class WaitingGameWindow extends JFrame implements Observer
 		{
 			this.waitingPanel.setBackground(MyColors.myYellow);
 		}
-		
-		
+				
 	}
 
 	@Override
@@ -97,21 +97,17 @@ public class WaitingGameWindow extends JFrame implements Observer
 	{
 		HashMap<String, Object> map = (HashMap<String, Object>) arg;
 		
+		//vai receber do servidor mensagens com os nomes dos oponentes
 		if(map.containsKey("nickname"))
 		{
+			//checa se já tem os 4 jogadores
+			Boolean ready = SocketController.sharedInstance().isReady();
 			
+			if(ready)
+			{
+				LudoController.sharedInstance.loadScreen();
+			}
 		}
-		
-		//vai receber do servidor mensagens com os nomes dos oponentes
-		
-		//checa se já tem os 4 jogadores
-		Boolean ready = SocketController.sharedInstance().isReady();
-		
-		if(ready)
-		{
-			//da load no jogo
-		}
-
 	}
 	
 }

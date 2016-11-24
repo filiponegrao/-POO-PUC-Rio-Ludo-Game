@@ -52,7 +52,6 @@ public class PreGame extends JFrame implements Observer
 		
 		SocketController.sharedInstance().addObserver(this);
 		
-		this.setVisible(true);
 	}
 
 	
@@ -98,13 +97,7 @@ public class PreGame extends JFrame implements Observer
 				
 				LudoController.sharedInstance.waitingGame();	
 			}
-			/*
-			else
-			{
-				JOptionPane.showMessageDialog(null,
-						"Por favor tente novamente!",
-						"Problemas com autenticação.", JOptionPane.INFORMATION_MESSAGE);
-			}*/
+			
 		}
 	}
 

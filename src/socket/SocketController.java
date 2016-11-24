@@ -89,7 +89,7 @@ public class SocketController extends Observable implements Observer
 			this.output.write(bytes, 0, bytes.length);			
 			this.output.flush();
 			
-			System.out.println("Mnesagem enviada com sucesso!");
+			System.out.println("Mensagem enviada com sucesso!");
 			return true;
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -105,7 +105,7 @@ public class SocketController extends Observable implements Observer
 		map.put("game", gamedata);
 		map.put("dice", dicevalue);
 		
-		System.out.println("Map que estou e viando!: " + map);
+		System.out.println("Map que estou enviando!: " + map);
 		
 		String text = map.toString() + "\n";
 		
@@ -144,10 +144,14 @@ public class SocketController extends Observable implements Observer
 			}
 			else
 			{
-				Team team = Team.newTeam(teamstring);
-				Player player = new Player(nickname, team);
-								
-				this.players.add(player);
+				//checar se ja existe na lista de jogadores
+				if(!this.playerAlreadyExist(nickname))
+				{
+					Team team = Team.newTeam(teamstring);
+					Player player = new Player(nickname, team);
+									
+					this.players.add(player);
+				}		
 			}
 		}
 		else if(map.containsKey("game"))
@@ -167,7 +171,7 @@ public class SocketController extends Observable implements Observer
 	
 	public Boolean isReady()
 	{
-		if (this.players.size() == 3)
+		if (this.players.size() == 4)
 		{
 			return true;
 		}
@@ -175,5 +179,18 @@ public class SocketController extends Observable implements Observer
 		{
 			return false;
 		}
+	}
+	
+	public Boolean playerAlreadyExist(String nickname)
+	{
+		for (Player player : players) 
+		{
+			if(player.nickname.equals(nickname))
+			{
+				return true;
+			}
+			
+		}
+		return false;
 	}
 }
