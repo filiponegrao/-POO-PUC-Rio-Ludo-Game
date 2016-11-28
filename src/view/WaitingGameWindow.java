@@ -106,6 +106,7 @@ public class WaitingGameWindow extends JFrame implements Observer
 			if(ready)
 			{
 				LudoController.sharedInstance.loadScreen();
+				System.out.println("abrindo ludo");
 			}
 		}
 	}

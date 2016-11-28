@@ -119,7 +119,7 @@ public class LudoController
 		this.waitingWindow = new WaitingGameWindow();
 		this.waitingWindow.setVisible(true); //mostra aguardando
 		
-		this.preGameWindow.setVisible(false);
+//		this.preGameWindow.setVisible(false);
 		this.preGameWindow.dispose();
 	}
 	
@@ -131,7 +131,7 @@ public class LudoController
 		
 		this.mainWindow.setVisible(true); //mostra ludo
 		
-		this.waitingWindow.setVisible(false);
+//		this.waitingWindow.setVisible(false);
 		this.waitingWindow.dispose();
 		
 //		Graphics2D g = this.mainWindow.gamePanel().ludoTable().graphics();

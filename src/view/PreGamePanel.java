@@ -17,19 +17,17 @@ import socket.SocketController;
 
 public class PreGamePanel extends JPanel implements ActionListener
 {
-	private PreGame gameWindow;
 	private JTextField playerName;
 	private JLabel label;
 	private JButton playButton;
 	private Dimension dimension;
 	private String nickname;
 	
-	public PreGamePanel(Dimension dimension, PreGame window)
+	public PreGamePanel(Dimension dimension)
 	{
 		super();
 		this.setLayout(null);
 		
-		this.gameWindow = window;
 		this.setBackground(MyColors.myBlue);
 		
 		this.label = new JLabel("Insira Nickname:");
@@ -69,7 +67,6 @@ public class PreGamePanel extends JPanel implements ActionListener
 		this.nickname = this.playerName.getText();
 		if(this.nickname != null && !this.nickname.isEmpty())
 		{
-			this.gameWindow.setNickname(this.nickname);
 			SocketController.sharedInstance().myNickname = this.nickname;
 			SocketController.sharedInstance().serverAuthenticate(this.nickname);
 		}

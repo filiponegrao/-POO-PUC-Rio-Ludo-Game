@@ -23,7 +23,6 @@ public class PreGame extends JFrame implements Observer
 	private Dimension dimension;
 	
 	private PreGamePanel prePanel;
-	private String nickname;
 	
 	public PreGame(String title)
 	{
@@ -33,7 +32,7 @@ public class PreGame extends JFrame implements Observer
 		int screenHeight = dim.height;
 		this.dimension = new Dimension(screenWidth/2, screenHeight/2);
 		
-		this.prePanel = new PreGamePanel(this.dimension, this);
+		this.prePanel = new PreGamePanel(this.dimension);
 		
 		this.setSize(this.dimension);
 		this.getContentPane().add(this.prePanel);
@@ -54,12 +53,6 @@ public class PreGame extends JFrame implements Observer
 		
 	}
 
-	
-	protected void setNickname(String name)
-	{
-		this.nickname = name;
-	}
-	
 	@Override
 	public void update(Observable o, Object arg) 
 	{
@@ -69,14 +62,13 @@ public class PreGame extends JFrame implements Observer
 		
 		if(map.containsKey("nickname"))
 		{
-			String shortNickname = this.nickname;
+			String shortNickname = SocketController.sharedInstance().myNickname;
 			
 			shortNickname = shortNickname.replaceAll(" ", "");
 			
 			if(shortNickname.equals(map.get("nickname")))
 			{
 				String team = (String) map.get("team");
-				SocketController.sharedInstance().myNickname = this.nickname;
 				
 				if(team.equals(Team.Blue.getName()))
 				{
@@ -95,7 +87,8 @@ public class PreGame extends JFrame implements Observer
 					SocketController.sharedInstance().myTeam = Team.Yellow;
 				}
 				
-				LudoController.sharedInstance.waitingGame();	
+				LudoController.sharedInstance.waitingGame();
+				System.out.println("abrindo waiting");
 			}
 			
 		}
