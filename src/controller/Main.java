@@ -13,13 +13,18 @@ public class Main
 	{
 		
 		LudoController.sharedInstance.loadPreJogo();
-		SocketController.sharedInstance().connect("127.0.0.1", 6969);
 		
+		SocketController.sharedInstance().connect("127.0.0.1", 6969);
+//		
 		Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
 		    public void run() {
 		    	SocketController.sharedInstance().disconnect();
 		    }
 		}));
+		
+		//Teste de jogo
+//		LudoController.sharedInstance.loadScreen();
+
 		
 	}
 }

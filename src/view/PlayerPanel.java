@@ -181,9 +181,7 @@ public class PlayerPanel extends JPanel implements ActionListener, Observer
 		
 		this.dice.playDice();
 		this.diceValue = LudoController.sharedInstance.getDiceValue();
-		
-		LudoController.sharedInstance.refreshOnServer();
-		
+				
 		this.repaint();
 	}
 

@@ -5,6 +5,7 @@ import java.awt.event.WindowEvent;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.swing.JOptionPane;
@@ -130,7 +131,6 @@ public class LudoController
 		this.teamObserved.addObserver(this.panelObserver);
 		
 		this.mainWindow.setVisible(true); //mostra ludo
-		
 //		this.waitingWindow.setVisible(false);
 		this.waitingWindow.dispose();
 		
@@ -143,6 +143,8 @@ public class LudoController
 	{
 		this.diceValue = value;
 		this.mainWindow.gamePanel().playerPanel().repaint();
+		
+		this.refreshOnServer();
 	}
 	
 	public int getDiceValue()
@@ -323,7 +325,6 @@ public class LudoController
 						"Oba!", JOptionPane.INFORMATION_MESSAGE);
 				
 				this.setDiceValue(20); //permite andar mais 20 casas
-				this.refreshOnServer();
 
 			}
 			else if(this.checkDonePath(p))
@@ -347,7 +348,6 @@ public class LudoController
 							"Oba!", JOptionPane.INFORMATION_MESSAGE);
 					
 					this.setDiceValue(10); //permite andar mais 10 casas
-					this.refreshOnServer();
 				}
 			}
 			else if(this.diceValue == 6)
@@ -358,13 +358,11 @@ public class LudoController
 						"Você pode jogar novamente pois tirou um 6!", 
 						"Oba!", JOptionPane.INFORMATION_MESSAGE);
 				this.dice.buttonEnable();
-				this.refreshOnServer();
 			}
 			else
 			{
 				this.setDiceValue(0);
 				this.setCurrentTeam();
-				this.refreshOnServer();
 			}
 		}
 		else
@@ -374,6 +372,7 @@ public class LudoController
 					"Ops!", JOptionPane.INFORMATION_MESSAGE);
 			
 		}
+		this.refreshOnServer();
 			
 		return;
 	}
@@ -945,18 +944,8 @@ public class LudoController
 	
 	public void refreshOnServer()
 	{
-		try {
-			
-			this.saveCurrentGame();
-			
-			ArrayList<String> gameData = LoadGame.readFile();
-			
-			SocketController.sharedInstance().serverSendGame(gameData, this.diceValue);
-			
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		HashMap<String, Object> map = this.CreateGameInfo();
+		SocketController.sharedInstance().serverSendGame(map);
 	}
 
 	
@@ -1166,4 +1155,151 @@ public class LudoController
 		}
 		return ranking;
 	}
+	
+	public HashMap<String, Object> CreateGameInfo() 
+	{
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		
+		//Time atual
+		map.put("currentTeam", this.currentTeam.getName());
+		map.put("diceValue", String.valueOf(this.diceValue));
+		
+		//Pins azuis		
+		ArrayList<ArrayList<String>> blues = new ArrayList<ArrayList<String>>();
+		
+		for (PinModel pin : this.bluePins)
+		{
+			String x = String.valueOf(pin.getX());
+			String y = String.valueOf(pin.getY());
+			ArrayList<String> coords = new ArrayList<String>();
+			coords.add(x);
+			coords.add(y);
+			
+			blues.add(coords);
+		}
+		map.put("blues", blues);
+		
+		//Pins vermelhos		
+		ArrayList<ArrayList<String>> reds = new ArrayList<ArrayList<String>>();
+			
+		for (PinModel pin : this.redPins)
+		{
+			String x = String.valueOf(pin.getX());
+			String y = String.valueOf(pin.getY());
+			ArrayList<String> coords = new ArrayList<String>();
+			coords.add(x);
+			coords.add(y);
+			
+			reds.add(coords);
+		}
+		map.put("reds", reds);
+		
+		//Pins verdes		
+		ArrayList<ArrayList<String>> greens = new ArrayList<ArrayList<String>>();
+				
+		for (PinModel pin : this.greenPins)
+		{
+			String x = String.valueOf(pin.getX());
+			String y = String.valueOf(pin.getY());
+			ArrayList<String> coords = new ArrayList<String>();
+			coords.add(x);
+			coords.add(y);
+			
+			greens.add(coords);
+		}
+		map.put("greens", greens);
+		
+		//Pins Amarelos		
+		ArrayList<ArrayList<String>> yellows = new ArrayList<ArrayList<String>>();
+				
+		for (PinModel pin : this.yellowPins)
+		{
+			String x = String.valueOf(pin.getX());
+			String y = String.valueOf(pin.getY());
+			ArrayList<String> coords = new ArrayList<String>();
+			coords.add(x);
+			coords.add(y);
+			
+			yellows.add(coords);
+		}
+		map.put("yellows", yellows);
+		
+		HashMap<String, Object> gamedata = new HashMap<String, Object>();
+		gamedata.put("game", map);
+		
+		return gamedata;
+	}
+	
+	public void updateGameInfo(HashMap<String, Object> map) 
+	{
+		ArrayList<ArrayList<String>> blues = (ArrayList<ArrayList<String>>) map.get("blues");		
+		ArrayList<ArrayList<String>> reds = (ArrayList<ArrayList<String>>) map.get("reds");
+		ArrayList<ArrayList<String>> greens = (ArrayList<ArrayList<String>>) map.get("greens");
+		ArrayList<ArrayList<String>> yellows = (ArrayList<ArrayList<String>>) map.get("yellows");
+		
+		String team = (String) map.get("currentTeam");
+		
+		this.currentTeam = Team.newTeam(team);
+		this.diceValue = Integer.parseInt((String) map.get("diceValue"));
+		
+		int i = 0;
+		
+		//blues
+		for (ArrayList<String> coords : blues)
+		{
+			String xstring = coords.get(0);
+			String ystring = coords.get(1);
+			int x = Integer.parseInt(xstring);
+			int y = Integer.parseInt(ystring);
+			this.bluePins[i].setX(x);
+			this.bluePins[i].setY(y);
+			i++;
+		}
+		
+		i = 0;
+		//reds
+				for (ArrayList<String> coords : reds)
+				{
+					String xstring = coords.get(0);
+					String ystring = coords.get(1);
+					int x = Integer.parseInt(xstring);
+					int y = Integer.parseInt(ystring);
+					this.redPins[i].setX(x);
+					this.redPins[i].setY(y);
+					i++;
+				}
+		
+		//greens
+				i = 0;
+
+				for (ArrayList<String> coords : greens)
+				{
+					String xstring = coords.get(0);
+					String ystring = coords.get(1);
+					int x = Integer.parseInt(xstring);
+					int y = Integer.parseInt(ystring);
+					this.greenPins[i].setX(x);
+					this.greenPins[i].setY(y);
+					i++;
+				}
+		
+		//greens
+				i = 0;
+
+				for (ArrayList<String> coords : yellows)
+				{
+					String xstring = coords.get(0);
+					String ystring = coords.get(1);
+					int x = Integer.parseInt(xstring);
+					int y = Integer.parseInt(ystring);
+					this.yellowPins[i].setX(x);
+					this.yellowPins[i].setY(y);
+					i++;
+				}
+		
+		this.mainWindow.gamePanel().ludoTable().rePaint();
+		this.mainWindow.gamePanel().playerPanel().repaint();
+	}
 }
+
+

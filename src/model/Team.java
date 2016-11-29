@@ -34,23 +34,25 @@ public enum Team
 	
 	public static Team newTeam(String name)
 	{
-		if(name == Team.Blue.getName())
+		if(name.equals(Team.Blue.getName()))
 		{
 			return Team.Blue;
 		}
-		else if(name == Team.Red.getName())
+		else if(name.equals(Team.Red.getName()))
 		{
 			return Team.Red;
 		}
-		else if(name == Team.Green.getName())
+		else if(name.equals(Team.Green.getName()))
 		{
 			return Team.Green;
 		}
-		else if(name == Team.Yellow.getName())
+		else if(name.equals(Team.Yellow.getName()))
 		{
 			return Team.Yellow;
 		}
 		
+		System.out.println("Nao foi possivel conveter a stirng para um Team");
+		System.out.println(name);
 		return Team.Blue;
 	}
 	

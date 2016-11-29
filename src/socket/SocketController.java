@@ -2,6 +2,7 @@ package socket;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -33,9 +34,9 @@ public class SocketController extends Observable implements Observer
 	
 	/***********************/
 	
-	public Team myTeam;
+	public Team myTeam = Team.Blue;
 	
-	public String myNickname;
+	public String myNickname = "";
 	
 	public List<Player> players = new ArrayList<Player>();
 		
@@ -86,7 +87,7 @@ public class SocketController extends Observable implements Observer
 	{		
 		try {
 			
-			this.output.write(bytes, 0, bytes.length);			
+			this.output.write(bytes, 0, bytes.length);	
 			this.output.flush();
 			
 			System.out.println("Mensagem enviada com sucesso!");
@@ -98,13 +99,8 @@ public class SocketController extends Observable implements Observer
 		}
 	}
 	
-	public Boolean serverSendGame(ArrayList<String> gamedata, int dicevalue)
-	{
-		HashMap<String, Object> map =  new HashMap<String, Object>();
-		
-		map.put("game", gamedata);
-		map.put("dice", dicevalue);
-		
+	public Boolean serverSendGame(HashMap<String, Object> map)
+	{	
 		System.out.println("Map que estou enviando!: " + map);
 		
 		String text = map.toString() + "\n";
@@ -156,15 +152,11 @@ public class SocketController extends Observable implements Observer
 		}
 		else if(map.containsKey("game"))
 		{
-			ArrayList<String> gamedata = (ArrayList<String>) map.get("game");
-			int dice = (int) map.get("dice");
+			HashMap<String, Object> gamedata = (HashMap<String, Object>) map.get("game");
 			
-			LudoController.sharedInstance.setDiceValue(dice);
-			LudoController.sharedInstance.processGameData(gamedata);
+			LudoController.sharedInstance.updateGameInfo(gamedata);
 		}
-		
-		System.out.println(map);
-		
+				
 		this.setChanged();
 		this.notifyObservers(map);
 	}
