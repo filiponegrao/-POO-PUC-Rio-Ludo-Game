@@ -10,6 +10,7 @@ import java.util.Observer;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
@@ -108,6 +109,14 @@ public class WaitingGameWindow extends JFrame implements Observer
 				LudoController.sharedInstance.loadScreen();
 				System.out.println("abrindo ludo");
 			}
+		}
+		else if(map.containsKey("timeout"))
+		{
+			JOptionPane.showMessageDialog(null,
+					"Este jogo será encerrado por falta de jogadores",
+					"Tempo expirado", JOptionPane.INFORMATION_MESSAGE);
+			System.exit(0);
+			
 		}
 	}
 	

@@ -23,7 +23,7 @@ public class Main
 		}));
 		
 		//Teste de jogo
-//		LudoController.sharedInstance.loadScreen();
+		//LudoController.sharedInstance.loadScreen();
 
 		
 	}

@@ -338,8 +338,9 @@ public class LudoController
 					
 					JOptionPane.showMessageDialog(null, message, "PARABENS!", JOptionPane.INFORMATION_MESSAGE);
 					
-					//TODO
-					//SOCKET MESSAGE GAME OVER
+					this.refreshOnServer();
+					SocketController.sharedInstance().sendGameOver();
+					System.exit(0);
 				}
 				else
 				{
@@ -1298,7 +1299,34 @@ public class LudoController
 				}
 		
 		this.mainWindow.gamePanel().ludoTable().rePaint();
-		this.mainWindow.gamePanel().playerPanel().repaint();
+		this.teamObserved.setValue(this.currentTeam);
+		this.checkWinnerTeam();
+	}
+	
+	public void checkWinnerTeam()
+	{
+		
+		ArrayList<Team> teams = new ArrayList<Team>();
+		teams.add(Team.Blue);
+		teams.add(Team.Red);
+		teams.add(Team.Green);
+		teams.add(Team.Yellow);
+		
+		for (Team team : teams)
+		{
+			if(this.checkGameOver(team))
+			{
+				String message = "FIM DE JOGO! Vencedor: Time " + team.getName();
+				List<Team> ranking = this.getRanking();
+				message += "\nSegundo lugar: " + ranking.get(1).getName();
+				message += "\nTerceiro lugar: " + ranking.get(2).getName();
+				
+				JOptionPane.showMessageDialog(null, message, "PARABENS!", JOptionPane.INFORMATION_MESSAGE);
+							
+				SocketController.sharedInstance().disconnect();
+				System.exit(0);
+			}
+		}		
 	}
 }
 

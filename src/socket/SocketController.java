@@ -8,6 +8,7 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -185,4 +186,19 @@ public class SocketController extends Observable implements Observer
 		}
 		return false;
 	}
+	
+
+	public void sendGameOver()
+	{
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("gameover", "gameover");
+		
+		String content = map.toString() + "\n";
+		byte[] bytes = content.getBytes();
+		
+		this.sendMessage(bytes);
+		
+		this.disconnect();
+	}
+	
 }

@@ -68,8 +68,9 @@ public class PlayerPanel extends JPanel implements ActionListener, Observer
 	public PlayerPanel(Dimension dimension)
 	{
 		super();
-
-		this.setBackground(MyColors.myBlue);
+		
+		Team myTeam = SocketController.sharedInstance().myTeam;
+		this.customByTeam(myTeam);
 
 		this.setLayout(null);
 
@@ -96,8 +97,9 @@ public class PlayerPanel extends JPanel implements ActionListener, Observer
 		this.teamLabel = new JLabel(this.labelText + "Azul");		
 		this.teamLabel.setLocation(20, dimension.height - dimension.height/5 * 2);
 		this.teamLabel.setSize(dimension.width - 40, 40);
-		this.teamLabel.setForeground(MyColors.myDarkBlue);
-		this.teamLabel.setOpaque(false);
+		this.teamLabel.setForeground(Color.darkGray);
+		this.teamLabel.setBackground(MyColors.myLightBlue);
+		this.teamLabel.setOpaque(true);
 		this.teamLabel.setFont(new Font("Helvetica", 0, 16));
 		this.teamLabel.setHorizontalAlignment(SwingConstants.CENTER);
 //		this.teamLabel.setBorder(new RoundedBorder(15));
@@ -130,6 +132,26 @@ public class PlayerPanel extends JPanel implements ActionListener, Observer
 //	{
 //		this.teamLabel.setText(this.labelText + team.getName());
 //	}
+	
+	public void customByTeam(Team team)
+	{
+		 if (team == Team.Blue)
+	        {
+	    		this.setBackground(MyColors.myBlue);
+	        }
+	        else if (team == Team.Red)
+	        {
+	    		this.setBackground(MyColors.myRed);
+	        }
+	        else if (team == Team.Green)
+	        {
+	    		this.setBackground(MyColors.myGreen);
+	        }
+	        else if (team == Team.Yellow)
+	        {
+	    		this.setBackground(MyColors.myYellow);
+	        }
+	}
 	
 	public void paintComponent(Graphics g)
 	{		
@@ -193,23 +215,23 @@ public class PlayerPanel extends JPanel implements ActionListener, Observer
 		
 		 if (this.observedTeam == Team.Blue)
 	        {
-	    		this.teamLabel.setForeground(MyColors.myDarkBlue);
-	    		this.setBackground(MyColors.myBlue);
+	    		this.teamLabel.setBackground(MyColors.myLightBlue);
+	    		//this.setBackground(MyColors.myBlue);
 	        }
 	        else if (this.observedTeam == Team.Red)
 	        {
-	    		this.teamLabel.setForeground(MyColors.myDarkRed);
-	    		this.setBackground(MyColors.myRed);
+	    		this.teamLabel.setBackground(MyColors.myLightRed);
+	    		//this.setBackground(MyColors.myRed);
 	        }
 	        else if (this.observedTeam == Team.Green)
 	        {
-	    		this.teamLabel.setForeground(MyColors.myDarkGreen);
-	    		this.setBackground(MyColors.myGreen);
+	    		this.teamLabel.setBackground(MyColors.myLightGreen);
+	    		//this.setBackground(MyColors.myGreen);
 	        }
 	        else if (this.observedTeam == Team.Yellow)
 	        {
-	    		this.teamLabel.setForeground(MyColors.myDarkYellow);
-	    		this.setBackground(MyColors.myYellow);
+	    		this.teamLabel.setBackground(MyColors.myLightYellow);
+	    		//this.setBackground(MyColors.myYellow);
 	        }
 		 
 		 this.repaint();
